@@ -13,10 +13,10 @@ def bake_command(name, config):
   argv = config['argv']
   new_argv = []
   for a in argv:
-    if a.startswith('P%'):
-      new_argv.append(sugar[a[2:]])
+    if type(a) is str and a.startswith('P%'):
+      new_argv.append(str(sugar[a[2:]]))
     else:
-      new_argv.append(a)
+      new_argv.append(str(a))
   print(' '.join(new_argv))
 
 
@@ -26,9 +26,7 @@ def main():
     cmd_def = yaml.load(f)
 
   print('#!/bin/bash')
-  print('git clone {} {}'.format(cmd_def['github_repo'], cmd_def['local_repo_name']))
   print('cd ' + cmd_def['local_repo_name'])
-
   for cmd in cmd_def['commands']:
     name, config = list(cmd.items())[0]
     bake_command(name, config)

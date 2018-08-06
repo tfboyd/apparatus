@@ -1,0 +1,26 @@
+docker_vars:
+  DOCKER_FROM:
+      "nvidia/cuda:9.2-cudnn7-devel-ubuntu16.04"
+  DOCKER_SCRIPT:
+      "scripts/setup_docker_reference_minigo.sh"
+
+github_repo:
+        https://github.com/mlperf/reference.git
+
+local_repo_name: reference
+
+
+# lives in this control repo
+docker_setup_script: scripts/setup_docker_reference_minigo.sh
+
+
+commands:
+        - download_dataset:
+                repo_cwd:
+                       reinforcement/tensorflow/minigo/
+                argv:
+                        - bash
+                        - loop_main.sh 
+                        - params/final.json 
+                        - 1
+

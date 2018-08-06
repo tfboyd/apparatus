@@ -1,10 +1,10 @@
-FROM nvidia/cuda:9.2-cudnn7-devel-ubuntu16.04
+FROM %DOCKER_FROM
 
 
 WORKDIR /root
 ENV HOME /root
 
-RUN echo "1" >> VERSION_INFO
+RUN echo "%VERSION_INFO" >> VERSION_INFO
 
 RUN apt-get update
 RUN apt-get install -y curl
@@ -21,8 +21,8 @@ RUN pip3 install pyyaml
 
 ADD . /root
 
-RUN git clone https://github.com/mlperf/reference.git reference
-#RUN /root/scripts/setup_docker_reference_minigo.sh
+%%GIT_CHECKOUT
+%%DOCKER_SCRIPT
 
 ENTRYPOINT ["/bin/bash"]
 
