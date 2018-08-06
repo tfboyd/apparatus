@@ -1,0 +1,24 @@
+
+github_repo:
+        https://github.com/mlperf/reference.git
+
+local_repo_name: reference
+
+
+# lives in this control repo
+docker_setup_script: scripts/setup_docker_reference_ncf.sh
+
+
+commands:
+        - download_dataset:
+                repo_cwd:
+                        recommendation
+                argv:
+                        - ./download_dataset.sh
+        - download_dataset:
+                repo_cwd:
+                        recommendation/pytorch
+                argv:
+                        - ./run_and_time.sh
+                        # the seed
+                        - 1

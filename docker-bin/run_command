@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+python3 /root/bin/run_docker_setup.py $1
+
+python3 /root/bin/bake_command.py $1 | bash

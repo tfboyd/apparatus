@@ -1,0 +1,2 @@
+This directory contains executables which are intended to be run
+from inside the docker. These are probably not useful outside the docker.
