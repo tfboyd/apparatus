@@ -18,6 +18,7 @@ def bake_command(name, config):
     else:
       new_argv.append(str(a))
   print(' '.join(new_argv))
+  print('popd')
 
 
 def main():
@@ -26,6 +27,7 @@ def main():
     cmd_def = yaml.load(f)
 
   print('#!/bin/bash')
+  print('set -e')
   print('cd ' + cmd_def['local_repo_name'])
   for cmd in cmd_def['commands']:
     name, config = list(cmd.items())[0]

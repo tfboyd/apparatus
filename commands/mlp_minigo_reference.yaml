@@ -1,6 +1,6 @@
 docker_vars:
   DOCKER_FROM:
-      "nvidia/cuda:9.2-cudnn7-devel-ubuntu16.04"
+      "nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04"
   DOCKER_SCRIPT:
       "scripts/setup_docker_reference_minigo.sh"
 
@@ -15,7 +15,13 @@ docker_setup_script: scripts/setup_docker_reference_minigo.sh
 
 
 commands:
-        - download_dataset:
+        - env:
+                repo_cwd:
+                       .
+                argv:
+                        - source 
+                        - minigo_env/bin/activate
+        - run_minigo:
                 repo_cwd:
                        reinforcement/tensorflow/minigo/
                 argv:

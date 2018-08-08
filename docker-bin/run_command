@@ -2,4 +2,7 @@
 
 set -e
 
-python3 /root/bin/bake_command.py $1 | bash
+python3 /root/bin/bake_command.py $1 > /root/run.sh
+bash /root/run.sh
+
+
