@@ -1,4 +1,4 @@
-FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
+FROM tensorflow/tensorflow:nightly-gpu-py3
 
 
 WORKDIR /root
@@ -21,8 +21,8 @@ RUN pip3 install pyyaml
 
 ADD . /root
 
-RUN git clone https://github.com/mlperf/reference.git reference
-RUN /root/scripts/setup_docker_reference_minigo.sh
+RUN git clone https://github.com/tensorflow/benchmarks.git benchmarks
+RUN /root/scripts/setup_tfcnn_benchmarks.sh
 
 ENTRYPOINT ["/bin/bash"]
 

@@ -1,0 +1,36 @@
+docker_vars:
+  DOCKER_FROM:
+      "tensorflow/tensorflow:nightly-gpu-py3"
+  DOCKER_SCRIPT:
+      "scripts/setup_tfcnn_benchmarks.sh"
+
+docker_mounts:
+  imagenet: /imagenet
+  
+
+github_repo:
+     https://github.com/tensorflow/benchmarks.git
+
+local_repo_name: benchmarks 
+
+
+commands:
+        - runresnet:
+                repo_cwd:
+                       scripts/
+                argv:
+                                 - python3
+                                 - tf_cnn_benchmarks/tf_cnn_benchmarks.py
+                                 - --data_format=NCHW 
+                                 - --batch_size=256
+                                 - --model=resnet50 
+                                 - --optimizer=momentum 
+                                 - --variable_update=replicated
+                                 - --nodistortions 
+                                 - --gradient_repacking=8 
+                                 - --num_gpus=1
+                                 - --num_epochs=90 
+                                 - --weight_decay=1e-4 
+                                 - --data_dir=/imagenet
+                                 - --use_fp16
+                                 - --train_dir=/output

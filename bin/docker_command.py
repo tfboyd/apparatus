@@ -40,6 +40,8 @@ def main():
 
   if os.system('sudo nvidia-docker build . -t foo') != 0:
     sys.exit(1)
+  # use docker_mounts to mount...
+  # 
   if os.system('sudo nvidia-docker run -i -t foo:latest /root/docker-bin/run_command /root/{}'.format(cmd_file)) != 0:
     sys.exit(1)
 
