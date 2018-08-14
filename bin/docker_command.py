@@ -7,9 +7,14 @@ from __future__ import print_function
 import os
 import sys
 import yaml
+import subprocess
 import time
 
 DOCKER_VERSION = 1
+
+MOUNT_NAME_TO_PATH = {
+  'imagenet': '/imn'
+}
 
 
 def copy_and_set_vars(cmd_def, version):
@@ -30,11 +35,34 @@ def copy_and_set_vars(cmd_def, version):
         o.write(l)
 
 
+def run_docker_cmd(cmd_str, output_dir):
+  with open(os.path.join(output_dir, 'command_line.txt'), 'w') as f:
+    f.write(cmd_str)
+
+  #stdout_file = open(os.path.join(output_dir, 'run_stdout.txt'), 'w')
+  #stderr_file = open(os.path.join(output_dir, 'run_stderr.txt'), 'w')
+  # proc = subprocess.Popen(cmd_str, stdout=stdout_file, stderr=stderr_file, shell=True)
+  proc = subprocess.Popen(cmd_str, shell=True)
+  while proc.poll() is None:
+    # process is still running
+    time.sleep(5)
+  return proc.returncode == 0
+
+
 def main():
   cmd_file = sys.argv[1]
+  output_dir = os.path.join(os.getcwd(), 'run-' + str(time.time()))
+  os.system("mkdir {}".format(output_dir))
 
   with open(cmd_file) as f:
     cmd_def = yaml.load(f)
+
+  mounts = [output_dir + ':/output']
+  if 'docker_mounts' in cmd_def:
+    for name, dock_mnt in cmd_def['docker_mounts'].items():
+      host_mnt = MOUNT_NAME_TO_PATH[name]
+      mounts.append(host_mnt + ':' + dock_mnt)
+    
 
   copy_and_set_vars(cmd_def, version=DOCKER_VERSION)
 
@@ -42,7 +70,9 @@ def main():
     sys.exit(1)
   # use docker_mounts to mount...
   # 
-  if os.system('sudo nvidia-docker run -i -t foo:latest /root/docker-bin/run_command /root/{}'.format(cmd_file)) != 0:
+  mnt_str = ' '.join(map(lambda s: '-v ' + s, mounts))
+  docker_cmd = 'sudo nvidia-docker run {} -t foo:latest /root/docker-bin/run_command /root/{} | tee {}/output.txt'.format(mnt_str, cmd_file, output_dir)
+  if not run_docker_cmd(docker_cmd, output_dir):
     sys.exit(1)
 
 
