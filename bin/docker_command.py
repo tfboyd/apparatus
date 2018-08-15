@@ -51,7 +51,7 @@ def run_docker_cmd(cmd_str, output_dir):
 
 def main():
   cmd_file = sys.argv[1]
-  output_dir = os.path.join(os.getcwd(), 'run-' + str(time.time()))
+  output_dir = sys.argv[2]
   os.system("mkdir {}".format(output_dir))
 
   with open(cmd_file) as f:
@@ -63,7 +63,6 @@ def main():
       host_mnt = MOUNT_NAME_TO_PATH[name]
       mounts.append(host_mnt + ':' + dock_mnt)
     
-
   copy_and_set_vars(cmd_def, version=DOCKER_VERSION)
 
   if os.system('sudo nvidia-docker build . -t foo') != 0:

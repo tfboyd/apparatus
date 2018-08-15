@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import sys
 import os
 import importlib.util
 
@@ -34,4 +35,21 @@ def report_result(test_id, mlperf_score, platform_type='p3.8xlarge', extras={}, 
 
     os.system('rm -rf benchmark_harness')
 
-report_result()
+def main():
+    output_dir = sys.argv[1]
+
+    result = None
+    with open(os.path.join(output_dir, 'output.txt')) as f:
+        for l in f:
+            if l.startswith('RESULT'):
+                stuff = l.split(',')
+                result = stuff[3]
+    if result is None:
+        # TODO do something better
+        result = 0
+    report_result(os.path.basename(output_dir), result)
+        
+
+if __name__ == '__main__':
+    main()
+
