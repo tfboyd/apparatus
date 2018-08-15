@@ -17,7 +17,7 @@ sudo apt update
 sudo apt install docker-ce=18.06.0~ce~3-0~ubuntu -y --allow-downgrades
 sudo apt-get install -y nvidia-docker2
 sudo pip install pyyaml
-sudo pip3 install pyyaml
+sudo pip3 install --upgrade google-api-python-client paramiko google-cloud google-cloud-bigquery
 sudo service docker start
 sudo pkill -SIGHUP dockerd
 sudo apt install -y bridge-utils

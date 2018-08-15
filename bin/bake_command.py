@@ -9,9 +9,18 @@ import yaml
 
 
 def bake_command(name, config):
-  print('pushd ' + config['repo_cwd'])
+  repo_cwd = config['repo_cwd']
+  script_name = None
+  if 'script' in config:
+      script_name = config['script']
+      # copy script to the correct directory
+      print('cp ../scripts/{} {}/'.format(script_name, repo_cwd))
+
+  print('pushd ' + repo_cwd)
   argv = config['argv']
   new_argv = []
+  if script_name is not None:
+      new_argv = ['bash', script_name]
   for a in argv:
     if type(a) is str and a.startswith('P%'):
       new_argv.append(str(sugar[a[2:]]))
