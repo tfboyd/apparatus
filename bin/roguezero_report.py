@@ -9,12 +9,16 @@ import importlib.util
 def report_result(test_id, mlperf_score, platform_type='p3.8xlarge', extras={}, dev=True):
     os.system('rm -rf benchmark_harness')
     os.system('git clone https://github.com/tfboyd/benchmark_harness.git')
-    upload_spec = importlib.util.spec_from_file_location("result_upload", "./benchmark_harness/oss_bench/upload/result_upload.py")
-    result_upload = importlib.util.module_from_spec(upload_spec)
-    upload_spec.loader.exec_module(result_upload)
-    info_spec = importlib.util.spec_from_file_location("result_info", "./benchmark_harness/oss_bench/upload/result_info.py")
-    result_info = importlib.util.module_from_spec(info_spec)
-    info_spec.loader.exec_module(result_info)
+    sys.path.append('./benchmark_harness/oss_bench/upload/')
+    #upload_spec = importlib.util.spec_from_file_location("result_upload", "./benchmark_harness/oss_bench/upload/result_upload.py")
+    #result_upload = importlib.util.module_from_spec(upload_spec)
+    #upload_spec.loader.exec_module(result_upload)
+    #info_spec = importlib.util.spec_from_file_location("result_info", "./benchmark_harness/oss_bench/upload/result_info.py")
+    #result_info = importlib.util.module_from_spec(info_spec)
+    #info_spec.loader.exec_module(result_info)
+
+    import result_upload
+    import result_info
     #print(result_upload)
     #print(result_info)
 
