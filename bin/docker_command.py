@@ -51,14 +51,19 @@ def run_docker_cmd(cmd_str, output_dir):
 
 def main():
   print('DEBUG === pip3 freeze')
+  sys.stdout.flush()
   os.system('pip3 freeze')
   print('DEBUG === pip freeze')
+  sys.stdout.flush()
   os.system('pip freeze')
   print('DEBUG === pip3 freeze')
+  sys.stdout.flush()
   os.system('pip3 freeze')
   print('DEBUG === python3 --version')
+  sys.stdout.flush()
   os.system('python3 --version')
   print('DEBUG === python --version')
+  sys.stdout.flush()
   os.system('python --version')
   
   cmd_file = sys.argv[1]

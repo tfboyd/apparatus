@@ -13,12 +13,16 @@ sudo add-apt-repository    "deb [arch=amd64] https://download.docker.com/linux/u
    $(lsb_release -cs) \
    stable"
 sudo apt update
-sudo apt-get upgrade python3
+sudo apt-get upgrade -y python3
 # sudo apt install docker-ce -y
 sudo apt install docker-ce=18.06.0~ce~3-0~ubuntu -y --allow-downgrades
 sudo apt-get install -y nvidia-docker2
 sudo pip install pyyaml
-sudo pip3 install --upgrade google-api-python-client paramiko google-cloud google-cloud-bigquery
+sudo pip3 install --upgrade pip
+sudo pip3 install google-api-python-client paramiko google-cloud google-cloud-bigquery
+echo "INSTALLING GOOGLE BIGQUERY"
+sudo pip3 install google-cloud-bigquery
+sudo pip3 install --upgrade  google-api-python-client paramiko google-cloud google-cloud-bigquery
 sudo service docker start
 sudo pkill -SIGHUP dockerd
 sudo apt install -y bridge-utils
