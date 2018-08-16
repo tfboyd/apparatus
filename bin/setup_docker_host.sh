@@ -15,7 +15,7 @@ sudo add-apt-repository    "deb [arch=amd64] https://download.docker.com/linux/u
 sudo apt update
 sudo apt-get upgrade -y python3
 # sudo apt install docker-ce -y
-sudo apt install docker-ce=18.06.0~ce~3-0~ubuntu -y --allow-downgrades
+sudo apt install docker-ce=18.06.0~ce~3-0~ubuntu -y
 sudo apt-get install -y nvidia-docker2
 sudo pip install --upgrade pip
 sudo pip3 install --upgrade pip
