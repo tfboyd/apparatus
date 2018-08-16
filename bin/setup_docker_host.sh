@@ -24,7 +24,7 @@ sudo pip3 install google-api-python-client paramiko google-cloud google-cloud-bi
 echo "INSTALLING GOOGLE "
 sudo pip3 install google-cloud-bigquery
 sudo pip3 install --upgrade  google-api-python-client paramiko google-cloud google-cloud-bigquery
-sudo service docker start
+sudo service docker start || true
 sudo pkill -SIGHUP dockerd
 sudo apt install -y bridge-utils
 sudo service docker stop
