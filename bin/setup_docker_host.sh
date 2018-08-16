@@ -35,4 +35,4 @@ sudo ifconfig docker0 down
 sleep 1;
 sudo brctl delbr docker0
 sleep 1;
-sudo service docker start
+sudo service docker start || true

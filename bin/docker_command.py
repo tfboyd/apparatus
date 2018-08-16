@@ -68,7 +68,7 @@ def main():
 
   print('DEBUG === Restarting Docker Service')
   os.system('sudo service docker stop')
-  os.system('sudo service docker start')
+  os.system('sudo service docker start || true')
   
   cmd_file = sys.argv[1]
   output_dir = sys.argv[2]
