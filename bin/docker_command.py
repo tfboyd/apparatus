@@ -50,6 +50,17 @@ def run_docker_cmd(cmd_str, output_dir):
 
 
 def main():
+  print('DEBUG === pip3 freeze')
+  os.system('pip3 freeze')
+  print('DEBUG === pip freeze')
+  os.system('pip freeze')
+  print('DEBUG === pip3 freeze')
+  os.system('pip3 freeze')
+  print('DEBUG === python3 --version')
+  os.system('python3 --version')
+  print('DEBUG === python --version')
+  os.system('python --version')
+  
   cmd_file = sys.argv[1]
   output_dir = sys.argv[2]
   os.system("mkdir {}".format(output_dir))
