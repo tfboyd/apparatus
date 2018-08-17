@@ -1,0 +1,23 @@
+docker_vars:
+  DOCKER_FROM:
+      "tensorflow/tensorflow:nightly-gpu-py3"
+  DOCKER_SCRIPT:
+      "scripts/setup_tfcnn_benchmarks.sh"
+
+docker_mounts:
+  imagenet: /imagenet
+  
+
+github_repo:
+     https://github.com/tensorflow/benchmarks.git
+
+local_repo_name: benchmarks
+
+
+commands:
+        - runresnet:
+                script: run_tfcnn_resnet_v100x8.sh
+                repo_cwd:
+                       scripts/
+                argv:
+                  - 1
