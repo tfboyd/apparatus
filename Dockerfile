@@ -21,8 +21,8 @@ RUN pip3 install pyyaml
 
 ADD . /root
 
-RUN git clone https://github.com/mlperf/reference.git reference
-RUN /root/scripts/setup_docker_reference_minigo.sh
+RUN git clone https://github.com/tensorflow/models.git garden
+RUN /root/scripts/setup_docker_garden_ncf.sh
 
 ENTRYPOINT ["/bin/bash"]
 
