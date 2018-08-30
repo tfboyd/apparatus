@@ -36,7 +36,7 @@ mkdir $MODEL_DIR
 python3 ncf_main.py --model_dir ${MODEL_DIR} \
 									 --data_dir ${DATA_DIR} \
 									 --dataset ${DATASET} --hooks "" \
-									 --num_gpus -1 \
+									 --num_gpus 1 \
 									 --clean \
 									 --train_epochs 100 \
 									 --batch_size 2048 \
