@@ -1,0 +1,12 @@
+
+
+github_repo:
+     https://github.com/tensorflow/tpu.git
+
+local_repo_name: tpu_benchmarks
+
+
+
+
+
+main_script: 

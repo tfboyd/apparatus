@@ -4,7 +4,7 @@ ZONE=`gcloud compute instances list $HOST --format 'csv[no-heading](zone)' 2>/de
 #TF_VERSION=1.9
 TF_VERSION='nightly'
 
-TPU_NAME="${HOST}_tpu"
+TPU_NAME=$1
 
 
 echo TPU NAME: $TPU_NAME

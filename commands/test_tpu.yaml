@@ -1,0 +1,13 @@
+
+
+github_repo:
+     https://github.com/tensorflow/tpu.git
+
+local_repo_name: tpu
+
+
+tpu_config:
+  True
+
+main_script: scripts/test_tpu.sh
+
