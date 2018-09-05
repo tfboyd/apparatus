@@ -43,7 +43,7 @@ python3 ncf_main.py --model_dir ${MODEL_DIR} \
 									 --eval_batch_size 65536 \
 									 --learning_rate 0.0005 \
 									 --layers 256,256,128,64 --num_factors 64 \
-									 --hr_threshold 0.62 \
+									 --hr_threshold 0.635 \
                    --ml_perf
 
 
