@@ -41,6 +41,7 @@ def report_result(test_id, mlperf_score, platform_type='gcp', extras={}, dev=Tru
       system_info=system_info,
       extras=extras,
       dataset=dataset)
+    print('RogueZero Reported.')
 
     os.system('rm -rf benchmark_harness')
 
@@ -48,15 +49,20 @@ def main():
     output_dir = sys.argv[1]
 
     result = None
+    epoch_count = None
     with open(os.path.join(output_dir, 'output.txt')) as f:
         for l in f:
             if l.startswith('RESULT'):
                 stuff = l.split(',')
                 result = stuff[3]
+            if 'Iteration' in l:
+                epoch_count += 1
     if result is None:
         # TODO do something better
         result = 0
-    report_result(os.path.basename(output_dir), result, dev=False)
+    if epoch_count is None:
+        epoch_count = 0
+    report_result(os.path.basename(output_dir), result, dev=False, extras={'epoch_count': epoch_count})
         
 
 if __name__ == '__main__':
