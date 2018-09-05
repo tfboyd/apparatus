@@ -87,6 +87,8 @@ def main():
   # 
   mnt_str = ' '.join(map(lambda s: '-v ' + s, mounts))
   docker_cmd = 'sudo nvidia-docker run {} -t foo:latest /root/docker-bin/run_command /root/{} | tee {}/output.txt'.format(mnt_str, cmd_file, output_dir)
+  print('Docker Command:')
+  print(docker_cmd)
   if not run_docker_cmd(docker_cmd, output_dir):
     sys.exit(1)
 

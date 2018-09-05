@@ -44,7 +44,7 @@ python3 ncf_main.py --model_dir ${MODEL_DIR} \
 									 --learning_rate 0.0005 \
 									 --layers 256,256,128,64 --num_factors 64 \
 									 --hr_threshold 0.62 \
-
+                   --ml_perf
 
 
 
