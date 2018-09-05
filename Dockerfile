@@ -21,7 +21,7 @@ RUN pip3 install pyyaml
 
 ADD . /root
 
-RUN git clone https://github.com/tensorflow/models.git garden
+RUN git clone https://github.com/tensorflow/models.git None
 RUN /root/scripts/setup_docker_garden_ncf.sh
 
 ENTRYPOINT ["/bin/bash"]
