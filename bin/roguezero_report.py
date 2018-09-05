@@ -59,6 +59,8 @@ def main():
             if 'Iteration' in l:
                 epoch_count += 1
                 epoch_lines.append(l)
+            if 'Beginning data preprocessing' in l:
+                epoch_lines.append(l)
     if result is None:
         # TODO do something better
         result = 0
