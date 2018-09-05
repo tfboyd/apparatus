@@ -49,7 +49,7 @@ def main():
     output_dir = sys.argv[1]
 
     result = None
-    epoch_count = None
+    epoch_count = 0
     with open(os.path.join(output_dir, 'output.txt')) as f:
         for l in f:
             if l.startswith('RESULT'):
@@ -60,8 +60,6 @@ def main():
     if result is None:
         # TODO do something better
         result = 0
-    if epoch_count is None:
-        epoch_count = 0
     report_result(os.path.basename(output_dir), result, dev=False, extras={'epoch_count': epoch_count})
         
 
