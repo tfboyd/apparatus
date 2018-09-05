@@ -50,7 +50,7 @@ def main():
 
     result = None
     epoch_count = 0
-    epoch_line = ''
+    epoch_lines = []
     with open(os.path.join(output_dir, 'output.txt')) as f:
         for l in f:
             if l.startswith('RESULT'):
@@ -58,11 +58,11 @@ def main():
                 result = stuff[3]
             if 'Iteration' in l:
                 epoch_count += 1
-                epoch_line = l
+                epoch_lines.append(l)
     if result is None:
         # TODO do something better
         result = 0
-    report_result(os.path.basename(output_dir), result, dev=False, extras={'epoch_count': epoch_count, 'epoch_line': epoch_line})
+    report_result(os.path.basename(output_dir), result, dev=False, extras={'epoch_count': epoch_count, 'epoch_lines': '\n'.join(epoch_lines)})
         
 
 if __name__ == '__main__':
