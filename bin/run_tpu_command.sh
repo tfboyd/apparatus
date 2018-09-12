@@ -1,6 +1,7 @@
 #!/bin/bash
 
-set -e pipefail
+set -e
+set -o pipefail
 
 COMMAND_FILE=$1
 BENCHMARK_DIR=$2
