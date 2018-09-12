@@ -33,4 +33,22 @@ with tf.Session(tpu_grpc_url) as sess:
 print('Test Completed Successfully.')
 EOF
 
+
+# start timing 
+start=$(date +%s)
+start_fmt=$(date +%Y-%m-%d\ %r)
+
 python3 test_tpu.py $MLP_TPU_NAME
+
+# end timing
+end=$(date +%s)
+end_fmt=$(date +%Y-%m-%d\ %r)
+echo "ENDING TIMING RUN AT $end_fmt"
+
+
+# report result 
+result=$(( $end - $start )) 
+result_name="resnet"
+
+echo "RESULT,$result_name,0,$result,$USER,$start_fmt"
+

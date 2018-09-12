@@ -26,10 +26,10 @@ def bake_tpu(bench_def, bench_dir, input_dir, output_dir):
         f.write('''#!/bin/bash
 set -e
 
-export MLP_TPU_NAME=test_tpu
 export MLP_TPU_TF_VERSION=nightly
 export MLP_GCP_HOST=`hostname`
 export MLP_GCP_ZONE=`gcloud compute instances list $MLP_GCP_HOST --format 'csv[no-heading](zone)' 2>/dev/null`
+export MLP_TPU_NAME=${HOST}_TPU
 
 export MLP_PATH_GCS_IMAGENET=gs://garden-imgnet/imagenet/combined/
 
