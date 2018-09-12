@@ -35,6 +35,7 @@ export MLP_PATH_GCS_IMAGENET=gs://garden-imgnet/imagenet/combined/
 
 
 echo gcloud alpha compute tpus create $MLP_TPU_NAME --range=10.123.45.0/29 --version=$MLP_TPU_TF_VERSION --network=default --accelerator-type=v2-8 --zone $MLP_GCP_ZONE
+
 gcloud alpha compute tpus create $MLP_TPU_NAME --range=10.123.45.0/29 --version=$MLP_TPU_TF_VERSION --network=default --accelerator-type=v2-8 --zone $MLP_GCP_ZONE
 
 
@@ -47,6 +48,7 @@ BENCHMARK_EXIT_CODE=$?
 
 set -e
 
+echo  gcloud alpha compute tpus delete $MLP_TPU_NAME --zone $MLP_GCP_ZONE
 yes | gcloud alpha compute tpus delete $MLP_TPU_NAME --zone $MLP_GCP_ZONE
 
 exit $BENCHMARK_EXIT_CODE
