@@ -68,6 +68,8 @@ def main():
 
     benchmark_file = sys.argv[1]
     benchmark_dir = sys.argv[2]
+    input_dir = None
+    output_dir = None
 
 
     with open(benchmark_file) as f:
