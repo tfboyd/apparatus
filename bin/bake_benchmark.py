@@ -49,7 +49,6 @@ bash run_helper.sh
 
 BENCHMARK_EXIT_CODE=$?
 
-
 set -e
 
 echo  gcloud alpha compute tpus delete $MLP_TPU_NAME --zone $MLP_GCP_ZONE
