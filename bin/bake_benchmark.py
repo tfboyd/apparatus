@@ -62,14 +62,12 @@ exit $BENCHMARK_EXIT_CODE
 
 
 def main():
-    if len(sys.argv) != 5:
+    if len(sys.argv) < 3:
         print('usage: BENCHMARK_FILE BENCHMARK_DIR INPUT_DIR OUTPUT_DIR')
         sys.exit(1)
 
     benchmark_file = sys.argv[1]
     benchmark_dir = sys.argv[2]
-    input_dir = sys.argv[3]
-    output_dir = sys.argv[4]
 
 
     with open(benchmark_file) as f:
