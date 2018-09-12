@@ -34,6 +34,7 @@ export MLP_TPU_NAME=${HOST}_TPU
 export MLP_PATH_GCS_IMAGENET=gs://garden-imgnet/imagenet/combined/
 
 
+echo gcloud alpha compute tpus create $MLP_TPU_NAME --range=10.123.45.0/29 --version=$MLP_TPU_TF_VERSION --network=default --accelerator-type=v2-8 --zone $MLP_GCP_ZONE
 gcloud alpha compute tpus create $MLP_TPU_NAME --range=10.123.45.0/29 --version=$MLP_TPU_TF_VERSION --network=default --accelerator-type=v2-8 --zone $MLP_GCP_ZONE
 
 
