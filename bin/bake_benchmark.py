@@ -34,7 +34,7 @@ export MLP_TPU_NAME=${HOST}_TPU
 
 export MLP_PATH_GCS_IMAGENET=gs://garden-imgnet/imagenet/combined/
 
-gcloud compute instances list $MLP_GCP_HOST --format 'csv[no-heading](zone)'
+# gcloud compute instances list $MLP_GCP_HOST --format 'csv[no-heading](zone)'
 
 echo MLP_TPU_TF_VERSION $MLP_TPU_TF_VERSION
 echo MLP_GCP_HOST $MLP_GCP_HOST
