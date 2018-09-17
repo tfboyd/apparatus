@@ -2,6 +2,7 @@
 
 set -e 
 
+sudo apt-get install -y python3-venv
 sudo pip3 install tf-nightly
 sudo pip3 install --upgrade oauth2client
 sudo pip3 install --upgrade google-api-python-client
