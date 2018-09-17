@@ -58,7 +58,6 @@ fi
 
 done
 
-
 set +e
 
 bash run_helper.sh
@@ -76,6 +75,58 @@ exit $BENCHMARK_EXIT_CODE
     return True
 
 
+def bake_docker(bench_def, bench_dir):
+    if os.system('mkdir -p {}'.format(bench_dir)) != 0:
+        return False
+    if os.system('cp ./{} {}/run_helper.sh'.format(bench_def['main_script'], bench_dir)) != 0:
+        print('Failed to copy run_helper.')
+        return False
+    if os.system('cp ./scripts/{} {}/docker_setup.sh'.format(bench_def['docker_vars']['DOCKER_SCRIPT'], bench_dir)) != 0:
+        print('Failed to copy docker_setup.')
+        return False
+    if os.system('cp ./{} {}/bootstrap.sh'.format(bench_def['bootstrap_script'], bench_dir)) != 0:
+        print('Failed to copy bootstrap.')
+        return False
+
+    # Move into benchmark directory
+    #cwd = os.getcwd()
+    os.chdir(bench_dir)
+    with open('Dockerfile', 'w') as f:
+        f.write('''
+FROM {docker_base}
+
+WORKDIR /root
+ENV HOME /root
+
+RUN apt-get update
+RUN apt-get install -y curl
+RUN apt-get install -y build-essential git
+RUN apt-get install -y software-properties-common python-software-properties
+RUN add-apt-repository -y ppa:deadsnakes/ppa
+RUN apt-get update
+RUN apt-get install -y python3.6
+RUN apt-get install -y python3-pip
+
+
+RUN pip3 install --upgrade pip
+RUN pip3 install pyyaml
+
+ADD . /root
+
+RUN bash /root/docker_setup.sh
+
+ENTRYPOINT ["/bin/bash"]
+'''.format(docker_base=bench_def['docker_vars']['DOCKER_FROM']))
+
+    with open('main.sh', 'w') as f:
+        f.write('''
+#!/bin/bash
+set -e
+sudo nvidia-docker build . -t foo
+sudo nvidia-docker run -t foo:latest /root/run_helper.sh 2>&1 | tee output.txt
+''')
+    return True
+
 
 def main():
     if len(sys.argv) < 3:
@@ -86,12 +137,18 @@ def main():
     benchmark_dir = sys.argv[2]
     input_dir = None
     output_dir = None
+    # input_dir = sys.argv[3]
+    # output_dir = sys.argv[4]
 
 
     with open(benchmark_file) as f:
         bench_def = yaml.load(f)
 
-    if not bake_tpu(bench_def, benchmark_dir, input_dir, output_dir):
+    if 'docker_vars' in bench_def:
+        if not bake_docker(bench_def, benchmark_dir):
+            print('Exiting with error.')
+            sys.exit(1)
+    elif not bake_tpu(bench_def, benchmark_dir, input_dir, output_dir):
         print('Exiting with error.')
         sys.exit(1)
 

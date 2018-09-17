@@ -25,7 +25,6 @@ def copy_and_set_vars(cmd_def, version):
 	}
   if 'DOCKER_SCRIPT' in cmd_def['docker_vars']:
     vars['%%DOCKER_SCRIPT'] = 'RUN /root/{}'.format(cmd_def['docker_vars']['DOCKER_SCRIPT'])
-  
 
   with open('Dockerfile.tmpl') as f:
     with open('Dockerfile', 'w') as o:
