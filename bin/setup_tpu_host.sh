@@ -2,8 +2,11 @@
 
 set -e 
 
-
-sudo apt-get update
+sudo apt update
+sudo apt-get upgrade -y python3
+sudo pip install --upgrade pip
+sudo pip3 install --upgrade pip
+sudo pip install pyyaml
 sudo apt-get install -y python3-venv
 sudo pip3 install tf-nightly
 sudo pip3 install --upgrade oauth2client
