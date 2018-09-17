@@ -1,4 +1,5 @@
 
+set -e
 HOST=`hostname`
 SECONDS=`date +%s`
 
