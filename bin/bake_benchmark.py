@@ -14,6 +14,8 @@ import time
 def bake_tpu(bench_def, bench_dir, input_dir, output_dir):
     if os.system('mkdir -p {}'.format(bench_dir)) != 0:
         return False
+    if os.system('cp ./{} {}/setup.sh'.format(bench_def['setup_script'], bench_dir)) != 0:
+        return False
     if os.system('cp ./{} {}/run_helper.sh'.format(bench_def['main_script'], bench_dir)) != 0:
         return False
     cwd = os.getcwd()
@@ -25,6 +27,7 @@ def bake_tpu(bench_def, bench_dir, input_dir, output_dir):
         f.write('''#!/bin/bash
 set -e
 
+export MLP_GCS_MODEL_DIR=gs://garden-model-dirs/resnet/tpu_resnet_test/
 export MLP_TPU_TF_VERSION=nightly
 export MLP_GCP_HOST=`hostname`
 export MLP_GCP_ZONE=`gcloud compute instances list $MLP_GCP_HOST --format 'csv[no-heading](zone)' 2>/dev/null`

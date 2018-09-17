@@ -16,7 +16,9 @@ OUTPUT_SUBDIR=$OUTPUT_DIR/${HOST}_${SECONDS}
 python3 bin/bake_benchmark.py $COMMAND_FILE $BENCHMARK_DIR $INPUT_DIR $OUTPUT_SUBDIR
 
 
+
 pushd $BENCHMARK_DIR
+bash setup.sh
 bash main.sh 2>&1 | tee output.txt
 popd
 
