@@ -2,7 +2,7 @@
 
 set -e 
 
-sudo apt update
+sudo apt-get update
 sudo apt-get upgrade -y python3
 sudo pip install --upgrade pip
 sudo pip3 install --upgrade pip

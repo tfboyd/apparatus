@@ -12,7 +12,7 @@ sudo apt-key fingerprint 0EBFCD88
 sudo add-apt-repository    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
    $(lsb_release -cs) \
    stable"
-sudo apt update
+sudo apt-get update
 sudo apt-get upgrade -y python3
 # sudo apt install docker-ce -y
 sudo apt install --force-yes docker-ce=18.06.0~ce~3-0~ubuntu -y
