@@ -28,8 +28,8 @@ set -e
 
 export MLP_TPU_TF_VERSION=nightly
 export MLP_GCP_HOST=`hostname`
-#export MLP_GCP_ZONE=`gcloud compute instances list $MLP_GCP_HOST --format 'csv[no-heading](zone)' 2>/dev/null`
-export MLP_GCP_ZONE=us-central1-b
+export MLP_GCP_ZONE=`gcloud compute instances list $MLP_GCP_HOST --format 'csv[no-heading](zone)' 2>/dev/null`
+#export MLP_GCP_ZONE=us-central1-b
 export MLP_TPU_NAME=${HOST}_TPU
 
 export MLP_PATH_GCS_IMAGENET=gs://garden-imgnet/imagenet/combined/
@@ -40,6 +40,8 @@ echo MLP_TPU_TF_VERSION $MLP_TPU_TF_VERSION
 echo MLP_GCP_HOST $MLP_GCP_HOST
 echo MLP_GCP_ZONE $MLP_GCP_ZONE
 echo MLP_TPU_NAME $MLP_TPU_NAME
+
+gcloud auth list
 
 echo gcloud alpha compute tpus create $MLP_TPU_NAME --range=10.123.45.0/29 --version=$MLP_TPU_TF_VERSION --network=default --accelerator-type=v2-8 --zone $MLP_GCP_ZONE
 
