@@ -61,8 +61,8 @@ fi
 done
 
 # Give the TPU a minute to get 'HEALTHY'
-echo "Sleeping to let TPU get healthy"
-sleep 60
+echo "Sleeping for 5 mins to let TPU get healthy"
+sleep 300
 
 set +e
 
