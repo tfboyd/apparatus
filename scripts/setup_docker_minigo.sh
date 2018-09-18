@@ -7,7 +7,9 @@ apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates
 apt-get install -y virtualenv htop
 apt-get install -y python-setuptools
-pip install --upgrade pip
+apt-get install -y python-pip
+#pip install --upgrade pip
+pip install --upgrade pip==9.0.3
 pip install --upgrade setuptools
 pip install virtualenv
 pip install virtualenvwrapper

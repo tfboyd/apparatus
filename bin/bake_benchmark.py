@@ -97,6 +97,14 @@ def bake_docker(bench_def, bench_dir):
     # Move into benchmark directory
     #cwd = os.getcwd()
     os.chdir(bench_dir)
+
+    #RUN apt-get install -y python3.6
+    #RUN apt-get install -y python3-pip
+    #
+    #
+    #RUN pip3 install --upgrade pip
+    #RUN pip3 install pyyaml
+
     with open('Dockerfile', 'w') as f:
         f.write('''
 FROM {docker_base}
@@ -110,13 +118,6 @@ RUN apt-get install -y build-essential git
 RUN apt-get install -y software-properties-common python-software-properties
 RUN add-apt-repository -y ppa:deadsnakes/ppa
 RUN apt-get update
-RUN apt-get install -y python3.6
-RUN apt-get install -y python3-pip
-
-
-RUN pip3 install --upgrade pip
-RUN pip3 install pyyaml
-
 ADD . /root
 
 RUN bash /root/docker_setup.sh
