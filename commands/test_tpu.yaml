@@ -10,11 +10,4 @@ tpu_config:
   True
 
 main_script: scripts/test_tpu.sh
-
-commands:
-        - run_ncf:
-                script: run_garden_ncf_v100x1.sh
-                repo_cwd:
-                       official/recommendation/
-                argv:
-                  - 1
+setup_script: scripts/noop.sh
