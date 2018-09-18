@@ -58,8 +58,10 @@ else
   break
 fi
 
-
 done
+
+# Give the TPU a minute to get 'HEALTHY'
+sleep 60
 
 set +e
 
