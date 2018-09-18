@@ -1,6 +1,6 @@
 set -e
 
-
+cd /root/garden/official/recommendation/
 
 # run benchmark
 

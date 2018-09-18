@@ -2,17 +2,7 @@ docker_vars:
   DOCKER_FROM:
       "nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04"
   DOCKER_SCRIPT:
-      "scripts/setup_docker_garden_ncf.sh"
+      "setup_docker_garden_ncf.sh"
 
-github_repo:
-        https://github.com/tensorflow/models.git
-
-local_repo_name: garden
-
-commands:
-        - run_ncf:
-                script: run_garden_ncf_v100x1.sh
-                repo_cwd:
-                       official/recommendation/
-                argv:
-                  - 1
+bootstrap_script: scripts/bootstrap_gpu_ncf.sh
+main_script: scripts/run_garden_ncf_v100x1.sh
