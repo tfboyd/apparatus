@@ -61,6 +61,7 @@ fi
 done
 
 # Give the TPU a minute to get 'HEALTHY'
+echo "Sleeping to let TPU get healthy"
 sleep 60
 
 set +e
@@ -72,7 +73,7 @@ BENCHMARK_EXIT_CODE=$?
 set -e
 
 echo  gcloud alpha compute tpus delete $MLP_TPU_NAME --zone $MLP_GCP_ZONE
-yes | gcloud alpha compute tpus delete $MLP_TPU_NAME --zone $MLP_GCP_ZONE
+#yes | gcloud alpha compute tpus delete $MLP_TPU_NAME --zone $MLP_GCP_ZONE
 
 exit $BENCHMARK_EXIT_CODE
 ''')
