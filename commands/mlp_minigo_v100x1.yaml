@@ -1,6 +1,7 @@
 docker_vars:
   DOCKER_FROM:
-      "nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04"
+    #"nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04"
+    "nvidia/cuda:9.2-cudnn7-devel-ubuntu16.04"
   DOCKER_SCRIPT:
       "setup_docker_minigo.sh"
 

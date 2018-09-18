@@ -54,3 +54,4 @@ cd /root
 
 mkdir -p /research/results/minigo/final/
 mkdir -p /root/results/minigo/final/stats
+
