@@ -48,6 +48,9 @@ dpkg -i /root/minigo_data/minigo/nv-tensorrt-repo-ubuntu1604-cuda9.2-ga-trt4.0.1
 apt-get update
 apt-get install -y tensorrt python3-libnvinfer-doc uff-converter-tf libnvinfer4
 
+sh -c "echo '/usr/local/cuda/lib64' > /etc/ld.so.conf.d/cuda.conf" 
+ldconfig
+
 cd /root/tensorflow/minigo/
 ./cc/configure_tensorflow.sh
 cd /root
