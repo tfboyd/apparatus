@@ -40,7 +40,7 @@ export MLP_PATH_GCS_IMAGENET=gs://garden-imgnet/imagenet/combined
 export MLP_PATH_GCS_TRANSFORMER=gs://mlp_resources/benchmark_data/transformer
 export MLP_PATH_GCS_TRANSFORMER=gs://mlp_resources/benchmark_data/transformer
 
-export MLP_GCS_RESNET_CHECKPOINT=gs://taylorrobie-tpu-test-bucket-2/resnet34_ssd_checkpoint
+export MLP_GCS_RESNET_CHECKPOINT=gs://mlp_resources/benchmark_data/resnet34_ssd_checkpoint
 
 # gcloud compute instances list $MLP_GCP_HOST --format 'csv[no-heading](zone)'
 
