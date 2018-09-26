@@ -18,6 +18,7 @@ python3 bin/bake_benchmark.py $COMMAND_FILE $BENCHMARK_DIR $INPUT_DIR $OUTPUT_SU
 
 
 pushd $BENCHMARK_DIR
+bash bootstrap.sh
 bash setup.sh
 bash main.sh 2>&1 | tee output.txt
 popd

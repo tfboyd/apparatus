@@ -14,6 +14,8 @@ import time
 def bake_tpu(bench_def, bench_dir, input_dir, output_dir):
     if os.system('mkdir -p {}'.format(bench_dir)) != 0:
         return False
+    if os.system('cp ./{} {}/bootstrap.sh'.format(bench_def['bootstrap_script'], bench_dir)) != 0:
+        return False
     if os.system('cp ./{} {}/setup.sh'.format(bench_def['setup_script'], bench_dir)) != 0:
         return False
     if os.system('cp ./{} {}/run_helper.sh'.format(bench_def['main_script'], bench_dir)) != 0:

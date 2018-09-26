@@ -7,5 +7,7 @@ local_repo_name: tpu
 tpu_config:
   True
 
+bootstrap_script: scripts/bootstrap_tpu_resnet.sh
+setup_script: scripts/setup_tpu_resnet.sh
 main_script: scripts/run_tpu_resnet.sh
 
