@@ -28,7 +28,7 @@ git pull
 popd
 
 
-pip install tf-nightly
+sudo pip3 install tf-nightly
 
 
 export PYTHONPATH="$(pwd)/cloud_tpu/models/official/retinanet:${PYTHONPATH}"
