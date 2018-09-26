@@ -19,7 +19,7 @@ def main():
 
     cmd = '. /tmp/py3_rogue_env/bin/activate; python {} {}'.format(helper_path, dirpath)
     print(cmd)
-    os.system(cmd)
+    os.exit(os.system(cmd))
 
 
 if __name__ == '__main__':
