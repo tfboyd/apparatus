@@ -4,15 +4,12 @@ set -e
 
 sudo apt-get update
 sudo apt-get install -y python3-tk unzip
-if ! pip --version | grep -q -E --regexp="\(python 3.+)$";  then
-  echo "Expected Python 3 pip. Found: " `pip --version`
-  exit 1
-fi
-sudo pip install --upgrade pip
-sudo pip install Cython==0.28.4 \
+
+sudo pip3 install --upgrade pip
+sudo pip3 install Cython==0.28.4 \
             matplotlib==2.2.2
-sudo pip install pycocotools==2.0.0
-sudo pip install Pillow==5.2.0
+sudo pip3 install pycocotools==2.0.0
+sudo pip3 install Pillow==5.2.0
 alias protoc="/usr/local/bin/protoc"
 INSTALL_PROTO="yes"
 if protoc --version | grep -q -E --regexp="3.6.1$"; then
