@@ -1,6 +1,8 @@
 
 set -e
 
+export PYTHONPATH=`pwd`/models:$PYTHONPATH
+
 # start timing 
 start=$(date +%s)
 start_fmt=$(date +%Y-%m-%d\ %r)
