@@ -30,6 +30,10 @@ popd
 
 sudo pip3 install tf-nightly
 
+# start timing 
+start=$(date +%s)
+start_fmt=$(date +%Y-%m-%d\ %r)
+
 
 export PYTHONPATH="$(pwd)/cloud_tpu/models/official/retinanet:${PYTHONPATH}"
 python3 ssd_main.py  --use_tpu=True \
@@ -50,4 +54,18 @@ python3 ssd_main.py  --use_tpu=True \
                      --val_json_file="${MLP_PATH_GCS_SSD}/raw-data/annotations/instances_val2017.json" \
                      --model_dir=${MLP_GCS_MODEL_DIR} \
                      --eval_timeout=0
+
+
+# end timing
+end=$(date +%s)
+end_fmt=$(date +%Y-%m-%d\ %r)
+echo "ENDING TIMING RUN AT $end_fmt"
+
+
+# report result 
+result=$(( $end - $start )) 
+result_name="ssd"
+
+
+echo "RESULT,$result_name,0,$result,$USER,$start_fmt"
 

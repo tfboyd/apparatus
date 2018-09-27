@@ -47,6 +47,26 @@ CMD="t2t-trainer \
   --train_steps=250000 \
   --use_tpu"
 
+
+
 echo $CMD
 
+# start timing 
+start=$(date +%s)
+start_fmt=$(date +%Y-%m-%d\ %r)
+
 $CMD
+
+# end timing
+end=$(date +%s)
+end_fmt=$(date +%Y-%m-%d\ %r)
+echo "ENDING TIMING RUN AT $end_fmt"
+
+
+# report result 
+result=$(( $end - $start )) 
+result_name="transformer"
+
+
+echo "RESULT,$result_name,0,$result,$USER,$start_fmt"
+
