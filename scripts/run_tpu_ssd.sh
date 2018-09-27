@@ -45,6 +45,7 @@ python3 ssd_main.py  --use_tpu=True \
                      --model_dir=${MLP_GCS_MODEL_DIR} \
                      --num_epochs=60
 
+'''
 python3 ssd_main.py  --use_tpu=True \
                      --tpu_name=${MLP_TPU_NAME} \
                      --device=tpu \
@@ -54,6 +55,7 @@ python3 ssd_main.py  --use_tpu=True \
                      --val_json_file="${MLP_PATH_GCS_SSD}/raw-data/annotations/instances_val2017.json" \
                      --model_dir=${MLP_GCS_MODEL_DIR} \
                      --eval_timeout=0
+'''
 
 
 # end timing
