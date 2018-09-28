@@ -45,7 +45,10 @@ python3 ssd_main.py  --use_tpu=True \
                      --model_dir=${MLP_GCS_MODEL_DIR} \
                      --num_epochs=60
 
+
 '''
+sleep 300
+
 python3 ssd_main.py  --use_tpu=True \
                      --tpu_name=${MLP_TPU_NAME} \
                      --device=tpu \
