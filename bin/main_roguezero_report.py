@@ -7,7 +7,8 @@ import os
 import sys
 
 
-def build_upload(test_id, result, quality, quality_type, extras=None):
+def build_upload(test_id, result, quality, quality_type, project=None,
+                 extras=None):
   """Build and upload the results."""
   # Modules are loaded by this function.
   # pylint: disable=C6204
@@ -25,12 +26,12 @@ def build_upload(test_id, result, quality, quality_type, extras=None):
       results,
       test_info,
       system_info,
-      project='LOCAL',
+      project=project,
       dev=False,
       extras=extras)
 
 
-def create_report(output_dir):
+def create_report(output_dir, project):
   """Create report for the test."""
   result = None
   quality = None
@@ -57,7 +58,8 @@ def create_report(output_dir):
   extras['epoch_count'] = epoch_count
   extras['epoch_lines'] = epoch_lines
 
-  build_upload(test_id, result, quality, quality_type, extras=extras)
+  build_upload(test_id, result, quality, quality_type, project=project,
+               extras=extras)
 
 
 def main():
@@ -70,8 +72,11 @@ def main():
   sys.path.append('./benchmark_harness/oss_bench/tools/')
 
   # Create and upload report.
-  create_report(sys.argv[1])
+  project = 'google.com:tensorflow-performance'
+  if len(sys.argv) >= 3:
+    project = sys.argv[2]
 
+  create_report(sys.argv[1], project)
   os.system('rm -rf benchmark_harness')
 
 if __name__ == '__main__':

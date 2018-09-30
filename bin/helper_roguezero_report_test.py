@@ -56,12 +56,12 @@ class TestHelperRogueZeroReport(unittest.TestCase):
     get_tf_full_version.assert_called()
 
     # Verifies core columns.
-    self.assertEqual(build_result_args[0][0], test_id)
-    self.assertEqual(build_result_args[0][1], total_time)
-    self.assertEqual(build_system_info_args[1]['accel_type'], 'GTX 970')
-    self.assertEqual(build_system_info_args[1]['cpu_cores'], 64)
-    self.assertEqual(build_test_info_args[1]['framework_version'],
-                     '1.5RC0-dev20171001')
+    self.assertEqual(test_id, build_result_args[0][0])
+    self.assertEqual(total_time, build_result_args[0][1])
+    self.assertEqual('GTX 970', build_system_info_args[1]['accel_type'])
+    self.assertEqual(64, build_system_info_args[1]['cpu_cores'])
+    self.assertEqual('1.5RC0-dev20171001',
+                     build_test_info_args[1]['framework_version'])
 
   @patch('result_info.build_test_info')
   @patch('result_info.build_system_info')
@@ -90,12 +90,12 @@ class TestHelperRogueZeroReport(unittest.TestCase):
     get_tf_full_version.assert_called()
 
     # Verifies core columns.
-    self.assertEqual(build_result_args[0][0], test_id)
-    self.assertEqual(build_result_args[0][1], total_time)
-    self.assertEqual(build_system_info_args[1]['accel_type'], 'TPUx4')
-    self.assertEqual(build_system_info_args[1]['cpu_cores'], 64)
-    self.assertEqual(build_test_info_args[1]['framework_version'],
-                     '1.5RC0-dev20171001')
+    self.assertEqual(test_id, build_result_args[0][0])
+    self.assertEqual(total_time, build_result_args[0][1])
+    self.assertEqual('TPUx4', build_system_info_args[1]['accel_type'])
+    self.assertEqual(64, build_system_info_args[1]['cpu_cores'])
+    self.assertEqual('1.5RC0-dev20171001',
+                     build_test_info_args[1]['framework_version'])
 
   def _patch_logs_git_gpu(self, gpu_info=None):
     gpu_info = gpu_info or [387.11, 'GTX 970']

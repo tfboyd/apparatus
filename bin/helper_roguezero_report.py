@@ -13,7 +13,7 @@ def report_result(main_result,
                   results,
                   test_info,
                   system_info,
-                  project='google.com:tensorflow-performance',
+                  project=None,
                   extras=None,
                   dev=True):
   """Reports test results.
@@ -45,6 +45,7 @@ def report_result(main_result,
 def build_entry(
     test_id,
     total_time,
+    group_run_id=None,
     test_environment='kokoro',
     platform='gcp',
     platform_type='gcp',
@@ -53,12 +54,14 @@ def build_entry(
     model='unknown',
     test_cmd='unknown',
     accel_type=None,
+    accel_cnt=None
 ):
   """Builds result row.
 
   Args:
     test_id: Unique id of the test with in mlperf tests.
     total_time: total test time.
+    group_run_id: Provide if run should be aggregated.
     test_environment: kokoro, roguezero or whatever
     platform: gcp, dgx, aws
     platform_type: n1.standard-64, base image used.
@@ -67,6 +70,7 @@ def build_entry(
     model: model being tested, used to group results.
     test_cmd: Command run to start the test.
     accel_type: Type of accelerator, if None will try to guess.
+    accel_cnt: Number of accelerators, if None will try to guess.
 
   Returns:
     main_result, results, test_info, and system_info.
@@ -79,6 +83,8 @@ def build_entry(
   # Pulls NVIDIA GPU Info.
   if not accel_type:
     _, accel_type = nvidia.get_gpu_info()
+    if not accel_cnt:
+      accel_cnt = nvidia.get_gpu_count()
 
   # Pulls tensorflow version info.version.
   tf_ver, tf_git_version = tf_version.get_tf_full_version()
@@ -107,7 +113,9 @@ def build_entry(
       channel=channel,
       build_type=build_type,
       model=model,
-      cmd=test_cmd)
+      cmd=test_cmd,
+      accel_cnt=accel_cnt,
+      group_run_id=group_run_id)
 
   return main_result, results, test_info, system_info
 
