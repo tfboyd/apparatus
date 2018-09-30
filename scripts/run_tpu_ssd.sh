@@ -46,19 +46,17 @@ python3 ssd_main.py  --use_tpu=True \
                      --num_epochs=60
 
 
-'''
-sleep 300
-
-python3 ssd_main.py  --use_tpu=True \
-                     --tpu_name=${MLP_TPU_NAME} \
-                     --device=tpu \
-                     --mode=eval \
-                     --eval_batch_size=256 \
-                     --validation_file_pattern="${MLP_PATH_GCS_SSD}/val-*" \
-                     --val_json_file="${MLP_PATH_GCS_SSD}/raw-data/annotations/instances_val2017.json" \
-                     --model_dir=${MLP_GCS_MODEL_DIR} \
-                     --eval_timeout=0
-'''
+#sleep 300
+#
+#python3 ssd_main.py  --use_tpu=True \
+#                     --tpu_name=${MLP_TPU_NAME} \
+#                     --device=tpu \
+#                     --mode=eval \
+#                     --eval_batch_size=256 \
+#                     --validation_file_pattern="${MLP_PATH_GCS_SSD}/val-*" \
+#                     --val_json_file="${MLP_PATH_GCS_SSD}/raw-data/annotations/instances_val2017.json" \
+#                     --model_dir=${MLP_GCS_MODEL_DIR} \
+#                     --eval_timeout=0
 
 
 # end timing
