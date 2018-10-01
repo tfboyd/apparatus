@@ -51,11 +51,9 @@ echo MLP_TPU_NAME $MLP_TPU_NAME
 
 gcloud auth list
 
-
-
 for x in {0..255}; do
-echo gcloud alpha compute tpus create $MLP_TPU_NAME --range=10.255.$x.0/29 --version=$MLP_TPU_TF_VERSION --network=default --accelerator-type=v2-8 --zone $MLP_GCP_ZONE
-gcloud alpha compute tpus create $MLP_TPU_NAME --range=10.255.$x.0/29 --version=$MLP_TPU_TF_VERSION --network=default --accelerator-type=v2-8 --zone $MLP_GCP_ZONE 2>&1 | tee /tmp/create_tpu_log.txt
+echo gcloud alpha compute tpus create $MLP_TPU_NAME --range=10.255.$x.0/29 --version=$MLP_TPU_TF_VERSION --network=default --accelerator-type=$MLP_TPU_VERSION --zone $MLP_GCP_ZONE
+gcloud alpha compute tpus create $MLP_TPU_NAME --range=10.255.$x.0/29 --version=$MLP_TPU_TF_VERSION --network=default --accelerator-type=$MLP_TPU_VERSION --zone $MLP_GCP_ZONE 2>&1 | tee /tmp/create_tpu_log.txt
 
 
 if grep -q "Try a different range." /tmp/create_tpu_log.txt; then
