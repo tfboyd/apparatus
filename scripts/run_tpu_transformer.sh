@@ -29,6 +29,9 @@ DECODE_CMD="t2t-trainer \
 
 # --master=/bns/el/borg/el/bns/tpu-perf-team/shibow.transformer.transformer_mlperf_tpu.translate_ende_wmt32k_packed.new_dataset_lb512_wu16000_test.tpu_worker/0 \
 # --output_dir=/cns/el-d/home/tpu-perf-team/shibow/transformer/rs=6.3/transformer.transformer_mlperf_tpu.translate_ende_wmt32k_packed.new_dataset_lb512_wu16000_test \
+
+
+# FIXME: Reduced from --train_steps=250000 \
 CMD="t2t-trainer \
   --data_dir=$MLP_PATH_GCS_TRANSFORMER/data/transformer \
   --eval_steps=5 \
@@ -44,7 +47,7 @@ CMD="t2t-trainer \
   --rpclog=-1 \
   --schedule=train \
   --tpu_num_shards=8 \
-  --train_steps=250000 \
+  --train_steps=1000 \
   --use_tpu"
 
 
