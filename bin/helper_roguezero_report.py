@@ -6,7 +6,7 @@ import cpu as cpu_info
 import nvidia as nvidia
 import result_info
 import result_upload
-import tf_version as tf_version
+# import tf_version as tf_version
 
 
 def report_result(main_result,
@@ -78,16 +78,18 @@ def build_entry(
   framework = 'tensorflow'
 
   # Pulls CPU Info.
-  cpu_type, cpu_sockets, cpu_cores, _ = cpu_info.get_cpu_info()
+  #cpu_type, cpu_sockets, cpu_cores, _ = cpu_info.get_cpu_info()
+  cpu_type, cpu_sockets, cpu_cores, _ = 'unknown', 1, 1, None
 
   # Pulls NVIDIA GPU Info.
-  if not accel_type:
-    _, accel_type = nvidia.get_gpu_info()
-    if not accel_cnt:
-      accel_cnt = nvidia.get_gpu_count()
+  # if not accel_type:
+  #  _, accel_type = nvidia.get_gpu_info()
+  #  if not accel_cnt:
+  #    accel_cnt = nvidia.get_gpu_count()
 
   # Pulls tensorflow version info.version.
-  tf_ver, tf_git_version = tf_version.get_tf_full_version()
+  # tf_ver, tf_git_version = tf_version.get_tf_full_version()
+  tf_ver, tf_git_version = 'unknown', 'unknown'
 
   system_info = result_info.build_system_info(
       platform=platform,

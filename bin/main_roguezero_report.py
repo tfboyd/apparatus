@@ -7,6 +7,12 @@ import os
 import sys
 
 
+def get_env_var(varname):
+    if varname in os.environ:
+        return os.environ[varname]
+    return 'unknown'
+
+
 def build_upload(test_id, result, quality, quality_type, project=None,
                  extras=None):
   """Build and upload the results."""
@@ -16,7 +22,9 @@ def build_upload(test_id, result, quality, quality_type, project=None,
 
   main_result, results, test_info, system_info = rogue_report.build_entry(
       test_id,
-      result)
+      group_run_id=get_env_var('ROGUE_ZERO_GROUP_RUN_ID'),
+      platform_type=get_env_var('ROGUE_ZERO_PLATFORM_TYPE'),
+      total_time=result)
 
   if quality:
     rogue_report.add_quality_result(results, quality, quality_type=quality_type)
@@ -52,7 +60,7 @@ def create_report(output_dir, project):
     # TODO(victor) do something better
     result = 0
     print('ERROR: No result was found!!')
-  test_id = os.path.basename(output_dir)
+  test_id = get_env_var('ROGUE_ZERO_TEST_ID')
 
   extras = {}
   extras['epoch_count'] = epoch_count
@@ -60,6 +68,7 @@ def create_report(output_dir, project):
 
   build_upload(test_id, result, quality, quality_type, project=project,
                extras=extras)
+
 
 
 def main():
@@ -78,6 +87,7 @@ def main():
 
   create_report(sys.argv[1], project)
   os.system('rm -rf benchmark_harness')
+
 
 if __name__ == '__main__':
   main()
