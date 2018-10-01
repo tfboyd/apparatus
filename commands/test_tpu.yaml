@@ -9,5 +9,6 @@ local_repo_name: tpu
 tpu_config:
   True
 
+bootstrap_script: scripts/noop.sh
 main_script: scripts/test_tpu.sh
 setup_script: scripts/noop.sh
