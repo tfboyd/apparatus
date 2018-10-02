@@ -56,9 +56,10 @@ echo gcloud alpha compute tpus create $MLP_TPU_NAME --range=10.255.$x.0/29 --ver
 gcloud alpha compute tpus create $MLP_TPU_NAME --range=10.255.$x.0/29 --version=$MLP_TPU_TF_VERSION --network=default --accelerator-type=$MLP_TPU_VERSION --zone $MLP_GCP_ZONE 2>&1 | tee /tmp/create_tpu_log.txt
 
 
-if grep -q "Try a different range." /tmp/create_tpu_log.txt; then
+if grep -q "Trying a different range" /tmp/create_tpu_log.txt; then
   # In this case, the network address is taken adn we should re-try this action, incrementing x
   echo "Trying a different range.";
+elif grep -q "Invalid" /tmp/create_tpu_log.txt; then
 else
   break
 fi
