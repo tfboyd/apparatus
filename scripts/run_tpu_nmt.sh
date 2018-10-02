@@ -5,14 +5,26 @@ set -e
 
 cd staging/models/rough/nmt/
 
-sudo pip3 install tf-nightly
+sudo pip2 install tf-nightly
 
 # start timing 
 start=$(date +%s)
 start_fmt=$(date +%Y-%m-%d\ %r)
 
 
-ls
+echo Data Dir $MLP_PATH_GCS_NMT
+python nmt.py \
+  --activation_dtype=bfloat16 \
+  --batch_size=512 \
+  --nobinarylog \
+  --data_dir=$MLP_PATH_GCS_NMT \
+  --tpu_name=$MLP_TPU_NAME \
+  --use_tpu=true \
+  --mode=train \
+  --num_buckets=1 \
+  --out_dir=$MLP_GCS_MODEL_DIR \
+  --rpclog=-1 \
+  --run_name=nmt_512.adam.label_smoothing.no_bpe.train.512.5e-4_5000_ckpt
 
 
 # end timing
