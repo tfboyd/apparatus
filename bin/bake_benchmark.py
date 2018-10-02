@@ -95,6 +95,9 @@ def bake_docker(bench_def, bench_dir):
     if os.system('cp ./scripts/{} {}/docker_setup.sh'.format(bench_def['docker_vars']['DOCKER_SCRIPT'], bench_dir)) != 0:
         print('Failed to copy docker_setup.')
         return False
+    if os.system('cp ./{} {}/internal_download_data.sh'.format(bench_def['download_data_script'], bench_dir)) != 0:
+        print('Failed to copy data_download.')
+        return False
     if os.system('cp ./{} {}/bootstrap.sh'.format(bench_def['bootstrap_script'], bench_dir)) != 0:
         print('Failed to copy bootstrap.')
         return False
@@ -134,8 +137,17 @@ ENTRYPOINT ["/bin/bash"]
         f.write('''
 #!/bin/bash
 set -e
+
+MLP_HOST_DATA_DIR=/tmp/mlp_data
+MLP_HOST_OUTPUT_DIR=./output
+
+mkdir -p $MLP_HOST_DATA_DIR
+mkdir -p $MLP_HOST_OUTPUT_DIR
+
+bash internal_download_data.sh $MLP_HOST_DATA_DIR
+
 sudo nvidia-docker build . -t foo
-sudo nvidia-docker run -t foo:latest /root/run_helper.sh 2>&1 | tee output.txt
+sudo nvidia-docker run -v ${MLP_HOST_DATA_DIR}:/data -v ${MLP_HOST_OUTPUT_DIR}:/output -t foo:latest /root/run_helper.sh 2>&1 | tee output.txt
 ''')
     return True
 
