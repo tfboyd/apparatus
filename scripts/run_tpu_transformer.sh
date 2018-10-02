@@ -47,7 +47,8 @@ CMD="t2t-trainer \
   --rpclog=-1 \
   --schedule=train \
   --tpu_num_shards=8 \
-  --train_steps=1000 \
+  --train_steps=10000 \
+  --skip_host_call=true
   --use_tpu"
 
 
