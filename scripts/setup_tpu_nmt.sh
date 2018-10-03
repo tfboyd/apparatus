@@ -9,7 +9,7 @@ sudo apt-get install -y python3-tk unzip
 rm -rf /tmp/nmt_env
 virtualenv -p /usr/bin/python2.7 /tmp/nmt_env
 
-source /tmp/nmt/bin/activate
+source /tmp/nmt_env/bin/activate
 
 sudo pip install sacrebleu
 

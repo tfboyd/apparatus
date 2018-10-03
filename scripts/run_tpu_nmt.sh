@@ -5,7 +5,7 @@ set -e
 
 cd staging/models/rough/nmt/
 
-source /tmp/nmt/bin/activate
+source /tmp/nmt_env/bin/activate
 pip install tf-nightly
 
 # start timing 
