@@ -60,6 +60,8 @@ if grep -q "Trying a different range" /tmp/create_tpu_log.txt; then
   # In this case, the network address is taken adn we should re-try this action, incrementing x
   echo "Trying a different range.";
 elif grep -q "Invalid" /tmp/create_tpu_log.txt; then
+  # In this case, the network address is taken adn we should re-try this action, incrementing x
+  echo "Trying a different range.";
 else
   break
 fi
