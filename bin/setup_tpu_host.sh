@@ -2,6 +2,12 @@
 
 set -e 
 
+# Not sure why this happens... but it sometimes causes errors if not...
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+
+
 sudo apt-get update
 sudo apt-get install -y python3
 sudo apt-get install python3.4-venv
