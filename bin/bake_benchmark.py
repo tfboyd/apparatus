@@ -142,7 +142,7 @@ ENTRYPOINT ["/bin/bash"]
 set -e
 
 MLP_HOST_DATA_DIR=/tmp/mlp_data
-MLP_HOST_OUTPUT_DIR=./output
+MLP_HOST_OUTPUT_DIR=`pwd`/output
 
 mkdir -p $MLP_HOST_DATA_DIR
 mkdir -p $MLP_HOST_OUTPUT_DIR
