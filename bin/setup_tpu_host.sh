@@ -26,3 +26,4 @@ echo
 echo
 echo 'TPU Host Freeze pip3'
 pip3 freeze
+
