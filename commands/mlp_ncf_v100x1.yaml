@@ -4,5 +4,6 @@ docker_vars:
   DOCKER_SCRIPT:
       "setup_docker_garden_ncf.sh"
 
+download_data_script: scripts/download_data_gpu_ncf.sh
 bootstrap_script: scripts/bootstrap_gpu_ncf.sh
 main_script: scripts/run_garden_ncf_v100x1.sh
