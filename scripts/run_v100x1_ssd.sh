@@ -17,23 +17,37 @@ COCO_API_DIR="cocoapi"
 echo `pwd`
 
 
-cd ${TF_MODELS_DIR}/research
+pushd ${TF_MODELS_DIR}/research
 # Install protobuf compiler and use it to process proto files
 wget -O protobuf.zip https://github.com/google/protobuf/releases/download/v3.0.0/protoc-3.0.0-linux-x86_64.zip
 unzip protobuf.zip
 ./bin/protoc object_detection/protos/*.proto --python_out=.
+popd
 
-cd ${COCO_API_DIR}/PythonAPI
+pushd ${COCO_API_DIR}/PythonAPI
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 python get-pip.py --user
 pip install --user setuptools cython matplotlib
 make
+popd
 
 
 # end timing
 end=$(date +%s)
 end_fmt=$(date +%Y-%m-%d\ %r)
 echo "ENDING TIMING RUN AT $end_fmt"
+
+
+export PYTHONPATH=`pwd`/${TF_MODELS_DIR}:`pwd`/${TF_MODELS_DIR}/research:`pwd`/${COCO_API_DIR}/PythonAPI:$PYTHONPATH
+
+python $HOME/${TF_BENCHMARKS_DIR}/scripts/tf_cnn_benchmarks/tf_cnn_benchmarks.py \
+	--model=ssd300 --data_name=coco \
+	--num_gpus=1 --batch_size=128 --variable_update=parameter_server \
+	--optimizer=momentum --weight_decay=5e-4 --momentum=0.9 \
+	--backbone_model_path=/data/resnet34/model.ckpt-28152 --data_dir=/data/coco2017 \
+	--num_epochs=60 --train_dir=/output/gce_1gpu_batch128_`date +%m%d%H%M` \
+	--save_model_steps=5000 --max_ckpts_to_keep=250 --summary_verbosity=1 --save_summaries_steps=10 \
+	--use_fp16 --alsologtostderr
 
 
 # report result 
