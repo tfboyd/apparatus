@@ -20,7 +20,7 @@ sudo apt install --force-yes docker-ce=18.06.0~ce~3-0~ubuntu -y
 sudo apt-get install --force-yes -y nvidia-docker2
 sudo pip install --upgrade pip
 sudo pip3 install --upgrade pip
-apt-get install python3-venv
+sudo apt-get install python3-venv
 sudo pip install pyyaml
 sudo pip3 install google-api-python-client paramiko google-cloud google-cloud-bigquery
 echo "INSTALLING GOOGLE "
