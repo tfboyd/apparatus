@@ -5,8 +5,8 @@ set -e
 
 cd staging/models/rough/nmt/
 
-source /tmp/nmt_env/bin/activate
-pip install tf-nightly
+#source /tmp/nmt_env/bin/activate
+pip3 install tf-nightly
 
 # start timing 
 start=$(date +%s)
@@ -14,7 +14,7 @@ start_fmt=$(date +%Y-%m-%d\ %r)
 
 
 echo Data Dir $MLP_PATH_GCS_NMT
-python nmt.py \
+python3 nmt.py \
   --activation_dtype=bfloat16 \
   --batch_size=512 \
   --nobinarylog \
