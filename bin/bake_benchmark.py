@@ -24,7 +24,6 @@ def bake_tpu(bench_def, bench_dir, input_dir, output_dir):
     os.chdir(bench_dir)
     if os.system('git clone {} {}'.format(bench_def['github_repo'], bench_def['local_repo_name'], bench_def['github_repo'])) != 0:
         return False
-
     with open('main.sh', 'w') as f:
         f.write('''#!/bin/bash
 set -e
@@ -39,6 +38,8 @@ export MLP_TPU_NAME=${MLP_GCP_HOST}_TPU
 export MLP_PATH_GCS_IMAGENET=gs://garden-imgnet/imagenet/combined
 export MLP_PATH_GCS_TRANSFORMER=gs://mlp_resources/benchmark_data/transformer
 export MLP_PATH_GCS_SSD=gs://mlp_resources/benchmark_data/ssd_coco
+export MLP_PATH_GCS_NMT=gs://mlp_resources/benchmark_data/nmt/wmt16_de_en
+
 
 export MLP_GCS_RESNET_CHECKPOINT=gs://mlp_resources/benchmark_data/resnet34_ssd_checkpoint
 
