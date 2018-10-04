@@ -26,9 +26,10 @@ popd
 
 pushd ${COCO_API_DIR}/PythonAPI
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-python get-pip.py --user
-pip install --user setuptools cython matplotlib
-make
+python3 get-pip.py --user
+pip3 install --user setuptools cython matplotlib
+#make
+python3 setup.py build_ext --inplace
 popd
 
 
@@ -40,7 +41,7 @@ echo "ENDING TIMING RUN AT $end_fmt"
 
 export PYTHONPATH=`pwd`/${TF_MODELS_DIR}:`pwd`/${TF_MODELS_DIR}/research:`pwd`/${COCO_API_DIR}/PythonAPI:$PYTHONPATH
 
-python $HOME/${TF_BENCHMARKS_DIR}/scripts/tf_cnn_benchmarks/tf_cnn_benchmarks.py \
+python3 $HOME/${TF_BENCHMARKS_DIR}/scripts/tf_cnn_benchmarks/tf_cnn_benchmarks.py \
 	--model=ssd300 --data_name=coco \
 	--num_gpus=1 --batch_size=128 --variable_update=parameter_server \
 	--optimizer=momentum --weight_decay=5e-4 --momentum=0.9 \
