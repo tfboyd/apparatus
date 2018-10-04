@@ -14,7 +14,7 @@ start_fmt=$(date +%Y-%m-%d\ %r)
 
 
 echo Data Dir $MLP_PATH_GCS_NMT
-python3 nmt.py \
+CMD="python3 nmt.py \
   --activation_dtype=bfloat16 \
   --batch_size=512 \
   --nobinarylog \
@@ -25,7 +25,9 @@ python3 nmt.py \
   --num_buckets=1 \
   --out_dir=$MLP_GCS_MODEL_DIR \
   --rpclog=-1 \
-  --run_name=nmt_512.adam.label_smoothing.no_bpe.train.512.5e-4_5000_ckpt
+  --run_name=nmt_512.adam.label_smoothing.no_bpe.train.512.5e-4_5000_ckpt"
+
+$CMD
 
 
 # end timing
