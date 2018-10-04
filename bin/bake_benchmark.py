@@ -38,7 +38,8 @@ export MLP_TPU_NAME=${MLP_GCP_HOST}_TPU
 export MLP_PATH_GCS_IMAGENET=gs://garden-imgnet/imagenet/combined
 export MLP_PATH_GCS_TRANSFORMER=gs://mlp_resources/benchmark_data/transformer
 export MLP_PATH_GCS_SSD=gs://mlp_resources/benchmark_data/ssd_coco
-export MLP_PATH_GCS_NMT=gs://mlp_resources/benchmark_data/nmt/wmt16_de_en
+# Note: needs tailing /
+export MLP_PATH_GCS_NMT=gs://mlp_resources/benchmark_data/nmt/wmt16_de_en/
 
 
 export MLP_GCS_RESNET_CHECKPOINT=gs://mlp_resources/benchmark_data/resnet34_ssd_checkpoint
