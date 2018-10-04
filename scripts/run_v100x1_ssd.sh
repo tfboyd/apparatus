@@ -33,7 +33,7 @@ python3 setup.py build_ext --inplace
 popd
 
 
-pip install tf-nightly-gpu
+pip install --user tf-nightly-gpu
 
 
 export PYTHONPATH=`pwd`/${TF_MODELS_DIR}:`pwd`/${TF_MODELS_DIR}/research:`pwd`/${COCO_API_DIR}/PythonAPI:$PYTHONPATH
