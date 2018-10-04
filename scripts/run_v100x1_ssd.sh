@@ -27,11 +27,13 @@ popd
 pushd ${COCO_API_DIR}/PythonAPI
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 python3 get-pip.py --user
-pip3 install --user setuptools cython matplotlib
+pip install --user setuptools cython matplotlib
 #make
 python3 setup.py build_ext --inplace
 popd
 
+
+pip install tf-nightly-gpu
 
 
 export PYTHONPATH=`pwd`/${TF_MODELS_DIR}:`pwd`/${TF_MODELS_DIR}/research:`pwd`/${COCO_API_DIR}/PythonAPI:$PYTHONPATH
