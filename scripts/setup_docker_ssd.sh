@@ -6,6 +6,7 @@ apt-get update
 apt-get install wget
 apt-get install -y python3.6
 apt-get install -y python3-pip
+pip3 install --upgrade pip
 
 apt-get update && apt-get install -y --no-install-recommends ca-certificates
 apt-get install -y virtualenv htop
