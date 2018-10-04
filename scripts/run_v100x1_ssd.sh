@@ -33,11 +33,6 @@ python3 setup.py build_ext --inplace
 popd
 
 
-# end timing
-end=$(date +%s)
-end_fmt=$(date +%Y-%m-%d\ %r)
-echo "ENDING TIMING RUN AT $end_fmt"
-
 
 export PYTHONPATH=`pwd`/${TF_MODELS_DIR}:`pwd`/${TF_MODELS_DIR}/research:`pwd`/${COCO_API_DIR}/PythonAPI:$PYTHONPATH
 
@@ -50,6 +45,11 @@ python3 $HOME/${TF_BENCHMARKS_DIR}/scripts/tf_cnn_benchmarks/tf_cnn_benchmarks.p
 	--save_model_steps=5000 --max_ckpts_to_keep=250 --summary_verbosity=1 --save_summaries_steps=10 \
 	--use_fp16 --alsologtostderr
 
+
+# end timing
+end=$(date +%s)
+end_fmt=$(date +%Y-%m-%d\ %r)
+echo "ENDING TIMING RUN AT $end_fmt"
 
 # report result 
 result=$(( $end - $start )) 
