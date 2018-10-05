@@ -144,7 +144,7 @@ ENTRYPOINT ["/bin/bash"]
 set -e
 set -o pipefail
 
-MLP_HOST_DATA_DIR=/tmp/mlp_data
+#MLP_HOST_DATA_DIR=/tmp/mlp_data
 MLP_HOST_OUTPUT_DIR=`pwd`/output
 
 mkdir -p $MLP_HOST_DATA_DIR
