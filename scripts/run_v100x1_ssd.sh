@@ -10,10 +10,6 @@ COCO_API_REPO="https://github.com/cocodataset/cocoapi.git"
 COCO_API_DIR="cocoapi"
 
 # run benchmark
-
-# Quality of 0.2 is roughly a few hours of work
-# 0.749 is the final target quality
-
 echo `pwd`
 
 
@@ -39,6 +35,11 @@ pip install --user tf-nightly-gpu
 
 
 export PYTHONPATH=`pwd`/${TF_MODELS_DIR}:`pwd`/${TF_MODELS_DIR}/research:`pwd`/${COCO_API_DIR}/PythonAPI:$PYTHONPATH
+
+# start timing 
+start=$(date +%s)
+start_fmt=$(date +%Y-%m-%d\ %r)
+
 
 python3 $HOME/${TF_BENCHMARKS_DIR}/scripts/tf_cnn_benchmarks/tf_cnn_benchmarks.py \
 	--model=ssd300 --data_name=coco \
