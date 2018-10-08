@@ -1,6 +1,6 @@
 docker_vars:
   DOCKER_FROM:
-      "tensorflow/tensorflow:nightly-gpu-py3"
+      "nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04"
   DOCKER_SCRIPT:
       "setup_docker_resnet.sh"
 
