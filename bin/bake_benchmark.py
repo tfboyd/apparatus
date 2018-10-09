@@ -73,7 +73,7 @@ echo  gcloud alpha compute tpus delete $MLP_TPU_NAME --zone $MLP_GCP_ZONE
 yes | gcloud alpha compute tpus delete $MLP_TPU_NAME --zone $MLP_GCP_ZONE
 
 exit $BENCHMARK_EXIT_CODE
-'''.format(TPU_TF_VERSION=get_env('MLP_TPU_TF_VERSIN')
+'''
 
 
 def bake_tpu(bench_def, bench_dir, input_dir, output_dir):
