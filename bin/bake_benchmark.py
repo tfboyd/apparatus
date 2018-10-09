@@ -11,7 +11,7 @@ import subprocess
 import time
 
 
-DEFAULT_VARS[name] = {
+DEFAULT_VARS = {
         'TF_PIP_LINE': 'tf-nightly'
 }
 
