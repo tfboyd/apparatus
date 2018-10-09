@@ -12,7 +12,7 @@ import time
 
 
 DEFAULT_VARS = {
-        'TF_PIP_LINE': 'tf-nightly'
+        'MLP_TF_PIP_LINE': 'tf-nightly'
 }
 
 
