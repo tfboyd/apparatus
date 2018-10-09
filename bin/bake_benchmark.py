@@ -11,16 +11,25 @@ import subprocess
 import time
 
 
+DEFAULT_VARS[name] = {
+        'TF_PIP_LINE': 'tf-nightly'
+}
+
+
 def get_env(name):
+    if name not in os.environ:
+        return DEFAULT_VARS[name]
     return os.environ[name]
 
 TPU_MAIN = '''#!/bin/bash
 set -e
 
+export MLP_TPU_TF_VERSION=__TPU_TF_VERSION__
+export MLP_TF_PIP_LINE=__TF_PIP_LINE__
+
 SECONDS=`date +%s`
 export MLP_GCP_HOST=`hostname`
 export MLP_GCS_MODEL_DIR=gs://garden-model-dirs/tests/${MLP_GCP_HOST}-${SECONDS}
-export MLP_TPU_TF_VERSION=__TPU_TF_VERSION__
 export MLP_GCP_ZONE=`gcloud compute instances list $MLP_GCP_HOST --format 'csv[no-heading](zone)' 2>/dev/null`
 export MLP_TPU_NAME=${MLP_GCP_HOST}_TPU
 

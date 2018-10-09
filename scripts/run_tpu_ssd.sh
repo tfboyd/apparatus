@@ -28,7 +28,7 @@ git pull
 popd
 
 
-sudo pip3 install tf-nightly
+sudo pip3 install $MLP_TF_PIP_LINE
 
 # start timing 
 start=$(date +%s)
