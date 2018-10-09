@@ -11,27 +11,16 @@ import subprocess
 import time
 
 
-def bake_tpu(bench_def, bench_dir, input_dir, output_dir):
-    if os.system('mkdir -p {}'.format(bench_dir)) != 0:
-        return False
-    if os.system('cp ./{} {}/bootstrap.sh'.format(bench_def['bootstrap_script'], bench_dir)) != 0:
-        return False
-    if os.system('cp ./{} {}/setup.sh'.format(bench_def['setup_script'], bench_dir)) != 0:
-        return False
-    if os.system('cp ./{} {}/run_helper.sh'.format(bench_def['main_script'], bench_dir)) != 0:
-        return False
-    cwd = os.getcwd()
-    os.chdir(bench_dir)
-    if os.system('git clone {} {}'.format(bench_def['github_repo'], bench_def['local_repo_name'], bench_def['github_repo'])) != 0:
-        return False
-    with open('main.sh', 'w') as f:
-        f.write('''#!/bin/bash
+def get_env(name):
+    return os.environ[name]
+
+TPU_MAIN = '''#!/bin/bash
 set -e
 
 SECONDS=`date +%s`
 export MLP_GCP_HOST=`hostname`
 export MLP_GCS_MODEL_DIR=gs://garden-model-dirs/tests/${MLP_GCP_HOST}-${SECONDS}
-export MLP_TPU_TF_VERSION=nightly
+export MLP_TPU_TF_VERSION=__TPU_TF_VERSION__
 export MLP_GCP_ZONE=`gcloud compute instances list $MLP_GCP_HOST --format 'csv[no-heading](zone)' 2>/dev/null`
 export MLP_TPU_NAME=${MLP_GCP_HOST}_TPU
 
@@ -40,7 +29,6 @@ export MLP_PATH_GCS_TRANSFORMER=gs://mlp_resources/benchmark_data/transformer
 export MLP_PATH_GCS_SSD=gs://mlp_resources/benchmark_data/ssd_coco
 # Note: needs tailing /
 export MLP_PATH_GCS_NMT=gs://mlp_resources/benchmark_data/nmt/wmt16_de_en/
-
 
 export MLP_GCS_RESNET_CHECKPOINT=gs://mlp_resources/benchmark_data/resnet34_ssd_checkpoint
 
@@ -56,7 +44,6 @@ gcloud auth list
 for x in {0..255}; do
 echo gcloud alpha compute tpus create $MLP_TPU_NAME --range=10.255.$x.0/29 --version=$MLP_TPU_TF_VERSION --network=default --accelerator-type=$MLP_TPU_VERSION --zone $MLP_GCP_ZONE
 gcloud alpha compute tpus create $MLP_TPU_NAME --range=10.255.$x.0/29 --version=$MLP_TPU_TF_VERSION --network=default --accelerator-type=$MLP_TPU_VERSION --zone $MLP_GCP_ZONE 2>&1 | tee /tmp/create_tpu_log.txt
-
 
 if grep -q "Try a different range" /tmp/create_tpu_log.txt; then
   # In this case, the network address is taken adn we should re-try this action, incrementing x
@@ -86,7 +73,26 @@ echo  gcloud alpha compute tpus delete $MLP_TPU_NAME --zone $MLP_GCP_ZONE
 yes | gcloud alpha compute tpus delete $MLP_TPU_NAME --zone $MLP_GCP_ZONE
 
 exit $BENCHMARK_EXIT_CODE
-''')
+'''.format(TPU_TF_VERSION=get_env('MLP_TPU_TF_VERSIN')
+
+
+def bake_tpu(bench_def, bench_dir, input_dir, output_dir):
+    if os.system('mkdir -p {}'.format(bench_dir)) != 0:
+        return False
+    if os.system('cp ./{} {}/bootstrap.sh'.format(bench_def['bootstrap_script'], bench_dir)) != 0:
+        return False
+    if os.system('cp ./{} {}/setup.sh'.format(bench_def['setup_script'], bench_dir)) != 0:
+        return False
+    if os.system('cp ./{} {}/run_helper.sh'.format(bench_def['main_script'], bench_dir)) != 0:
+        return False
+    cwd = os.getcwd()
+    os.chdir(bench_dir)
+    if os.system('git clone {} {}'.format(bench_def['github_repo'], bench_def['local_repo_name'], bench_def['github_repo'])) != 0:
+        return False
+    
+    main_sh = TPU_MAIN.replace('__MLP_TPU_TF_VERSION__', get_env('MLP_TPU_TF_VERSION'))
+    with open('main.sh', 'w') as f:
+        f.write(main_sh)
     os.chdir(cwd)
     return True
 
