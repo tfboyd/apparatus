@@ -90,7 +90,7 @@ def bake_tpu(bench_def, bench_dir, input_dir, output_dir):
     if os.system('git clone {} {}'.format(bench_def['github_repo'], bench_def['local_repo_name'], bench_def['github_repo'])) != 0:
         return False
     
-    main_sh = TPU_MAIN.replace('__MLP_TPU_TF_VERSION__', get_env('MLP_TPU_TF_VERSION'))
+    main_sh = TPU_MAIN.replace('__TPU_TF_VERSION__', get_env('MLP_TPU_TF_VERSION'))
     with open('main.sh', 'w') as f:
         f.write(main_sh)
     os.chdir(cwd)
