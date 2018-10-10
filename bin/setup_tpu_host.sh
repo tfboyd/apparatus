@@ -14,7 +14,12 @@ sudo apt-get install python3.4-venv
 sudo pip install --upgrade pip
 sudo pip3 install --upgrade pip
 sudo pip install pyyaml
-sudo pip3 install tf-nightly
+
+# Note: this could be over-ridden later
+
+TF_TO_INSTALL=${MLP_TF_PIP_LINE:-tf-nightly}
+sudo pip3 install $TF_TO_INSTALL
+
 sudo pip3 install --upgrade oauth2client
 sudo pip3 install --upgrade google-api-python-client
 sudo pip3 install google-cloud
