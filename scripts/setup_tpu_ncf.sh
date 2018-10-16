@@ -6,6 +6,15 @@ set -e
 cp tpu/models/experimental/ncf/ncf_main.py .
 
 
-sudo pip3 install -r models/official/requirements.txt
+rm -rf /tmp/tpu_ncf_env
+virtualenv /tmp/tpu_ncf_env
+source /tmp/tpu_ncf_env/bin/activate
 
-sudo pip3 install tf-nightly
+pip install -r models/official/requirements.txt
+TF_TO_INSTALL=${MLP_TF_PIP_LINE:-tf-nightly}
+pip install $TF_TO_INSTALL
+
+pip install --upgrade oauth2client
+pip install --upgrade google-api-python-client
+pip install google-cloud
+
