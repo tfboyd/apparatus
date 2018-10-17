@@ -2,8 +2,6 @@
 
 Compliance Checking is done in the following phases. We abort if there is an
 error at any pharse.
-    (1) Parsing: do all log lines parse
-    (2) 
 '''
 
 from __future__ import print_function
@@ -61,14 +59,14 @@ def check_log(loglines):
     if not common_checks(loglines):
         return False
 
-    if not configured_checks(loglines, 'configs/v0.5.0_common.yaml'):
+    if not configured_checks(loglines, 'configs/v0.5.0_level1.yaml'):
         return False
 
-    benchmark = loglines[0].benchmark
-    benchmark_file = 'configs/v0.5.0_{}.yaml'.format(benchmark)
+    #benchmark = loglines[0].benchmark
+    #benchmark_file = 'configs/v0.5.0_{}.yaml'.format(benchmark)
 
-    if not configured_checks(loglines, benchmark_file):
-        return False
+    #if not configured_checks(loglines, benchmark_file):
+    #    return False
 
     return True
 
@@ -99,4 +97,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

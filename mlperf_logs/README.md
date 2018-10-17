@@ -1,5 +1,7 @@
 
+Depends:
+    pip install pyyaml
 
-Exmaple;
+To check a log file for level1 compliance:
 
-python mlp_compliance.py ncf.log
+python mlp_compliance.py FILENAMAE

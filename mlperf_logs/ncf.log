@@ -106,7 +106,7 @@ Epoch 0 evaluation
 
 :::MLPv0.5.0 ncf 1538680345 (./ncf.py:284) eval_target: {"epoch": 0, "value": 0.635}
 
-:::MLPv0.5.0 ncf 1538680345 (./ncf.py:284) eval_stop
+:::MLPv0.5.0 ncf 1538680345 (./ncf.py:284) eval_stop: 0
 Epoch 0: HR@10 = 0.5750, NDCG@10 = 0.3379, train_time = 624.15, val_time = 86.71
 
 :::MLPv0.5.0 ncf 1538680345 (./ncf.py:284) train_epoch: 1
