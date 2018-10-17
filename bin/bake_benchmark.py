@@ -30,6 +30,7 @@ export MLP_TF_PIP_LINE=__TF_PIP_LINE__
 export MLP_CIDR_SIZE=__CIDR_SIZE__
 export MLP_TPU_VERSION=__TPU_VERSION__
 
+
 SECONDS=`date +%s`
 export MLP_GCP_HOST=`hostname`
 export MLP_GCS_MODEL_DIR=gs://garden-model-dirs/tests/${MLP_GCP_HOST}-${SECONDS}
@@ -52,12 +53,19 @@ echo MLP_GCP_HOST $MLP_GCP_HOST
 echo MLP_GCP_ZONE $MLP_GCP_ZONE
 echo MLP_TPU_NAME $MLP_TPU_NAME
 
+
+TPU_PREEMPT=""
+if [[ $MLP_TPU_VERSION =~ "32"$ ]] do
+TPU_PREEMPT="--preemptible"
+done
+
 gcloud auth list
+
 
 BASE_IP=$((1 + RANDOM % 255))
 for x in {0..255}; do
-echo gcloud alpha compute tpus create $MLP_TPU_NAME --range=10.$BASE_IP.$x.0/$MLP_CIDR_SIZE --preemptible --version=$MLP_TPU_TF_VERSION --network=default --accelerator-type=$MLP_TPU_VERSION --zone $MLP_GCP_ZONE
-gcloud alpha compute tpus create $MLP_TPU_NAME --range=10.$BASE_IP.$x.0/$MLP_CIDR_SIZE --preemptible --version=$MLP_TPU_TF_VERSION --network=default --accelerator-type=$MLP_TPU_VERSION --zone $MLP_GCP_ZONE 2>&1 | tee /tmp/create_tpu_log.txt
+echo gcloud alpha compute tpus create $MLP_TPU_NAME --range=10.$BASE_IP.$x.0/$MLP_CIDR_SIZE $TPU_PREEMPT --version=$MLP_TPU_TF_VERSION --network=default --accelerator-type=$MLP_TPU_VERSION --zone $MLP_GCP_ZONE
+gcloud alpha compute tpus create $MLP_TPU_NAME --range=10.$BASE_IP.$x.0/$MLP_CIDR_SIZE $TPU_PREEMPT --version=$MLP_TPU_TF_VERSION --network=default --accelerator-type=$MLP_TPU_VERSION --zone $MLP_GCP_ZONE 2>&1 | tee /tmp/create_tpu_log.txt
 
 STATUS=$?
 
@@ -79,8 +87,8 @@ fi
 done
 
 # Give the TPU a minute to get 'HEALTHY'
-echo "Sleeping for 2 mins to let TPU get healthy"
-sleep 120
+echo "Sleeping for 10 mins to let TPU get healthy"
+sleep 600
 
 set +e
 
