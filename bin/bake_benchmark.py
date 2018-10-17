@@ -30,7 +30,6 @@ export MLP_TF_PIP_LINE=__TF_PIP_LINE__
 export MLP_CIDR_SIZE=__CIDR_SIZE__
 export MLP_TPU_VERSION=__TPU_VERSION__
 
-
 SECONDS=`date +%s`
 DAY_OF_MONTH=`date -d "$D" '+%d'`
 export MLP_GCP_HOST=`hostname`
@@ -53,7 +52,6 @@ echo MLP_TPU_TF_VERSION $MLP_TPU_TF_VERSION
 echo MLP_GCP_HOST $MLP_GCP_HOST
 echo MLP_GCP_ZONE $MLP_GCP_ZONE
 echo MLP_TPU_NAME $MLP_TPU_NAME
-
 
 TPU_PREEMPT=""
 if [[ $MLP_TPU_VERSION =~ "32"$ ]]; then

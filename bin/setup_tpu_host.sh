@@ -1,5 +1,10 @@
 #!/bin/bash
 
+echo Updating gsutil
+gsutil update
+gcloud components update
+echo Done Updating gsutil
+
 set -e 
 
 # Not sure why this happens... but it sometimes causes errors if not...
