@@ -55,9 +55,9 @@ echo MLP_TPU_NAME $MLP_TPU_NAME
 
 
 TPU_PREEMPT=""
-if [[ $MLP_TPU_VERSION =~ "32"$ ]] do
+if [[ $MLP_TPU_VERSION =~ "32"$ ]]; then
 TPU_PREEMPT="--preemptible"
-done
+fi
 
 gcloud auth list
 
