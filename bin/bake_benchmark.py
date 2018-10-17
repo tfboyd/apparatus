@@ -12,7 +12,8 @@ import time
 
 
 DEFAULT_VARS = {
-        'MLP_TF_PIP_LINE': 'tf-nightly'
+        'MLP_TF_PIP_LINE': 'tf-nightly',
+        'MLP_CIDR_SIZE': '29'
 }
 
 
@@ -26,6 +27,8 @@ set -e
 
 export MLP_TPU_TF_VERSION=__TPU_TF_VERSION__
 export MLP_TF_PIP_LINE=__TF_PIP_LINE__
+export MLP_CIDR_SIZE=__CIDR_SIZE__
+export MLP_TPU_VERSION=__TPU_VERSION__
 
 SECONDS=`date +%s`
 export MLP_GCP_HOST=`hostname`
@@ -51,9 +54,12 @@ echo MLP_TPU_NAME $MLP_TPU_NAME
 
 gcloud auth list
 
+BASE_IP=$((1 + RANDOM % 255))
 for x in {0..255}; do
-echo gcloud alpha compute tpus create $MLP_TPU_NAME --range=10.255.$x.0/29 --version=$MLP_TPU_TF_VERSION --network=default --accelerator-type=$MLP_TPU_VERSION --zone $MLP_GCP_ZONE
-gcloud alpha compute tpus create $MLP_TPU_NAME --range=10.255.$x.0/29 --version=$MLP_TPU_TF_VERSION --network=default --accelerator-type=$MLP_TPU_VERSION --zone $MLP_GCP_ZONE 2>&1 | tee /tmp/create_tpu_log.txt
+echo gcloud alpha compute tpus create $MLP_TPU_NAME --range=10.$BASE_IP.$x.0/$MLP_CIDR_SIZE --preemptible --version=$MLP_TPU_TF_VERSION --network=default --accelerator-type=$MLP_TPU_VERSION --zone $MLP_GCP_ZONE
+gcloud alpha compute tpus create $MLP_TPU_NAME --range=10.$BASE_IP.$x.0/$MLP_CIDR_SIZE --preemptible --version=$MLP_TPU_TF_VERSION --network=default --accelerator-type=$MLP_TPU_VERSION --zone $MLP_GCP_ZONE 2>&1 | tee /tmp/create_tpu_log.txt
+
+STATUS=$?
 
 if grep -q "Try a different range" /tmp/create_tpu_log.txt; then
   # In this case, the network address is taken adn we should re-try this action, incrementing x
@@ -63,13 +69,18 @@ elif grep -q "Invalid" /tmp/create_tpu_log.txt; then
   echo "Trying a different range...";
 else
   break
+  if [ $? -ne 0 ]
+  then
+     echo "Failed to start TPU"
+     exit 1
+ fi
 fi
 
 done
 
 # Give the TPU a minute to get 'HEALTHY'
-echo "Sleeping for 5 mins to let TPU get healthy"
-sleep 300
+echo "Sleeping for 2 mins to let TPU get healthy"
+sleep 120
 
 set +e
 
@@ -102,6 +113,9 @@ def bake_tpu(bench_def, bench_dir, input_dir, output_dir):
     
     main_sh = TPU_MAIN.replace('__TPU_TF_VERSION__', get_env('MLP_TPU_TF_VERSION'))
     main_sh = main_sh.replace('__TF_PIP_LINE__', get_env('MLP_TF_PIP_LINE'))
+    main_sh = main_sh.replace('__CIDR_SIZE__', get_env('MLP_CIDR_SIZE'))
+    main_sh = main_sh.replace('__TPU_VERSION__', get_env('MLP_TPU_VERSION'))
+
     with open('main.sh', 'w') as f:
         f.write(main_sh)
     os.chdir(cwd)
