@@ -32,10 +32,11 @@ export MLP_TPU_VERSION=__TPU_VERSION__
 
 
 SECONDS=`date +%s`
+DAY_OF_MONTH=`date -d "$D" '+%d'`
 export MLP_GCP_HOST=`hostname`
 export MLP_GCS_MODEL_DIR=gs://garden-model-dirs/tests/${MLP_GCP_HOST}-${SECONDS}
 export MLP_GCP_ZONE=`gcloud compute instances list $MLP_GCP_HOST --format 'csv[no-heading](zone)' 2>/dev/null`
-export MLP_TPU_NAME=${MLP_GCP_HOST}_TPU
+export MLP_TPU_NAME=${MLP_GCP_HOST}_TPU_${DAY_OF_MONTH}
 
 export MLP_PATH_GCS_IMAGENET=gs://garden-imgnet/imagenet/combined
 export MLP_PATH_GCS_TRANSFORMER=gs://mlp_resources/benchmark_data/transformer
