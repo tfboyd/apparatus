@@ -22,6 +22,14 @@ pip3 install sacrebleu
 echo 'Installing TF'
 pip3 install --user tf-nightly-gpu==1.12.0.dev20181004
 
+echo "Cloning moses for data processing"
+pushd staging/models/rough/nmt_gpu
+git clone https://github.com/moses-smt/mosesdecoder.git "mosesdecoder"
+pushd mosesdecoder
+git reset --hard 8c5eaa1a122236bbf927bde4ec610906fea599e6
+popd
+popd
+
 #pip3 install --upgrade pip==9.0.3
 #pip3 install pyyaml
 #pip3 install --upgrade setuptools
