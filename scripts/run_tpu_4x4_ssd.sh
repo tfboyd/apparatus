@@ -33,6 +33,7 @@ start_fmt=$(date +%Y-%m-%d\ %r)
 #--hparams=use_bfloat16=true,lr_warmup_steps=18750 \
 export PYTHONPATH="$(pwd)/cloud_tpu/models/official/retinanet:${PYTHONPATH}"
 python3 ssd_main.py  --use_tpu=True \
+		     --nobinarylog \
                      --tpu_name=${MLP_TPU_NAME} \
                      --device=tpu \
                      --train_batch_size=1024 \
@@ -40,7 +41,7 @@ python3 ssd_main.py  --use_tpu=True \
                      --resnet_checkpoint=${MLP_GCS_RESNET_CHECKPOINT} \
                      --model_dir=${MLP_GCS_MODEL_DIR} \
                      --num_epochs=61 \
-		     --hparams=use_bfloat16=true \
+		     --hparams=use_bfloat16=true,lr_warmup_epoch=4.5,weight_decay=8e-4 \
 		     --num_shards=32 \
 		     --iterations_per_loop=1000 \
 		     --mode=train \
