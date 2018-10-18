@@ -71,7 +71,7 @@ STATUS=$?
 if grep -q "Try a different range" /tmp/create_tpu_log.txt; then
   # In this case, the network address is taken adn we should re-try this action, incrementing x
   echo "Trying a different range...";
-if grep -q "CIDR" /tmp/create_tpu_log.txt; then
+elif grep -q "CIDR" /tmp/create_tpu_log.txt; then
   # In this case, the network address is taken adn we should re-try this action, incrementing x
   echo "Trying a different range (CIDR error)...";
 elif grep -q "Invalid" /tmp/create_tpu_log.txt; then
