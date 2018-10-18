@@ -1,0 +1,13 @@
+
+github_repo:
+  https://github.com/tensorflow/tensor2tensor
+
+local_repo_name: tpu
+
+tpu_config:
+  True
+
+bootstrap_script: scripts/bootstrap_tpu_transformer.sh
+setup_script: scripts/setup_tpu_transformer.sh
+main_script: scripts/run_tpu_4x4_transformer.sh
+
