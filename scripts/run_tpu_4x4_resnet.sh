@@ -15,7 +15,7 @@ echo "STARTING TIMING RUN AT $start_fmt"
 #python3 tpu/models/official/resnet/resnet_main.py --tpu=$MLP_TPU_NAME --data_dir=$MLP_PATH_GCS_IMAGENET --model_dir=${MLP_GCS_MODEL_DIR} --train_batch_size=1024 --iterations_per_loop=10000 --mode=train --eval_batch_size=1000 --tpu_zone=us-central1-b --num_cores=8 --train_steps=112603
 
 python3 tpu/models/official/resnet/resnet_main.py --nobinarylog \
-	--data_dir=$MLP_PATH_GCS_IMAGENET
+	--data_dir=$MLP_PATH_GCS_IMAGENET \
 	--eval_batch_size=256 \
 	--iterations_per_loop=1252 \
 	--mode=train \
@@ -25,7 +25,7 @@ python3 tpu/models/official/resnet/resnet_main.py --nobinarylog \
 	--rpclog=-1 \
 	--skip_host_call \
 	--steps_per_eval=100 \
-	--tpu=$MLP_TPU_NAME
+	--tpu=$MLP_TPU_NAME \
 	--train_batch_size=4096 \
 	--train_steps=28152 \
 	--use_async_checkpointing

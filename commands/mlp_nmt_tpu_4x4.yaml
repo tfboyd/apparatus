@@ -1,0 +1,14 @@
+
+github_repo:
+  https://github.com/tensorflow/tensor2tensor
+
+local_repo_name: t2t
+
+tpu_config:
+  True
+
+bootstrap_script: scripts/bootstrap_tpu_nmt.sh
+setup_script: scripts/setup_tpu_nmt.sh
+main_script: scripts/run_tpu_4x4_nmt.sh
+
+
