@@ -28,6 +28,7 @@ sudo pip3 install $TF_TO_INSTALL
 sudo pip3 install --upgrade oauth2client
 sudo pip3 install --upgrade google-api-python-client
 sudo pip3 install google-cloud
+sudo pip3 install mlperf_compliance
 
 echo 'TPU Host Freeze pip'
 pip freeze
