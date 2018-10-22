@@ -13,7 +13,8 @@ import time
 
 DEFAULT_VARS = {
         'MLP_TF_PIP_LINE': 'tf-nightly',
-        'MLP_CIDR_SIZE': '29'
+        'MLP_CIDR_SIZE': '29',
+        'TPU_SIDECAR': 'N'
 }
 
 
@@ -29,6 +30,7 @@ export MLP_TPU_TF_VERSION=__TPU_TF_VERSION__
 export MLP_TF_PIP_LINE=__TF_PIP_LINE__
 export MLP_CIDR_SIZE=__CIDR_SIZE__
 export MLP_TPU_VERSION=__TPU_VERSION__
+export MLP_TPU_SIDECAR=__TPU_SIDECAR__
 
 SECONDS=`date +%s`
 DAY_OF_MONTH=`date -d "$D" '+%d'`
@@ -36,6 +38,8 @@ export MLP_GCP_HOST=`hostname`
 export MLP_GCS_MODEL_DIR=gs://garden-model-dirs/tests/${MLP_GCP_HOST}-${SECONDS}
 export MLP_GCP_ZONE=`gcloud compute instances list $MLP_GCP_HOST --format 'csv[no-heading](zone)' 2>/dev/null`
 export MLP_TPU_NAME=${MLP_GCP_HOST}_TPU_${DAY_OF_MONTH}
+
+export MLP_TPU_SIDECAR_NAME=${MLP_GCP_HOST}_TPU_SIDECAR_${DAY_OF_MONTH}
 
 export MLP_PATH_GCS_IMAGENET=gs://garden-imgnet/imagenet/combined
 export MLP_PATH_GCS_TRANSFORMER=gs://mlp_resources/benchmark_data/transformer
@@ -55,7 +59,7 @@ echo MLP_TPU_NAME $MLP_TPU_NAME
 
 TPU_PREEMPT=""
 if [[ $MLP_TPU_VERSION =~ "32"$ ]]; then
-TPU_PREEMPT="--preemptible"
+  TPU_PREEMPT="--preemptible"
 fi
 
 gcloud auth list
@@ -85,12 +89,41 @@ else
      exit 1
  fi
 fi
-
 done
 
+# Start the TPU Sidecar
+if [[ $MLP_TPU_SIDECAR =~ "Y"$ ]]; then
+    BASE_IP=$((1 + RANDOM % 255))
+    for x in {0..255}; do
+    echo gcloud alpha compute tpus create $MLP_TPU_SIDECAR_NAME --range=10.$BASE_IP.$x.0/$MLP_CIDR_SIZE $TPU_PREEMPT --version=$MLP_TPU_TF_VERSION --network=default --accelerator-type=$MLP_TPU_VERSION --zone $MLP_GCP_ZONE
+    gcloud alpha compute tpus create $MLP_TPU_SIDECAR_NAME --range=10.$BASE_IP.$x.0/$MLP_CIDR_SIZE $TPU_PREEMPT --version=$MLP_TPU_TF_VERSION --network=default --accelerator-type=$MLP_TPU_VERSION --zone $MLP_GCP_ZONE 2>&1 | tee /tmp/create_tpu_log.txt
+
+    STATUS=$?
+
+    if grep -q "Try a different range" /tmp/create_tpu_log.txt; then
+      # In this case, the network address is taken adn we should re-try this action, incrementing x
+      echo "Trying a different range...";
+    elif grep -q "CIDR" /tmp/create_tpu_log.txt; then
+      # In this case, the network address is taken adn we should re-try this action, incrementing x
+      echo "Trying a different range (CIDR error)...";
+    elif grep -q "Invalid" /tmp/create_tpu_log.txt; then
+      # In this case, the network address is taken adn we should re-try this action, incrementing x
+      echo "Trying a different range...";
+    else
+      break
+      if [ $? -ne 0 ]
+      then
+         echo "Failed to start TPU"
+         exit 1
+     fi
+    fi
+    done
+fi
+
+
 # Give the TPU a minute to get 'HEALTHY'
-echo "Sleeping for 10 mins to let TPU get healthy"
-sleep 600
+echo "Sleeping for 5 mins to let TPU get healthy"
+sleep 300
 
 set +e
 
@@ -102,6 +135,12 @@ set -e
 
 echo  gcloud alpha compute tpus delete $MLP_TPU_NAME --zone $MLP_GCP_ZONE
 yes | gcloud alpha compute tpus delete $MLP_TPU_NAME --zone $MLP_GCP_ZONE
+
+# Stop the TPU Sidecar
+if [[ $MLP_TPU_SIDECAR =~ "Y"$ ]]; then
+    echo  gcloud alpha compute tpus delete $MLP_TPU_SIDECAR_NAME --zone $MLP_GCP_ZONE
+    yes | gcloud alpha compute tpus delete $MLP_TPU_SIDECAR_NAME --zone $MLP_GCP_ZONE
+fi
 
 exit $BENCHMARK_EXIT_CODE
 '''
@@ -125,6 +164,7 @@ def bake_tpu(bench_def, bench_dir, input_dir, output_dir):
     main_sh = main_sh.replace('__TF_PIP_LINE__', get_env('MLP_TF_PIP_LINE'))
     main_sh = main_sh.replace('__CIDR_SIZE__', get_env('MLP_CIDR_SIZE'))
     main_sh = main_sh.replace('__TPU_VERSION__', get_env('MLP_TPU_VERSION'))
+    main_sh = main_sh.replace('__TPU_SIDECAR__', get_env('MLP_TPU_SIDECAR'))
 
     with open('main.sh', 'w') as f:
         f.write(main_sh)
