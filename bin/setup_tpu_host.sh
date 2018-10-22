@@ -15,8 +15,8 @@ curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
 
 sudo apt-get update
 sudo apt-get install -y python3.5
+sudo apt-get install -y python3-pip
 sudo apt-get install -y python3.5-venv
-sudo pip install --upgrade -y pip
 sudo pip3 install --upgrade -y pip
 sudo pip3 install -y pyyaml
 
