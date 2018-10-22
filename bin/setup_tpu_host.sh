@@ -17,8 +17,8 @@ sudo apt-get update
 sudo apt-get install -y python3.5
 sudo apt-get install -y python3-pip
 sudo apt-get install -y python3.5-venv
-sudo pip3 install --upgrade -y pip
-sudo pip3 install -y pyyaml
+sudo pip3 install --upgrade pip
+sudo pip3 install pyyaml
 
 # Note: this could be over-ridden later
 
