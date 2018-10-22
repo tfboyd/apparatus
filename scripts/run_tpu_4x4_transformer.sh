@@ -36,7 +36,7 @@ CMD="t2t-trainer \
   --iterations_per_loop=1000 \
   --keep_checkpoint_max=10 \
   --local_eval_frequency=1000 \
-  --cloud_tpu_name=$MLP_TPU_NAME
+  --cloud_tpu_name=$MLP_TPU_NAME \
   --model=transformer \
   --output_dir=$MLP_GCS_MODEL_DIR/train \
   --problem=translate_ende_wmt32k_packed \
@@ -46,6 +46,22 @@ CMD="t2t-trainer \
   --skip_host_call=true \
   --use_tpu"
 
+t2t-trainer \
+  --data_dir=$MLP_PATH_GCS_TRANSFORMER/data/transformer \
+	--eval_steps=5 \
+	--hparams=learning_rate_warmup_steps=4000 \
+	--hparams_set=transformer_mlperf_tpu \
+	--iterations_per_loop=1000 \
+	--keep_checkpoint_max=10 \
+	--local_eval_frequency=1000 \
+	--model=transformer \
+	--output_dir=$MLP_GCS_MODEL_DIR/train \
+	--problem=translate_ende_wmt32k_packed \
+	--schedule=continuous_eval \
+	--tpu_num_shards=8 \
+	--train_steps=10000 \
+	--cloud_tpu_name=$MLP_TPU_NAME \
+	--use_tpu &
 
 
 echo $CMD
