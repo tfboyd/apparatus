@@ -18,7 +18,6 @@ CMD="python3 nmt.py \
   --learning_rate=0.002 \
   --batch_size=4096 \
   --max_train_epochs=3 \
-  --nobinarylog \
   --data_dir=$MLP_PATH_GCS_NMT \
   --tpu_name=$MLP_TPU_NAME \
   --use_tpu=true \

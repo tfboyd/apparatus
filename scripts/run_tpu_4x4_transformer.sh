@@ -30,7 +30,6 @@ DECODE_CMD="t2t-trainer \
 
 
 CMD="t2t-trainer \
-  --nobinarylog \
   --data_dir=$MLP_PATH_GCS_TRANSFORMER/data/transformer \
   --eval_steps=5 \
   --hparams=learning_rate_warmup_steps=4000 \

@@ -17,7 +17,6 @@ echo Data Dir $MLP_PATH_GCS_NMT
 CMD="python3 nmt.py \
   --activation_dtype=bfloat16 \
   --batch_size=512 \
-  --nobinarylog \
   --data_dir=$MLP_PATH_GCS_NMT \
   --tpu_name=$MLP_TPU_NAME \
   --use_tpu=true \
