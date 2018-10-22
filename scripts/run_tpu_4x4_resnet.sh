@@ -22,7 +22,6 @@ python3 tpu/models/official/resnet/resnet_main.py \
 	--model_dir=${MLP_GCS_MODEL_DIR} \
 	--num_cores=32 \
 	--resnet_depth=50 \
-	--rpclog=-1 \
 	--skip_host_call \
 	--steps_per_eval=100 \
 	--tpu=$MLP_TPU_NAME \

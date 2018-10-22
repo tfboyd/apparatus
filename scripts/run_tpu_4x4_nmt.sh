@@ -24,7 +24,6 @@ CMD="python3 nmt.py \
   --mode=train \
   --num_buckets=1 \
   --out_dir=$MLP_GCS_MODEL_DIR \
-  --rpclog=-1 \
   --run_name=nmt_512.adam.label_smoothing.no_bpe.train.512.5e-4_5000_ckpt \
   --warmup_steps=200"
 

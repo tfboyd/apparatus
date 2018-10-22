@@ -44,7 +44,6 @@ python3 ssd_main.py  --use_tpu=True \
 		     --num_shards=32 \
 		     --iterations_per_loop=1000 \
 		     --mode=train \
-		     --rpclog=-1
 
 
 
