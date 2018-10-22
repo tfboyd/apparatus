@@ -66,6 +66,13 @@ def create_report(output_dir, project):
   extras['epoch_count'] = epoch_count
   extras['epoch_lines'] = epoch_lines
 
+  if 'MLP_COMPLIANCE_LEVEL' in os.environ:
+      extras['compliance_level'] = os.environ['MLP_COMPLIANCE_LEVEL']
+      print('ROGUE_ZERO: Found Compliance Level = ', extras['compliance_level'])
+  else:
+      extras['compliance_level'] = '-1'
+
+
   build_upload(test_id, result, quality, quality_type, project=project,
                extras=extras)
 
