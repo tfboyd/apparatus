@@ -25,10 +25,10 @@ sudo pip3 install -y pyyaml
 TF_TO_INSTALL=${MLP_TF_PIP_LINE:-tf-nightly}
 sudo pip3 install $TF_TO_INSTALL
 
-sudo pip3 install --upgrade -y oauth2client
-sudo pip3 install --upgrade -y google-api-python-client
-sudo pip3 install -y google-cloud
-sudo pip3 install -y mlperf_compliance==0.0.6
+sudo pip3 install --upgrade oauth2client
+sudo pip3 install --upgrade google-api-python-client
+sudo pip3 install google-cloud
+sudo pip3 install mlperf_compliance==0.0.6
 
 echo 'TPU Host Freeze pip'
 pip freeze
