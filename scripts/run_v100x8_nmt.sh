@@ -19,7 +19,7 @@ python3 nmt.py \
   --batch_size=${BATCH_SIZE} \
   --num_gpus=${NUM_GPUS} \
   --learning_rate=0.002 \
-  --use_fp32_batch_matmul=true \
+  --use_fp32_batch_matmul=false \
   --detokenizer_file=mosesdecoder/scripts/tokenizer/detokenizer.perl
 
 
