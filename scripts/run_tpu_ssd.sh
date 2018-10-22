@@ -34,30 +34,23 @@ sudo pip3 install $MLP_TF_PIP_LINE
 start=$(date +%s)
 start_fmt=$(date +%Y-%m-%d\ %r)
 
-
 export PYTHONPATH="$(pwd)/cloud_tpu/models/official/retinanet:${PYTHONPATH}"
 python3 ssd_main.py  --use_tpu=True \
                      --tpu_name=${MLP_TPU_NAME} \
                      --device=tpu \
+                     --num_shards=8 \
+                     --mode=train_and_eval \
+                     --eval_after_training \
                      --train_batch_size=256 \
                      --training_file_pattern="${MLP_PATH_GCS_SSD}/train-*" \
-                     --resnet_checkpoint=${MLP_GCS_RESNET_CHECKPOINT} \
-                     --model_dir=${MLP_GCS_MODEL_DIR} \
-                     --num_epochs=60
-
-
-sleep 300
-
-python3 ssd_main.py  --use_tpu=True \
-                     --tpu_name=${MLP_TPU_NAME} \
-                     --device=tpu \
-                     --mode=eval \
-                     --eval_batch_size=256 \
+                     --eval_batch_size=8 \
                      --validation_file_pattern="${MLP_PATH_GCS_SSD}/val-*" \
                      --val_json_file="${MLP_PATH_GCS_SSD}/raw-data/annotations/instances_val2017.json" \
+                     --resnet_checkpoint=${MLP_GCS_RESNET_CHECKPOINT} \
                      --model_dir=${MLP_GCS_MODEL_DIR} \
-                     --eval_timeout=0
-
+                     --num_epochs=64 \
+                     --hparams=use_bfloat16=true \
+                     --iterations_per_loop=1000
 
 # end timing
 end=$(date +%s)
