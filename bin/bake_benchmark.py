@@ -65,8 +65,8 @@ fi
 gcloud auth list
 
 
-BASE_IP=$((1 + RANDOM % 255))
 for x in {0..255}; do
+BASE_IP=$((1 + RANDOM % 255))
 echo gcloud alpha compute tpus create $MLP_TPU_NAME --range=10.$BASE_IP.$x.0/$MLP_CIDR_SIZE $TPU_PREEMPT --version=$MLP_TPU_TF_VERSION --network=default --accelerator-type=$MLP_TPU_VERSION --zone $MLP_GCP_ZONE
 gcloud alpha compute tpus create $MLP_TPU_NAME --range=10.$BASE_IP.$x.0/$MLP_CIDR_SIZE $TPU_PREEMPT --version=$MLP_TPU_TF_VERSION --network=default --accelerator-type=$MLP_TPU_VERSION --zone $MLP_GCP_ZONE 2>&1 | tee /tmp/create_tpu_log.txt
 
