@@ -14,7 +14,7 @@ import time
 DEFAULT_VARS = {
         'MLP_TF_PIP_LINE': 'tf-nightly',
         'MLP_CIDR_SIZE': '29',
-        'TPU_SIDECAR': 'N'
+        'MLP_TPU_SIDECAR': 'N'
 }
 
 
