@@ -39,7 +39,7 @@ def build_upload(test_id, result, quality, quality_type, project=None,
       extras=extras)
 
 
-def create_report(output_dir, project):
+def create_report(output_dir, project, compliance_level, delta_t, quality):
   """Create report for the test."""
   result = None
   quality = None
@@ -63,19 +63,32 @@ def create_report(output_dir, project):
   test_id = get_env_var('ROGUE_ZERO_TEST_ID')
 
   extras = {}
-  extras['epoch_count'] = epoch_count
-  extras['epoch_lines'] = epoch_lines
 
-  if 'MLP_COMPLIANCE_LEVEL' in os.environ:
-      extras['compliance_level'] = os.environ['MLP_COMPLIANCE_LEVEL']
-      print('ROGUE_ZERO: Found Compliance Level = ', extras['compliance_level'])
-  else:
-      extras['compliance_level'] = '-1'
+  extras['compliance_level'] = compliance_level
+  if compliance_level != '0':
+      result = delta_t
 
+  print('Reporting: ', extras)
+  print('Reporting result: ', result)
 
   build_upload(test_id, result, quality, quality_type, project=project,
                extras=extras)
 
+
+
+def get_compliance(filename):
+    import mlp_compliance
+
+    print('Running Compliance Check')
+    print('#' * 80)
+    status, dt, qual = mlp_compliance.l1_check_file(filename)
+    print('#' * 80)
+
+    if status:
+        level = '1'
+    else:
+        level = '0'
+    return level, dt, qual
 
 
 def main():
@@ -87,12 +100,19 @@ def main():
   # Module to pull system information
   sys.path.append('./benchmark_harness/oss_bench/tools/')
 
+  # Compliance Checker
+  os.system('rm -rf ./mlp_compliance')
+  os.system('git clone https://github.com/bitfort/mlp_compliance.git')
+  sys.path.append('./mlp_compliance/')
+
   # Create and upload report.
   project = 'google.com:tensorflow-performance'
   if len(sys.argv) >= 3:
     project = sys.argv[2]
 
-  create_report(sys.argv[1], project)
+  compliance_level, dt, qual = get_compliance(sys.argv[1] + '/output.txt')
+
+  create_report(sys.argv[1], project, compliance_level, dt, qual)
   os.system('rm -rf benchmark_harness')
 
 
