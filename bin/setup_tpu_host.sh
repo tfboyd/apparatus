@@ -14,21 +14,21 @@ curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
 
 
 sudo apt-get update
-sudo apt-get install -y python3
-sudo apt-get install python3.4-venv
-sudo pip install --upgrade pip
-sudo pip3 install --upgrade pip
-sudo pip install pyyaml
+sudo apt-get install -y python3.5
+sudo apt-get install -y python3.5-venv
+sudo pip install --upgrade -y pip
+sudo pip3 install --upgrade -y pip
+sudo pip3 install -y pyyaml
 
 # Note: this could be over-ridden later
 
 TF_TO_INSTALL=${MLP_TF_PIP_LINE:-tf-nightly}
 sudo pip3 install $TF_TO_INSTALL
 
-sudo pip3 install --upgrade oauth2client
-sudo pip3 install --upgrade google-api-python-client
-sudo pip3 install google-cloud
-sudo pip3 install mlperf_compliance
+sudo pip3 install --upgrade -y oauth2client
+sudo pip3 install --upgrade -y google-api-python-client
+sudo pip3 install -y google-cloud
+sudo pip3 install -y mlperf_compliance==0.0.6
 
 echo 'TPU Host Freeze pip'
 pip freeze
