@@ -30,6 +30,20 @@ start=$(date +%s)
 start_fmt=$(date +%Y-%m-%d\ %r)
 
 
+python3 ssd_main.py  --use_tpu=True \
+	--device=tpu \
+	--eval_batch_size=8 \
+	--hparams=use_bfloat16=false \
+	--min_eval_interval=0 \
+	--mode=eval \
+        --model_dir=${MLP_GCS_MODEL_DIR} \
+	--num_epochs=64 \
+        --tpu_name=${MLP_TPU_SIDECAR_NAME} \
+	--train_batch_size=1024 \
+	--val_json_file="${MLP_PATH_GCS_SSD}/instances_val2017.json" \
+	--validation_file_pattern="${MLP_PATH_GCS_SSD}/val-*" &
+
+
 #--hparams=use_bfloat16=true,lr_warmup_steps=18750 \
 export PYTHONPATH="$(pwd)/cloud_tpu/models/official/retinanet:${PYTHONPATH}"
 python3 ssd_main.py  --use_tpu=True \
@@ -43,21 +57,7 @@ python3 ssd_main.py  --use_tpu=True \
 		     --hparams=use_bfloat16=true,lr_warmup_epoch=4.5,weight_decay=8e-4 \
 		     --num_shards=32 \
 		     --iterations_per_loop=1000 \
-		     --mode=train \
-
-
-
-#sleep 300
-#
-#python3 ssd_main.py  --use_tpu=True \
-#                     --tpu_name=${MLP_TPU_NAME} \
-#                     --device=tpu \
-#                     --mode=eval \
-#                     --eval_batch_size=256 \
-#                     --validation_file_pattern="${MLP_PATH_GCS_SSD}/val-*" \
-#                     --val_json_file="${MLP_PATH_GCS_SSD}/raw-data/annotations/instances_val2017.json" \
-#                     --model_dir=${MLP_GCS_MODEL_DIR} \
-#                     --eval_timeout=0
+		     --mode=train
 
 
 # end timing
