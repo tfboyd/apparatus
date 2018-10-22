@@ -22,6 +22,8 @@ pip3 install sacrebleu
 echo 'Installing TF'
 pip3 install --user tf-nightly-gpu==1.12.0.dev20181004
 
+pip3 install mlperf_compliance
+
 echo "Cloning moses for data processing"
 pushd staging/models/rough/nmt_gpu
 git clone https://github.com/moses-smt/mosesdecoder.git "mosesdecoder"
