@@ -45,7 +45,9 @@ python3 ssd_main.py  --use_tpu=True \
 
 
 #--hparams=use_bfloat16=true,lr_warmup_steps=18750 \
-export PYTHONPATH="$(pwd)/cloud_tpu/models/official/retinanet:${PYTHONPATH}"
+#tpu/models/official/retinanet
+export PYTHONPATH="$(pwd)/tpu/models/official/retinanet:${PYTHONPATH}"
+
 python3 ssd_main.py  --use_tpu=True \
                      --tpu_name=${MLP_TPU_NAME} \
                      --device=tpu \
