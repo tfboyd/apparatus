@@ -48,6 +48,8 @@ python3 ssd_main.py  --use_tpu=True \
 #tpu/models/official/retinanet
 export PYTHONPATH="$(pwd)/tpu/models/official/retinanet:${PYTHONPATH}"
 
+echo PYTHONPATH $PYTHONPATH
+
 python3 ssd_main.py  --use_tpu=True \
                      --tpu_name=${MLP_TPU_NAME} \
                      --device=tpu \
