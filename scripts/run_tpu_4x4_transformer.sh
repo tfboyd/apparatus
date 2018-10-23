@@ -60,7 +60,7 @@ t2t-trainer \
 	--schedule=continuous_eval \
 	--tpu_num_shards=8 \
 	--train_steps=10000 \
-	--cloud_tpu_name=$MLP_TPU_NAME \
+	--cloud_tpu_name=$MLP_TPU_SIDECAR_NAME \
 	--use_tpu &
 
 
