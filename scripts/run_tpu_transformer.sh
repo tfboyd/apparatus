@@ -3,7 +3,7 @@
 set -e
 
 
-CMD="""t2t_trainer \
+CMD="""t2t-trainer \
 --data_dir=$MLP_PATH_GCS_TRANSFORMER/data/ \
 --eval_steps=5 \
 --hparams=learning_rate_warmup_steps=4000,pad_batch=true \
