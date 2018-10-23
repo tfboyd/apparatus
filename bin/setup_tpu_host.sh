@@ -19,8 +19,6 @@ sudo apt-get install -y python3.5-venv
 sudo pip3 install --upgrade pip
 sudo pip3 install pyyaml
 
-sudo apt-get install python3-venv
-
 # Note: this could be over-ridden later
 
 TF_TO_INSTALL=${MLP_TF_PIP_LINE:-tf-nightly}
