@@ -19,7 +19,6 @@ cd staging/models/rough/ssd/
 #chmod +x open_source/.setup_env.sh
 #./open_source/.setup_env.sh
 CLOUD_TPU="cloud_tpu"
-PYTHONPATH=""
 if [ ! -d $CLOUD_TPU ]; then
   git clone https://github.com/tensorflow/tpu.git $CLOUD_TPU
 fi
