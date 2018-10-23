@@ -11,6 +11,7 @@ PYTHONPATH=""
 #source pyenv/bin/activate
 
 
+export PYTHONPATH="$(pwd)/cloud_tpu/models/official/retinanet:${PYTHONPATH}"
 cd staging/models/rough/ssd/
 
 
@@ -34,7 +35,6 @@ sudo pip3 install $MLP_TF_PIP_LINE
 start=$(date +%s)
 start_fmt=$(date +%Y-%m-%d\ %r)
 
-export PYTHONPATH="$(pwd)/cloud_tpu/models/official/retinanet:${PYTHONPATH}"
 python3 ssd_main.py  --use_tpu=True \
                      --tpu_name=${MLP_TPU_NAME} \
                      --device=tpu \
