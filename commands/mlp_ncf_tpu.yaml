@@ -3,7 +3,7 @@ github_repo:
   https://github.com/tensorflow/models
 #  https://github.com/tensorflow/tpu
 
-local_repo_name: tpu
+local_repo_name: models
 
 tpu_config:
   True
