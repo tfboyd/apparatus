@@ -2,9 +2,7 @@
 
 set -e
 
-#cp tpu/models/experimental/ncf/ncf_main.py .
-
-# TODO(robieta): remove
+# TODO(robieta): remove once merged
 pushd models
 git checkout feat/ncf_actual_mlperf_logging
 popd
