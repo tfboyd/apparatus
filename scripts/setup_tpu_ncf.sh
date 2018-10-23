@@ -2,7 +2,12 @@
 
 set -e
 
-cp tpu/models/experimental/ncf/ncf_main.py .
+#cp tpu/models/experimental/ncf/ncf_main.py .
+
+# TODO(robieta): remove
+pushd models
+git checkout feat/ncf_actual_mlperf_logging
+popd
 
 rm -rf /tmp/tpu_ncf_env
 virtualenv /tmp/tpu_ncf_env

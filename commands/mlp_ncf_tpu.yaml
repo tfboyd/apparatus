@@ -1,6 +1,7 @@
 
 github_repo:
-  https://github.com/tensorflow/tpu
+  https://github.com/tensorflow/models
+#  https://github.com/tensorflow/tpu
 
 local_repo_name: tpu
 
