@@ -9,14 +9,19 @@ start=$(date +%s)
 start_fmt=$(date +%Y-%m-%d\ %r)
 
 
-BATCH_SIZE=180
+BATCH_SIZE=1440
 NUM_GPUS=8
+
 
 
 python3 nmt.py \
   --data_dir=/data/ \
   --out_dir=/output/ \
+  --all_reduce_spec=nccl \
+  --enable_auto_loss_scale=false \
+  --fixed_loss_scale=128 \
   --batch_size=${BATCH_SIZE} \
+  --check_tower_loss_numerics=false \
   --num_gpus=${NUM_GPUS} \
   --learning_rate=0.002 \
   --use_fp32_batch_matmul=false \
