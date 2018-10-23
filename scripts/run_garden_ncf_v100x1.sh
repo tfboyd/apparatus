@@ -25,7 +25,7 @@ mkdir $MODEL_DIR
 
 export COMPLIANCE_FILE="compliance_raw.log"
 export STITCHED_COMPLIANCE_FILE="compliance_submission.log"
-python ncf_main.py \
+python3 ncf_main.py \
    --model_dir ${MODEL_DIR} \
    --data_dir ${DATA_DIR} \
    --dataset ${DATASET} --hooks "" \
