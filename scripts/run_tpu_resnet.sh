@@ -15,7 +15,6 @@ echo "STARTING TIMING RUN AT $start_fmt"
 
 # --mode=train
 python3 tpu/models/official/resnet/resnet_main.py \
-  --nocondv2 \
   --data_dir=$MLP_PATH_GCS_IMAGENET \
   --eval_batch_size=1000 \
   --tpu_zone=us-central1-b \
