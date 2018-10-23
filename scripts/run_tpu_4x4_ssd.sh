@@ -7,6 +7,11 @@ PYTHONPATH=""
 
 
 export PYTHONPATH="$(pwd)/tpu/models/official/retinanet:${PYTHONPATH}"
+echo 'Retinanet contains:'
+echo $(pwd)/tpu/models/official/retinanet
+ls -lah $(pwd)/tpu/models/official/retinanet
+echo
+echo
 cd staging/models/rough/ssd/
 
 sudo pip3 install $MLP_TF_PIP_LINE
