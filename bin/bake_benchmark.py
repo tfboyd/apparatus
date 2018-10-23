@@ -42,7 +42,7 @@ export MLP_TPU_NAME=${MLP_GCP_HOST}_TPU_${DAY_OF_MONTH}
 export MLP_TPU_SIDECAR_NAME=${MLP_GCP_HOST}_TPU_SIDECAR_${DAY_OF_MONTH}
 
 export MLP_PATH_GCS_IMAGENET=gs://garden-imgnet/imagenet/combined
-export MLP_PATH_GCS_TRANSFORMER=gs://mlp_resources/benchmark_data/transformer
+export MLP_PATH_GCS_TRANSFORMER=gs://mlp_resources/benchmark_data/transformer_v2
 export MLP_PATH_GCS_SSD=gs://mlp_resources/benchmark_data/ssd_coco
 # Note: needs tailing /
 export MLP_PATH_GCS_NMT=gs://mlp_resources/benchmark_data/nmt/wmt16_de_en/
