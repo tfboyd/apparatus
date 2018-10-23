@@ -18,7 +18,7 @@ export STITCHED_COMPLIANCE_FILE="compliance_submission.log"
 python models/official/recommendation/ncf_main.py \
    --model_dir $MLP_GCS_MODEL_DIR \
    --data_dir $MLP_PATH_GCS_NCF \
-   --dataset ${DATASET} --hooks "" \
+   --dataset "ml-20m" --hooks "" \
    --tpu $MLP_TPU_NAME \
    --clean \
    --train_epochs 14 \
