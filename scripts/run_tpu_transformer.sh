@@ -2,53 +2,30 @@
 
 set -e
 
-#--data_dir=$MLP_TRANSFORMER_GCS_DATA/cns/ei-d/home/tpu-perf-team/shibow/transformer/ \
-#--decode_to_file=/cns/el-d/home/tpu-perf-team/shibow/rs=6.3/decode.transformer_mlperf_tpu.translate_ende_wmt32k_packed.new_dataset_lb512_wu16000_test \
 
 
-
-
-DECODE_CMD="t2t-trainer \
-	--data_dir=$MLP_PATH_GCS_TRANSFORMER/data/transformer \
-	--decode_from_file=$MLP_PATH_GCS_TRANSFORMER/wmt14-en-de.src \
-	--decode_hparams=batch_size=64,beam_size=4,alpha=0.6,extra_length=50 \
-	--decode_reference=$MLP_PATH_GCS_TRANSFORMER/wmt14-en-de.ref \
-	--decode_to_file=$MLP_GCS_MODEL_DIR/ \
-	--eval_steps=5 \
-	--hparams=batch_size=512,learning_rate_warmup_steps=16000 \
-	--hparams_set=transformer_mlperf_tpu \
-	--keep_checkpoint_max=10 \
-	--local_eval_frequency=1000 \
-	--model=transformer \
-	--output_dir=$MLP_GCS_MODEL_DIR/eval \
-	--problem=translate_ende_wmt32k_packed \
-	--schedule=continuous_decode_from_file \
-	--train_steps=250000 \
-  --cloud_tpu_name=$MLP_TPU_NAME"
-
-# --master=/bns/el/borg/el/bns/tpu-perf-team/shibow.transformer.transformer_mlperf_tpu.translate_ende_wmt32k_packed.new_dataset_lb512_wu16000_test.tpu_worker/0 \
-# --output_dir=/cns/el-d/home/tpu-perf-team/shibow/transformer/rs=6.3/transformer.transformer_mlperf_tpu.translate_ende_wmt32k_packed.new_dataset_lb512_wu16000_test \
-
-
-# FIXME: Reduced from --train_steps=250000 \
 CMD="t2t-trainer \
   --data_dir=$MLP_PATH_GCS_TRANSFORMER/data/transformer \
   --eval_steps=5 \
-  --hparams=batch_size=512,learning_rate_warmup_steps=16000 \
+  --hparams=learning_rate_warmup_steps=4000,pad_batch=true \
   --hparams_set=transformer_mlperf_tpu \
-  --iterations_per_loop=1000 \
+  --iterations_per_loop=9300 \
   --keep_checkpoint_max=10 \
-  --local_eval_frequency=1000 \
-  --cloud_tpu_name=$MLP_TPU_NAME
+  --local_eval_frequency=9300 \
+  --cloud_tpu_name=$MLP_TPU_NAME \
   --model=transformer \
 	--output_dir=$MLP_GCS_MODEL_DIR/train \
   --problem=translate_ende_wmt32k_packed \
-  --schedule=train \
+  --schedule=train_eval_and_decode \
   --tpu_num_shards=8 \
   --train_steps=250000 \
-  --skip_host_call=true
-  --use_tpu"
-
+  --skip_host_call=true \
+  --use_tpu \
+  --decode_from_file=$MLP_PATH_GCS_TRANSFORMER/wmt14-en-de.src \
+  --decode_reference=$MLP_PATH_GCS_TRANSFORMER/wmt14-en-de.ref \
+  --decode_to_file=$MLP_GCS_MODEL_DIR/decode.transformer_mlperf_tpu.translate_ende_wmt32k_packed.2x2_log_1018_2 \
+  --decode_hparams=batch_size=64,beam_size=4,alpha=0.6,extra_length=50
+"
 
 
 echo $CMD
