@@ -23,7 +23,6 @@ python3 tpu/models/official/resnet/resnet_main.py \
   --model_dir=${MLP_GCS_MODEL_DIR} \
   --num_cores=8 \
   --resnet_depth=50 \
-  --rpclog=-1 \
   --steps_per_eval=50000 \
   --tpu=$MLP_TPU_NAME \
   --train_batch_size=1024 \
