@@ -7,7 +7,7 @@ set -e
 
 
 CMD="t2t-trainer \
-  --data_dir=$MLP_PATH_GCS_TRANSFORMER/data/transformer \
+  --data_dir=$MLP_PATH_GCS_TRANSFORMER/data \
   --eval_steps=5 \
   --hparams=learning_rate_warmup_steps=4000,pad_batch=true \
   --hparams_set=transformer_mlperf_tpu \
@@ -30,7 +30,7 @@ CMD="t2t-trainer \
 
 
 DECODE_CMD="t2t-trainer \
-  --data_dir=$MLP_PATH_GCS_TRANSFORMER/data/transformer \
+  --data_dir=$MLP_PATH_GCS_TRANSFORMER/data \
 	--eval_steps=5 \
 	--hparams=learning_rate_warmup_steps=4000,pad_batch=true \
 	--hparams_set=transformer_mlperf_tpu \
