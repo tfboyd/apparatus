@@ -6,7 +6,8 @@ import sys
 
 def main():
   os.system('rm -rf /tmp/py3_rogue_env')
-  os.system('python3 -m venv /tmp/py3_rogue_env')
+  os.system('virtualenv -p python3 /tmp/py3_rogue_env')
+  # os.system('python3 -m venv /tmp/py3_rogue_env')
   os.system('. /tmp/py3_rogue_env/bin/activate; pip3 install pytz')
   os.system('. /tmp/py3_rogue_env/bin/activate; pip3 install pyyaml')
   os.system('. /tmp/py3_rogue_env/bin/activate; pip3 install --upgrade pip')
