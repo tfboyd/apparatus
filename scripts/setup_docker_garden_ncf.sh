@@ -10,7 +10,7 @@ apt-get update && apt-get install -y --no-install-recommends ca-certificates
 apt-get install -y virtualenv htop
 apt-get install -y python-setuptools
 
-pip3 install --upgrade pip==18.1
+pip3 install --upgrade pip==9.0.3
 pip3 install pyyaml
 pip3 install --upgrade setuptools
 pip3 install absl-py
