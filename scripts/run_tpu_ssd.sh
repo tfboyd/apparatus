@@ -11,7 +11,6 @@ PYTHONPATH=""
 #source pyenv/bin/activate
 
 
-export PYTHONPATH="$(pwd)/cloud_tpu/models/official/retinanet:${PYTHONPATH}"
 cd staging/models/rough/ssd/
 
 
@@ -28,7 +27,13 @@ git pull
 popd
 
 
+RETNA_PATH="$(pwd)/cloud_tpu/models/official/retinanet"
+
+export PYTHONPATH="${RETNA_PATH}:${PYTHONPATH}"
 sudo pip3 install $MLP_TF_PIP_LINE
+
+echo PRINTING RETNA PATH: ${RETNA_PATH}
+ls -lah ${RETNA_PATH}
 
 # start timing 
 start=$(date +%s)
