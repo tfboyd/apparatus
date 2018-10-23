@@ -31,7 +31,7 @@ python3 setup.py build_ext --inplace
 popd
 
 
-pip install --user tf-nightly-gpu
+pip install --user tensorflow-gpu==1.12.0rc1
 
 
 export PYTHONPATH=`pwd`/${TF_MODELS_DIR}:`pwd`/${TF_MODELS_DIR}/research:`pwd`/${COCO_API_DIR}/PythonAPI:$PYTHONPATH

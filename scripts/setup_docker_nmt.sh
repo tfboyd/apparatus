@@ -20,7 +20,8 @@ pip3 install sacrebleu
 
 
 echo 'Installing TF'
-pip3 install --user tf-nightly-gpu==1.12.0.dev20181004
+#pip3 install --user tf-nightly-gpu==1.12.0.dev20181004
+pip3 install --user tensorflow-gpu==1.12.0rc1
 
 pip3 install mlperf_compliance
 

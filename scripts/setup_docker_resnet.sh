@@ -17,7 +17,9 @@ apt-get install -y python-setuptools
 #pip3 install pyyaml
 #pip3 install --upgrade setuptools
 #pip3 install absl-py
-pip3 install tf-nightly-gpu
+
+pip3 install tensorflow-gpu==1.12.0rc1
+#pip3 install tf-nightly-gpu
 
 #pip3 install -r /root/garden/official/requirements.txt
 
