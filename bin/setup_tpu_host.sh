@@ -1,7 +1,6 @@
 #!/bin/bash
 
 echo Updating gsutil
-gsutil update
 gcloud components update
 echo Done Updating gsutil
 
@@ -19,6 +18,8 @@ sudo apt-get install -y python3-pip
 sudo apt-get install -y python3.5-venv
 sudo pip3 install --upgrade pip
 sudo pip3 install pyyaml
+
+sudo apt-get install python3-venv
 
 # Note: this could be over-ridden later
 
