@@ -6,6 +6,7 @@ set -e
 PYTHONPATH=""
 
 
+export PYTHONPATH="$(pwd)/tpu/models/official/retinanet:${PYTHONPATH}"
 cd staging/models/rough/ssd/
 
 
@@ -46,7 +47,6 @@ python3 ssd_main.py  --use_tpu=True \
 
 #--hparams=use_bfloat16=true,lr_warmup_steps=18750 \
 #tpu/models/official/retinanet
-export PYTHONPATH="$(pwd)/tpu/models/official/retinanet:${PYTHONPATH}"
 
 echo PYTHONPATH $PYTHONPATH
 
