@@ -24,7 +24,7 @@ python3 nmt.py \
   --check_tower_loss_numerics=false \
   --num_gpus=${NUM_GPUS} \
   --learning_rate=0.002 \
-  --use_fp32_batch_matmul=false \
+  --use_fp32_batch_matmul=true \
   --detokenizer_file=mosesdecoder/scripts/tokenizer/detokenizer.perl
 
 
