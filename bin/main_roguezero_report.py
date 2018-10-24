@@ -3,6 +3,7 @@
 
 from __future__ import print_function
 
+import datetime
 import os
 import sys
 
@@ -20,9 +21,13 @@ def build_upload(test_id, result, quality, quality_type, project=None,
   # pylint: disable=C6204
   import helper_roguezero_report as rogue_report
 
+  group_id = get_env_var('ROGUE_ZERO_GROUP_RUN_ID')
+  if 'nightly' in group_id:
+      group_id += group_id + '_' + str(datetime.datetime.today().day)
+
   main_result, results, test_info, system_info = rogue_report.build_entry(
       test_id,
-      group_run_id=get_env_var('ROGUE_ZERO_GROUP_RUN_ID'),
+      group_run_id=group_id,
       platform_type=get_env_var('ROGUE_ZERO_PLATFORM_TYPE'),
       total_time=result)
 
