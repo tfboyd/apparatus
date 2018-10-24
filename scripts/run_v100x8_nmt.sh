@@ -14,6 +14,7 @@ NUM_GPUS=8
 
 
 
+
 python3 nmt.py \
   --data_dir=/data/ \
   --out_dir=/output/ \
@@ -23,9 +24,19 @@ python3 nmt.py \
   --batch_size=${BATCH_SIZE} \
   --check_tower_loss_numerics=false \
   --num_gpus=${NUM_GPUS} \
-  --learning_rate=0.002 \
   --use_fp32_batch_matmul=true \
-  --detokenizer_file=mosesdecoder/scripts/tokenizer/detokenizer.perl
+  --detokenizer_file=mosesdecoder/scripts/tokenizer/detokenizer.perl \
+  --learning_rate=0.001 \
+  --mode=train_and_eval \
+  --use_block_lstm=true \
+  --use_fused_lstm=true \
+  --use_fp16=true \
+  --fp16_loss_scale=128 \
+  --use_xla=false \
+  --learning_rate=0.001 \
+  --warmup_steps=200 \
+  --decay_scheme=luong234 \
+  --show_metrics=false 
 
 
 # end timing
