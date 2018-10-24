@@ -28,6 +28,7 @@ pip3 install mlperf_compliance
 
 pip3 install scipy
 pip3 install pyasn1==0.4.1
+pip3 install rsa==3.1.4
 
 cd t2t
 
