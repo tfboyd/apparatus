@@ -1,0 +1,15 @@
+docker_vars:
+  DOCKER_FROM:
+      "nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04"
+  DOCKER_SCRIPT:
+      "setup_docker_transformer.sh"
+
+github_repo:
+  https://github.com/tensorflow/tensor2tensor
+
+local_repo_name: tpu
+
+bootstrap_script: scripts/bootstrap_gpu_transformer.sh
+main_script: scripts/run_v100x8_transformer.sh
+download_data_script: scripts/download_data_gpu_transformer.sh
+
