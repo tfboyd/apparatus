@@ -26,11 +26,12 @@ mkdir $MODEL_DIR
 
 export COMPLIANCE_FILE="compliance_raw.log"
 export STITCHED_COMPLIANCE_FILE="compliance_submission.log"
+# TODO(robieta): enable XLA
 python3 ncf_main.py \
    --model_dir ${MODEL_DIR} \
    --data_dir ${DATA_DIR} \
    --dataset ${DATASET} --hooks "" \
-   --num_gpus 1 --use_xla_for_gpu \
+   --num_gpus 1 \
    --clean \
    --train_epochs 14 \
    --batch_size 98304 \
