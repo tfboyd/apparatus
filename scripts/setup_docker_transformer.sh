@@ -32,6 +32,10 @@ pip3 install pyasn1==0.4.1
 cd t2t
 
 
+echo 'Checking for UTF-8'
+python3 -c "import codecs; print(codecs.lookup('utf-8'))"
+
+
 python3 setup.py install 
 
 #pip3 install --upgrade pip==9.0.3
