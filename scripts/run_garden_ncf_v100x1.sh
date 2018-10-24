@@ -12,6 +12,7 @@ DATASET="ml-20m"
 DATA_DIR="/output/data"
 
 export PYTHONPATH="$PYTHONPATH:/root/garden"
+export DROP_CACHE_LOC="/host_proc/sys/vm/drop_caches"
 
 python3 ../datasets/movielens.py --data_dir ${DATA_DIR} --dataset ${DATASET}
 
