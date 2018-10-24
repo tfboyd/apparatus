@@ -2,11 +2,6 @@
 
 set -e
 
-# TODO(robieta): remove once merged
-pushd models
-git checkout feat/ncf_actual_mlperf_logging
-popd
-
 rm -rf /tmp/tpu_ncf_env
 virtualenv /tmp/tpu_ncf_env
 source /tmp/tpu_ncf_env/bin/activate
