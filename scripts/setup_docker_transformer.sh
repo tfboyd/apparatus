@@ -12,7 +12,7 @@ apt-get install -y --no-install-recommends ca-certificates
 apt-get install -y virtualenv htop
 apt-get install -y python-setuptools
 
-apt-get install -y python-numpy python-scipy
+#apt-get install -y python-numpy python-scipy
 
 echo Updating Pip3
 #pip3 install --upgrade pip
@@ -26,6 +26,7 @@ pip3 install --user tensorflow-gpu==1.12.0rc1
 
 pip3 install mlperf_compliance
 
+pip3 install scipy
 pip3 install pyasn1==0.4.1
 
 cd t2t
