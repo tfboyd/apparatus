@@ -36,8 +36,10 @@ python3 nmt.py \
   --learning_rate=0.001 \
   --warmup_steps=200 \
   --decay_scheme=luong234 \
-  --show_metrics=false 
+  --use_fused_lstm_dec=true \
+  --show_metrics=true
 
+# --use_fused_lstm_dec this is new feature. set to false if only trying to test compliance.
 
 # end timing
 end=$(date +%s)
