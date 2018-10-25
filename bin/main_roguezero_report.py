@@ -23,7 +23,7 @@ def build_upload(test_id, result, quality, quality_type, project=None,
 
   group_id = get_env_var('ROGUE_ZERO_GROUP_RUN_ID')
   if 'nightly' in group_id:
-      group_id += group_id + '_' + str(datetime.datetime.today().day)
+      group_id = group_id + '_' + str(datetime.datetime.today().day)
 
   main_result, results, test_info, system_info = rogue_report.build_entry(
       test_id,
