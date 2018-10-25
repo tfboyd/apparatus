@@ -22,7 +22,7 @@ CMD="""t2t-trainer \
 --decode_from_file=$MLP_PATH_GCS_TRANSFORMER/wmt14-en-de.src \
 --decode_reference=$MLP_PATH_GCS_TRANSFORMER/wmt14-en-de.ref \
 --decode_to_file=$MLP_GCS_MODEL_DIR/decode.transformer_mlperf_tpu.translate_ende_wmt32k_packed.2x2_log_1018_2 \
---decode_hparams=batch_size=64,beam_size=4,alpha=0.6,extra_length=50 \
+--decode_hparams=batch_size=64,beam_size=4,alpha=0.6,extra_length=50,mlperf_mode=true \
 """
 
 
