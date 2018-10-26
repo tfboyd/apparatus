@@ -23,6 +23,9 @@ CMD="t2t-trainer \
   --worker_gpu=8
 "
 
+echo $CMD
+$CMD
+
 
 # end timing
 end=$(date +%s)
