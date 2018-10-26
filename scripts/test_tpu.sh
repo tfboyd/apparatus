@@ -4,6 +4,9 @@ set -e
 
 sudo pip3 install $MLP_TF_PIP_LINE
 
+# TODO(robieta): formalize if this works.
+sudo pip3 install --upgrade "cloud-tpu-profiler>=1.12"
+
 cat << EOF | tee test_tpu.py
 import os
 import sys
@@ -39,6 +42,10 @@ EOF
 # start timing 
 start=$(date +%s)
 start_fmt=$(date +%Y-%m-%d\ %r)
+
+# TODO(robieta): formalize if this works.
+echo "Writing profile to ${MLP_GCS_MODEL_DIR}"
+capture_tpu_profile --tpu=${MLP_TPU_NAME} --logdir=${MLP_GCS_MODEL_DIR} &
 
 python3 test_tpu.py $MLP_TPU_NAME
 
