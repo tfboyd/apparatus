@@ -28,15 +28,17 @@ python3 nmt.py \
   --detokenizer_file=mosesdecoder/scripts/tokenizer/detokenizer.perl \
   --learning_rate=0.001 \
   --mode=train_and_eval \
-  --use_block_lstm=true \
-  --use_fused_lstm=true \
   --use_fp16=true \
   --fp16_loss_scale=128 \
   --use_xla=false \
   --learning_rate=0.001 \
   --warmup_steps=200 \
   --decay_scheme=luong234 \
-  --use_fused_lstm_dec=true \
+#  --use_fused_lstm_dec=true \
+#  --use_block_lstm=true \
+#  --use_fused_lstm=true \
+  --use_fused_lstm_dec=false \
+  --use_fused_lstm=false \
   --show_metrics=true
 
 # --use_fused_lstm_dec this is new feature. set to false if only trying to test compliance.
