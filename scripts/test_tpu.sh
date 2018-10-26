@@ -55,16 +55,6 @@ end=$(date +%s)
 end_fmt=$(date +%Y-%m-%d\ %r)
 echo "ENDING TIMING RUN AT $end_fmt"
 
-
-# TODO(robieta): Unknown if this is necessary.
-sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
-sudo apt-get update
-sudo apt-get install -y gcc-4.9
-sudo apt-get upgrade -y libstdc++6
-echo "Writing profile to ${MLP_GCS_MODEL_DIR}"
-capture_tpu_profile --tpu=${MLP_TPU_NAME} --logdir=${MLP_GCS_MODEL_DIR}
-
-
 # report result 
 result=$(( $end - $start )) 
 result_name="resnet"
