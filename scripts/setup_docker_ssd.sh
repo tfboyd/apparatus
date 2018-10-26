@@ -25,7 +25,10 @@ mv ptxas /usr/local/cuda/bin/
 
 
 apt-get -y install zip unzip
-apt-get -y build-dep python-matplotlib  # install dependencies required by matplotlib
+echo 'Installing build dep'
+apt-get -y build-dep # install dependencies required by matplotlib
+echo 'Installing python matplotlib'
+apt-get -y python-matplotlib  # install dependencies required by matplotlib
 
 #pip3 install -r /root/garden/official/requirements.txt
 
