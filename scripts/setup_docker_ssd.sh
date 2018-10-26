@@ -10,7 +10,7 @@ apt-get install -y python3-pip
 
 apt-get -y install zip unzip
 echo 'Installing build deps for python matloplib'
-apt-get -y python3-matplotlib
+apt-get -y install python3-matplotlib
 
 apt-get update && apt-get install -y --no-install-recommends ca-certificates
 apt-get install -y python-setuptools
