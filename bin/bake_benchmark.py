@@ -124,11 +124,14 @@ if [[ $MLP_TPU_SIDECAR =~ "Y"$ ]]; then
 fi
 
 
-# Give the TPU a minute to get 'HEALTHY'
-echo "Sleeping for 5 mins to let TPU get healthy"
-sleep 300
+# # Give the TPU a minute to get 'HEALTHY'
+# echo "Sleeping for 5 mins to let TPU get healthy"
+# sleep 300
 
 set +e
+
+bash setup_cloud_profiler.sh
+export PATH="$PATH:`python3 -m site --user-base`/bin"
 
 bash run_helper.sh
 
@@ -155,6 +158,8 @@ def bake_tpu(bench_def, bench_dir, input_dir, output_dir):
     if os.system('cp ./{} {}/bootstrap.sh'.format(bench_def['bootstrap_script'], bench_dir)) != 0:
         return False
     if os.system('cp ./{} {}/setup.sh'.format(bench_def['setup_script'], bench_dir)) != 0:
+        return False
+    if os.system('cp ./{} {}/setup_cloud_profiler.sh'.format("scripts/setup_cloud_profiler.sh", bench_dir)) != 0:
         return False
     if os.system('cp ./{} {}/run_helper.sh'.format(bench_def['main_script'], bench_dir)) != 0:
         return False
