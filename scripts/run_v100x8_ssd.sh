@@ -21,7 +21,6 @@ unzip protobuf.zip
 popd
 
 
-apt-get install python3-pip
 pushd ${COCO_API_DIR}/PythonAPI
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 #python3 get-pip.py --user
