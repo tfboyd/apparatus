@@ -61,6 +61,9 @@ TPU_PREEMPT=""
 if [[ $MLP_TPU_VERSION =~ "32"$ ]]; then
   TPU_PREEMPT="--preemptible"
 fi
+if [[ $MLP_TPU_VERSION =~ "128"$ ]]; then
+  TPU_PREEMPT="--preemptible"
+fi
 
 gcloud auth list
 
