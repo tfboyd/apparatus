@@ -1,0 +1,13 @@
+
+github_repo:
+  https://github.com/tensorflow/tpu.git
+
+local_repo_name: tpu
+
+tpu_config:
+  True
+
+bootstrap_script: scripts/bootstrap_tpu_ssd.sh
+setup_script: scripts/setup_tpu_ssd.sh
+main_script: scripts/run_tpu_8x8_ssd.sh
+
