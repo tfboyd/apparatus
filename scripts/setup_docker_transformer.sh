@@ -6,6 +6,7 @@ apt-get update
 apt-get install wget
 apt-get install -y python3.6
 apt-get install -y python3-pip
+apt-get install -y python-pip
 
 
 apt-get install -y --no-install-recommends ca-certificates
@@ -18,7 +19,7 @@ echo Updating Pip3
 #pip3 install --upgrade pip
 
 echo Installing Sacrebleu
-pip install sacrebleu
+pip3 install sacrebleu
 
 
 echo 'Installing TF'
@@ -33,8 +34,8 @@ pip install rsa==3.1.4
 cd t2t
 
 
-echo 'Checking for UTF-8'
-python3 -c "import codecs; print(codecs.lookup('utf-8'))"
+#echo 'Checking for UTF-8'
+#python3 -c "import codecs; print(codecs.lookup('utf-8'))"
 
 
 python setup.py install 
