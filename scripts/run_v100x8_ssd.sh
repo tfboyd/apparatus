@@ -25,13 +25,13 @@ apt-get install python3-pip
 pushd ${COCO_API_DIR}/PythonAPI
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 #python3 get-pip.py --user
-pip install --user setuptools cython matplotlib
+pip3 install --user setuptools cython matplotlib
 #make
 python3 setup.py build_ext --inplace
 popd
 
 
-pip install --user tensorflow-gpu==1.12.0rc1
+pip3 install --user tensorflow-gpu==1.12.0rc1
 
 
 export PYTHONPATH=`pwd`/${TF_MODELS_DIR}:`pwd`/${TF_MODELS_DIR}/research:`pwd`/${COCO_API_DIR}/PythonAPI:$PYTHONPATH
