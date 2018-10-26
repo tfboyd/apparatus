@@ -98,8 +98,8 @@ done
 if [[ $MLP_TPU_SIDECAR =~ "Y"$ ]]; then
     for x in {0..255}; do
     BASE_IP=$((1 + RANDOM % 255))
-    echo gcloud alpha compute tpus create $MLP_TPU_SIDECAR_NAME --range=10.$BASE_IP.$x.0/$MLP_CIDR_SIZE --version=$MLP_TPU_TF_VERSION --network=default --accelerator-type=v2-8 --zone $MLP_GCP_ZONE
-    gcloud alpha compute tpus create $MLP_TPU_SIDECAR_NAME --range=10.$BASE_IP.$x.0/$MLP_CIDR_SIZE --version=$MLP_TPU_TF_VERSION --network=default --accelerator-type=v2-8 --zone $MLP_GCP_ZONE 2>&1 | tee /tmp/create_tpu_log.txt
+    echo gcloud alpha compute tpus create $MLP_TPU_SIDECAR_NAME --range=10.$BASE_IP.$x.0/29 --version=$MLP_TPU_TF_VERSION --network=default --accelerator-type=v2-8 --zone $MLP_GCP_ZONE
+    gcloud alpha compute tpus create $MLP_TPU_SIDECAR_NAME --range=10.$BASE_IP.$x.0/29 --version=$MLP_TPU_TF_VERSION --network=default --accelerator-type=v2-8 --zone $MLP_GCP_ZONE 2>&1 | tee /tmp/create_tpu_log.txt
 
     STATUS=$?
 
