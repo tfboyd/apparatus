@@ -42,10 +42,10 @@ start_fmt=$(date +%Y-%m-%d\ %r)
 
 python3 $HOME/${TF_BENCHMARKS_DIR}/scripts/tf_cnn_benchmarks/tf_cnn_benchmarks.py \
 	--model=ssd300 --data_name=coco \
-	--num_gpus=8 --batch_size=128 --variable_update=parameter_server \
+	--num_gpus=8 --batch_size=64 --variable_update=parameter_server \
 	--optimizer=momentum --weight_decay=5e-4 --momentum=0.9 \
 	--backbone_model_path=/data/resnet34/model.ckpt-28152 --data_dir=/data/coco2017 \
-	--num_epochs=60 --train_dir=/output/gce_1gpu_batch128_`date +%m%d%H%M` \
+	--num_epochs=80 --train_dir=/output/gce_1gpu_batch128_`date +%m%d%H%M` \
 	--save_model_steps=5000 --max_ckpts_to_keep=250 --summary_verbosity=1 --save_summaries_steps=10 \
 	--use_fp16 --alsologtostderr
 
