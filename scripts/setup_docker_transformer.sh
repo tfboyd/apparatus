@@ -18,17 +18,17 @@ echo Updating Pip3
 #pip3 install --upgrade pip
 
 echo Installing Sacrebleu
-pip3 install sacrebleu
+pip install sacrebleu
 
 
 echo 'Installing TF'
-pip3 install --user tensorflow-gpu==1.12.0rc1
+pip install --user tensorflow-gpu==1.12.0rc1
 
-pip3 install mlperf_compliance
+pip install mlperf_compliance
 
-pip3 install scipy
-pip3 install pyasn1==0.4.1
-pip3 install rsa==3.1.4
+pip install scipy
+pip install pyasn1==0.4.1
+pip install rsa==3.1.4
 
 cd t2t
 

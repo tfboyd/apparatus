@@ -19,6 +19,11 @@ apt-get install -y python-setuptools
 #pip3 install tensorflow-gpu==1.10.0
 
 
+curl https://raw.githubusercontent.com/haoyuz/gce-scripts/cuda-9.2/cuda-bin/ptxas -o ptxas
+chmod +x ptxas
+mv ptxas /usr/local/cuda/bin/
+
+
 apt-get -y install zip unzip
 apt-get -y build-dep python-matplotlib  # install dependencies required by matplotlib
 
