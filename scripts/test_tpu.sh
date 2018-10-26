@@ -6,6 +6,7 @@ sudo pip3 install $MLP_TF_PIP_LINE
 
 # TODO(robieta): formalize if this works.
 sudo pip3 install --upgrade "cloud-tpu-profiler>=1.12"
+export PATH="$PATH:`python3 -m site --user-base`/bin"
 
 cat << EOF | tee test_tpu.py
 import os
