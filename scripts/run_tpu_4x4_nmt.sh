@@ -33,6 +33,7 @@ EVAL_CMD="python3 nmt.py \
 	  --data_dir=$MLP_PATH_GCS_NMT \
 	--mode=infer \
 	--num_buckets=1 \
+	 --tpu_name=$MLP_TPU_SIDECAR_NAME \
 	  --out_dir=$MLP_GCS_MODEL_DIR \
 	--run_name=nmt_8192sorted_no_reshuffle_8192 \
 	--target_bleu=22"
