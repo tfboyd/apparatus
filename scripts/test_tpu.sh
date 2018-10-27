@@ -45,7 +45,7 @@ echo "Writing profile to ${MLP_GCS_MODEL_DIR}"
 capture_tpu_profile --tpu=${MLP_TPU_NAME} --logdir=${MLP_GCS_MODEL_DIR} &
 
 echo sleeping
-sleep 3600
+sleep 1200
 
 python3 test_tpu.py $MLP_TPU_NAME
 
