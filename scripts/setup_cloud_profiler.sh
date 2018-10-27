@@ -24,10 +24,6 @@ gcc -v
 sudo apt-get install python3-pip
 sudo pip3 install -U cloud-tpu-profiler==1.12 google-api-python-client oauth2client
 
-echo "printing bins"
-ll /usr/local/bin
-ll `python3 -m site --user-base`/bin
-
 sudo apt-get remove -y libreoffice-core
 wget http://security.ubuntu.com/ubuntu/pool/main/g/gcc-5/libstdc++6_5.4.0-6ubuntu1~16.04.10_amd64.deb
 sudo dpkg --force-all -i libstdc++6_5.4.0-6ubuntu1~16.04.10_amd64.deb --auto-deconfigure
