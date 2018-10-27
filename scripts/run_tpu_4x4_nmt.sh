@@ -43,6 +43,8 @@ EVAL_CMD="python3 nmt.py \
 timeout 4h $CMD &
 timeout 4h $EVAL_CMD
 
+wait
+
 
 # end timing
 end=$(date +%s)
