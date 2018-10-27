@@ -19,6 +19,7 @@ CMD="t2t-trainer \
   --schedule=continuous_train_and_eval \
   --decode_from_file=/data/wmt14-en-de.src \
   --decode_to_file=/output/decode.transformer_mlperf_gpu.translate_ende_wmt32k \
+  --keep_checkpoint_max=2 \
   --objective=losses/training \
   --worker_gpu=8
 "
