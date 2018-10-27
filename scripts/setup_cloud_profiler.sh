@@ -18,7 +18,7 @@ sudo update-alternatives --set gcc /usr/bin/gcc-6
 
 yes | sudo dpkg --configure -a
 sudo apt-get install -f -y
-# sudo apt-get upgrade -y libstdc++6
+yes | sudo apt-get upgrade -y libstdc++6
 gcc -v
 
 sudo apt-get install python3-pip
