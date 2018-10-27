@@ -5,7 +5,7 @@ set -e
 echo "Setting up cloud_tpu_profiler"
 
 wget http://security.ubuntu.com/ubuntu/pool/main/g/gcc-5/libstdc++6_5.4.0-6ubuntu1~16.04.10_amd64.deb
-sudo dpkg -i libstdc++6_5.4.0-6ubuntu1~16.04.10_amd64.deb
+sudo dpkg -i libstdc++6_5.4.0-6ubuntu1~16.04.10_amd64.deb --force-all
 
 sudo apt-get update && \
 sudo apt-get install build-essential software-properties-common -y && \
