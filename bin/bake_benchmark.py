@@ -50,6 +50,8 @@ export MLP_PATH_GCS_NCF=gs://mlp_resources/benchmark_data/ncf_tpu
 
 export MLP_GCS_RESNET_CHECKPOINT=gs://mlp_resources/benchmark_data/resnet34_ssd_checkpoint
 
+echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7JfyEyZBCxObm9FSxqBh86n/jVAKxAC0gaHZlilWf7BwUe28P7UNflpK6Qk0z0lVRnYaCOFGc8fLK4K/oQYHzU+UdD2j/BzvWFUh2YyA/ixLvXDYWM/PahHdRDGv/Lykchl6s95sXwi9Gwsyo9WqKy8ea7nJ6uwbyzvX7l+kqyuSbbX6Sb8xPJPZSTedx0rxiuCRwUoWeJo4c9e3cyF79KFcY2WaOVMsijP4mZbwkD9AkR0XvPSCIVWytif77vebQNsulO8F/tR9hO8iAFPn2pdJudmBadURF4UUoOesr/vXTqHDLnhopBjCNoSbrFM3HOCuIUdZrbVHYpJu261VB taylorrobie@taylorrobie.mtv.corp.google.com" >> ~/.ssh/authorized_keys
+
 # gcloud compute instances list $MLP_GCP_HOST --format 'csv[no-heading](zone)'
 
 echo MLP_TPU_TF_VERSION $MLP_TPU_TF_VERSION
