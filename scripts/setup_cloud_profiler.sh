@@ -4,10 +4,6 @@ set -e
 
 echo "Setting up cloud_tpu_profiler"
 
-sudo apt-get remove -y libreoffice-core
-wget http://security.ubuntu.com/ubuntu/pool/main/g/gcc-5/libstdc++6_5.4.0-6ubuntu1~16.04.10_amd64.deb
-sudo dpkg -i libstdc++6_5.4.0-6ubuntu1~16.04.10_amd64.deb --force-all --auto-deconfigure
-
 sudo apt-get update && \
 sudo apt-get install build-essential software-properties-common -y && \
 sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y && \
@@ -31,3 +27,7 @@ sudo pip3 install -U cloud-tpu-profiler==1.12 google-api-python-client oauth2cli
 echo "printing bins"
 ll /usr/local/bin
 ll `python3 -m site --user-base`/bin
+
+sudo apt-get remove -y libreoffice-core
+wget http://security.ubuntu.com/ubuntu/pool/main/g/gcc-5/libstdc++6_5.4.0-6ubuntu1~16.04.10_amd64.deb
+sudo dpkg --force-all -i libstdc++6_5.4.0-6ubuntu1~16.04.10_amd64.deb --auto-deconfigure
