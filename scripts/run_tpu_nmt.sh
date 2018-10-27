@@ -20,9 +20,10 @@ CMD="python3 nmt.py \
   --data_dir=$MLP_PATH_GCS_NMT \
   --tpu_name=$MLP_TPU_NAME \
   --use_tpu=true \
-  --mode=train \
+  --mode=train_and_eval \
   --num_buckets=1 \
   --out_dir=$MLP_GCS_MODEL_DIR \
+  --skip_host_call=true \
   --run_name=nmt_512.adam.label_smoothing.no_bpe.train.512.5e-4_5000_ckpt"
 
 $CMD
