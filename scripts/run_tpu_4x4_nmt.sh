@@ -28,8 +28,19 @@ CMD="python3 nmt.py \
   --warmup_steps=200"
 
 
+EVAL_CMD="python3 nmt.py \
+	--activation_dtype=bfloat16 \
+	  --data_dir=$MLP_PATH_GCS_NMT \
+	--mode=infer \
+	--num_buckets=1 \
+	  --out_dir=$MLP_GCS_MODEL_DIR \
+	--run_name=nmt_8192sorted_no_reshuffle_8192 \
+	--target_bleu=22"
 
-$CMD
+
+
+timeout 4h $CMD &
+timeout 4h $EVAL_CMD
 
 
 # end timing
