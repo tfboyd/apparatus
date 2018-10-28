@@ -18,21 +18,19 @@ cd staging/models/rough/
 
 # --mode=train
 python3 resnet/resnet_main.py \
+  --nocondv2 \
   --data_dir=$MLP_PATH_GCS_IMAGENET \
-  --eval_batch_size=1000 \
+  --eval_batch_size=1024 \
   --tpu_zone=us-central1-b \
-  --iterations_per_loop=10000 \
-  --mode=train_and_eval \
+  --iterations_per_loop=1000 \
+  --mode=in_memory_eval \
   --model_dir=${MLP_GCS_MODEL_DIR} \
   --num_cores=8 \
   --resnet_depth=50 \
-  --steps_per_eval=50000 \
+  --steps_per_eval=5000 \
   --tpu=$MLP_TPU_NAME \
   --train_batch_size=1024 \
   --train_steps=112603
-
-
-
 
 # end timing
 end=$(date +%s)
