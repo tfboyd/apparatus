@@ -12,6 +12,8 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
 
 
+lsb_release -a
+
 sudo apt-get update
 sudo apt-get install -y python3-pip virtualenv python-virtualenv
 
