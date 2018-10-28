@@ -2,7 +2,7 @@
 
 set -e
 
-echo "Setting up cloud_tpu_profiler"
+echo "Upgrading GCC for cloud_tpu_profiler"
 
 export DEBIAN_FRONTEND=noninteractive
 apt-get update && \
@@ -15,7 +15,3 @@ apt-get update && \
 apt-get install gcc-6 g++-6 -y && \
 apt-get install gcc-4.8 g++-4.8 -y && \
 apt-get upgrade -y libstdc++6
-
-pip install -U google-api-python-client oauth2client
-pip install cloud-tpu-profiler==1.12
-

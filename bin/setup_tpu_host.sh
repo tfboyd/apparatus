@@ -22,7 +22,9 @@ virtualenv -p python3 ${RUN_VENV}
 source ${RUN_VENV}/bin/activate
 pip --version
 
-pip install --upgrade pyyaml oauth2client google-api-python-client google-cloud mlperf_compliance==0.0.9
+pip install --upgrade pyyaml oauth2client google-api-python-client google-cloud
+pip install mlperf_compliance==0.0.9
+pip install cloud-tpu-profiler==1.12
 
 
 # Note: this could be over-ridden later

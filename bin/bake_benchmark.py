@@ -132,7 +132,7 @@ fi
 
 set +e
 
-sudo bash setup_cloud_profiler.sh
+sudo bash upgrade_gcc.sh
 export PATH="$PATH:`python3 -m site --user-base`/bin"
 
 bash run_helper.sh
@@ -161,7 +161,7 @@ def bake_tpu(bench_def, bench_dir, input_dir, output_dir):
         return False
     if os.system('cp ./{} {}/setup.sh'.format(bench_def['setup_script'], bench_dir)) != 0:
         return False
-    if os.system('cp ./{} {}/setup_cloud_profiler.sh'.format("scripts/setup_cloud_profiler.sh", bench_dir)) != 0:
+    if os.system('cp ./{} {}/upgrade_gcc.sh'.format("scripts/upgrade_gcc.sh", bench_dir)) != 0:
         return False
     if os.system('cp ./{} {}/run_helper.sh'.format(bench_def['main_script'], bench_dir)) != 0:
         return False
