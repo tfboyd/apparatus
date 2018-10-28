@@ -9,8 +9,6 @@ start_fmt=$(date +%Y-%m-%d\ %r)
 
 export PYTHONPATH=models/:$PYTHONPATH
 
-source /tmp/tpu_ncf_env/bin/activate
-
 export COMPLIANCE_FILE="compliance_raw.log"
 export STITCHED_COMPLIANCE_FILE="compliance_submission.log"
 python models/official/recommendation/ncf_main.py \
