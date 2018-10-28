@@ -29,7 +29,8 @@ python models/official/recommendation/ncf_main.py \
    --layers 256,256,128,64 \
    --num_factors 64 \
    --hr_threshold 0.635 \
-   --ml_perf
+   --ml_perf \
+   --output_ml_perf_compliance_logging
 
 # end timing
 end=$(date +%s)
