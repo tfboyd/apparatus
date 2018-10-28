@@ -6,7 +6,7 @@ set -e
 cd staging/models/rough/nmt/
 
 #source /tmp/nmt_env/bin/activate
-pip3 install $MLP_TF_PIP_LINE
+pip install $MLP_TF_PIP_LINE
 
 # start timing 
 start=$(date +%s)
