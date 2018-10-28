@@ -36,7 +36,4 @@ echo 'TPU Host Freeze pip'
 pip freeze
 echo
 echo
-echo
-echo 'TPU Host Freeze pip3'
-pip3 freeze
 
