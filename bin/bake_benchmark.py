@@ -132,7 +132,7 @@ fi
 
 set +e
 
-bash setup_cloud_profiler.sh
+sudo bash setup_cloud_profiler.sh
 export PATH="$PATH:`python3 -m site --user-base`/bin:`python3 -m site --user-base`/tensorflow"
 
 bash run_helper.sh

@@ -4,26 +4,18 @@ set -e
 
 echo "Setting up cloud_tpu_profiler"
 
-# sudo apt-get update && \
-# sudo apt-get install build-essential software-properties-common -y && \
-# sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y && \
-# sudo apt-get update && \
-# sudo apt-get install gcc-snapshot -y && \
-# sudo apt-get update && \
-# sudo apt-get install gcc-6 g++-6 -y && \
-# sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 60 --slave /usr/bin/g++ g++ /usr/bin/g++-6 && \
-# sudo apt-get install gcc-4.8 g++-4.8 -y && \
-# sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 50 --slave /usr/bin/g++ g++ /usr/bin/g++-4.8;
-# sudo update-alternatives --set gcc /usr/bin/gcc-6
-#
-# yes | sudo dpkg --configure -a
-# sudo apt-get install -f -y
-
-gcc -v
-
-sudo apt-get install -y gcc-4.9 libstdc++6
+export DEBIAN_FRONTEND=noninteractive
+apt-get update && \
+apt-get install build-essential software-properties-common -y && \
+apt-get update && \
+add-apt-repository ppa:ubuntu-toolchain-r/test -y && \
+apt-get update && \
+apt-get install gcc-snapshot -y && \
+apt-get update && \
+apt-get install gcc-6 g++-6 -y && \
+apt-get install gcc-4.8 g++-4.8 -y && \
+apt-get upgrade -y libstdc++6
 
 sudo pip install -U google-api-python-client oauth2client
 sudo pip install cloud-tpu-profiler==1.12
-
 
