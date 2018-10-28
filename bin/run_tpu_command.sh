@@ -13,6 +13,8 @@ HOST=`hostname`
 
 OUTPUT_SUBDIR=$OUTPUT_DIR/${HOST}_${SECONDS}
 
+lsb_release -a
+
 python3 bin/bake_benchmark.py $COMMAND_FILE $BENCHMARK_DIR $INPUT_DIR $OUTPUT_SUBDIR
 
 echo "switching to virtual environment"
