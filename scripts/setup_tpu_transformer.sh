@@ -2,7 +2,7 @@
 
 set -e
 
-sudo pip3 install pyasn1==0.4.1
+pip install pyasn1==0.4.1
 
 cd tpu
 

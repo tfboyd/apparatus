@@ -16,6 +16,6 @@ apt-get install gcc-6 g++-6 -y && \
 apt-get install gcc-4.8 g++-4.8 -y && \
 apt-get upgrade -y libstdc++6
 
-sudo pip install -U google-api-python-client oauth2client
-sudo pip install cloud-tpu-profiler==1.12
+pip install -U google-api-python-client oauth2client
+pip install cloud-tpu-profiler==1.12
 

@@ -59,11 +59,6 @@ echo MLP_GCP_HOST $MLP_GCP_HOST
 echo MLP_GCP_ZONE $MLP_GCP_ZONE
 echo MLP_TPU_NAME $MLP_TPU_NAME
 
-echo "setting up virtual environment"
-export RUN_VENV="/tmp/tpu_run_env"
-bash setup_python.sh
-source ${RUN_VENV}/bin/activate
-
 TPU_PREEMPT=""
 if [[ $MLP_TPU_VERSION =~ "32"$ ]]; then
   TPU_PREEMPT="--preemptible"
@@ -161,10 +156,6 @@ exit $BENCHMARK_EXIT_CODE
 
 def bake_tpu(bench_def, bench_dir, input_dir, output_dir):
     if os.system('mkdir -p {}'.format(bench_dir)) != 0:
-        return False
-    if os.system('cp ./{} {}/setup_python.sh'.format("scripts/setup_python.sh", bench_dir)) != 0:
-        return False
-    if os.system('cp ./{} {}/requirements.txt'.format("requirements.txt", bench_dir)) != 0:
         return False
     if os.system('cp ./{} {}/bootstrap.sh'.format(bench_def['bootstrap_script'], bench_dir)) != 0:
         return False

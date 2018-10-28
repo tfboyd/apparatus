@@ -12,27 +12,24 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
 
 
-# sudo apt-get update
-# sudo apt-get install -y python3-pip virtualenv
-# which pip
-# pip --version
-# python --version
-# sudo pip install --upgrade pip
-# sudo pip install virtualenv
-# sudo pip install pyyaml
-#
-# # Note: this could be over-ridden later
-#
-# TF_TO_INSTALL=${MLP_TF_PIP_LINE:-tf-nightly}
-# sudo pip install $TF_TO_INSTALL
-#
-# sudo pip install --upgrade oauth2client
-# sudo pip install --upgrade google-api-python-client
-# sudo pip install google-cloud
-# sudo pip install mlperf_compliance==0.0.6
-#
-# echo 'TPU Host Freeze pip'
-# pip freeze
-# echo
-# echo
+sudo apt-get update
+sudo apt-get install -y python3-pip virtualenv
 
+which python3
+python3 --version
+
+virtualenv -p python3 ${RUN_VENV}
+source ${RUN_VENV}/bin/activate
+pip --version
+
+pip install --upgrade pyyaml oauth2client google-api-python-client google-cloud mlperf_compliance==0.0.9
+
+
+# Note: this could be over-ridden later
+TF_TO_INSTALL=${MLP_TF_PIP_LINE:-tf-nightly}
+pip install $TF_TO_INSTALL
+
+echo 'TPU Host Freeze pip'
+pip freeze
+echo
+echo

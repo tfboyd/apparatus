@@ -5,11 +5,10 @@ set -e
 sudo apt-get update
 sudo apt-get install -y python3-tk unzip
 
-sudo pip3 install --upgrade pip
-sudo pip3 install Cython==0.28.4 \
-            matplotlib==2.2.2
-sudo pip3 install pycocotools==2.0.0
-sudo pip3 install Pillow==5.2.0
+pip install --upgrade pip
+pip install Cython==0.28.4 matplotlib==2.2.2
+pip install pycocotools==2.0.0
+pip install Pillow==5.2.0
 alias protoc="/usr/local/bin/protoc"
 INSTALL_PROTO="yes"
 if protoc --version | grep -q -E --regexp="3.6.1$"; then

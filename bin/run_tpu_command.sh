@@ -15,7 +15,8 @@ OUTPUT_SUBDIR=$OUTPUT_DIR/${HOST}_${SECONDS}
 
 python3 bin/bake_benchmark.py $COMMAND_FILE $BENCHMARK_DIR $INPUT_DIR $OUTPUT_SUBDIR
 
-
+echo "switching to virtual environment"
+source ${RUN_VENV}/bin/activate
 
 pushd $BENCHMARK_DIR
 bash bootstrap.sh

@@ -1,6 +1,0 @@
-# TODO(robieta): version installs
-pyyaml
-oauth2client
-google-api-python-client
-google-cloud
-mlperf_compliance==0.0.9
