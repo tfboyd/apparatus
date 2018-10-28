@@ -6,6 +6,7 @@ which python3
 python3 --version
 
 virtualenv -p python3 ${RUN_VENV}
+source ${RUN_VENV}/bin/activate
 pip --version
 
 pip install -r requirements.txt
