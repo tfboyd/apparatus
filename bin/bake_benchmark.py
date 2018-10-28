@@ -60,7 +60,7 @@ echo MLP_GCP_ZONE $MLP_GCP_ZONE
 echo MLP_TPU_NAME $MLP_TPU_NAME
 
 echo "setting up virtual environment"
-export RUN_VENV = "/tmp/tpu_run_env"
+export RUN_VENV="/tmp/tpu_run_env"
 bash setup_python.sh
 source ${RUN_VENV}/bin/activate
 
