@@ -13,7 +13,7 @@ curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
 
 
 sudo apt-get update
-sudo apt-get install -y python3.6
+#sudo apt-get install -y python3.6
 sudo apt-get install -y python3-pip
 sudo pip3 install --upgrade pip
 sudo pip3 install virtualenv
