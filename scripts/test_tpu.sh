@@ -2,7 +2,7 @@
 
 set -e
 
-sudo pip3 install $MLP_TF_PIP_LINE
+sudo pip install $MLP_TF_PIP_LINE
 
 cat << EOF | tee test_tpu.py
 import os
