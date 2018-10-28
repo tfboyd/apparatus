@@ -23,8 +23,7 @@ gcc -v
 
 sudo apt-get install -y gcc-4.9 libstdc++6
 
-sudo apt-get install python3-pip
-sudo pip3 install -U google-api-python-client oauth2client
-sudo pip3 install cloud-tpu-profiler==1.12
+sudo pip install -U google-api-python-client oauth2client
+sudo pip install cloud-tpu-profiler==1.12
 
 
