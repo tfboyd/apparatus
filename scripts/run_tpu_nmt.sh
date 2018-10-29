@@ -16,12 +16,12 @@ start_fmt=$(date +%Y-%m-%d\ %r)
 echo Data Dir $MLP_PATH_GCS_NMT
 CMD="python3 nmt.py \
   --activation_dtype=bfloat16 \
-  --batch_size=512 \
+  --batch_size=1024 \
   --data_dir=$MLP_PATH_GCS_NMT \
   --tpu_name=$MLP_TPU_NAME \
   --use_tpu=true \
   --mode=train_and_eval \
-  --num_buckets=1 \
+  --num_buckets=5 \
   --out_dir=$MLP_GCS_MODEL_DIR \
   --skip_host_call=true \
   --run_name=nmt_512.adam.label_smoothing.no_bpe.train.512.5e-4_5000_ckpt"
