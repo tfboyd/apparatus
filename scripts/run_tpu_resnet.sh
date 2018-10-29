@@ -28,7 +28,7 @@ python3 resnet/resnet_main.py \
   --num_cores=8 \
   --resnet_depth=50 \
   --steps_per_eval=5000 \
-  --tpu=$MLP_TPU_NAME \
+  --tpu=special-jf \
   --train_batch_size=1024 \
   --train_steps=112603 \
   --num_train_images=100000
