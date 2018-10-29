@@ -1,7 +1,6 @@
 set -e
 
 
-
 TF_BENCHMARKS_REPO="https://github.com/tensorflow/benchmarks.git"
 TF_BENCHMARKS_DIR="benchmarks"
 TF_MODELS_REPO="https://github.com/tensorflow/models.git"
@@ -22,20 +21,16 @@ popd
 
 
 pushd ${COCO_API_DIR}/PythonAPI
-curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-#python3 get-pip.py --user
+
 pip3 install --user setuptools cython matplotlib
 #make
 python3 setup.py build_ext --inplace
 popd
 
 
-pip3 install --user tensorflow-gpu==1.12.0rc1
-
-
 export PYTHONPATH=`pwd`/${TF_MODELS_DIR}:`pwd`/${TF_MODELS_DIR}/research:`pwd`/${COCO_API_DIR}/PythonAPI:$PYTHONPATH
 
-# start timing 
+# start timing
 start=$(date +%s)
 start_fmt=$(date +%Y-%m-%d\ %r)
 
@@ -55,8 +50,8 @@ end=$(date +%s)
 end_fmt=$(date +%Y-%m-%d\ %r)
 echo "ENDING TIMING RUN AT $end_fmt"
 
-# report result 
-result=$(( $end - $start )) 
+# report result
+result=$(( $end - $start ))
 result_name="resnet"
 
 
