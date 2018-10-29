@@ -2,5 +2,5 @@
 
 set -e
 
-git clone https://github.com/tensorflow/tensor2tensor.git t2t
+git clone https://github.com/smit-hinsu/tensor2tensor.git t2t
 
