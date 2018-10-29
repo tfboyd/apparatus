@@ -46,7 +46,8 @@ timeout 2h python3 resnet/resnet_main.py \
 	--use_async_checkpointing &
 
 timeout 2h $EVAL_CMD
-
+wait
+STAT=$?
 
 
 # end timing
@@ -62,4 +63,4 @@ result_name="resnet"
 
 echo "RESULT,$result_name,0,$result,$USER,$start_fmt"
 
-
+exit $STAT
