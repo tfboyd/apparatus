@@ -3,7 +3,7 @@ set -e
 
 
 echo 'Starting the time!'
-# start timing 
+# start timing
 start=$(date +%s)
 start_fmt=$(date +%Y-%m-%d\ %r)
 
@@ -20,6 +20,7 @@ CMD="t2t-trainer \
   --decode_from_file=/data/wmt14-en-de.src \
   --decode_to_file=/output/decode.transformer_mlperf_gpu.translate_ende_wmt32k \
   --objective=losses/training \
+  --optionally_use_dist_strat \
   --worker_gpu=1
 "
 
@@ -32,8 +33,8 @@ end=$(date +%s)
 end_fmt=$(date +%Y-%m-%d\ %r)
 echo "ENDING TIMING RUN AT $end_fmt"
 
-# report result 
-result=$(( $end - $start )) 
+# report result
+result=$(( $end - $start ))
 result_name="resnet"
 
 
