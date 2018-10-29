@@ -14,13 +14,11 @@ start_fmt=$(date +%Y-%m-%d\ %r)
 
 
 echo Data Dir $MLP_PATH_GCS_NMT
-# --tpu_name=$MLP_TPU_NAME \
-echo "Using the very special TPU."
 CMD="python3 nmt.py \
   --activation_dtype=bfloat16 \
   --batch_size=1024 \
   --data_dir=$MLP_PATH_GCS_NMT \
-  --tpu_name='special-jf' \
+  --tpu_name=$MLP_TPU_NAME \
   --use_tpu=true \
   --mode=train_and_eval \
   --num_buckets=5 \
