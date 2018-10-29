@@ -30,7 +30,10 @@ python3 resnet/resnet_main.py \
   --steps_per_eval=5000 \
   --tpu=$MLP_TPU_NAME \
   --train_batch_size=1024 \
-  --train_steps=112603
+  --train_steps=112603 \
+  --num_train_images=100000
+
+# TODO(robieta): remove num_train_images flag (trimming to ~1/10th of an epoch)
 
 # end timing
 end=$(date +%s)
