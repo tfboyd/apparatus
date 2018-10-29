@@ -29,7 +29,7 @@ printf "\n\n\nCalling: setup.sh\n"
 bash setup.sh
 
 printf "\n\n\nCalling: main.sh\n"
-bash main.sh 2>&1 | tee output.txt
+unbuffer bash main.sh 2>&1 | unbuffer tee output.txt
 popd
 
 printf "\n\n\nCalling: bin/roguezero_report.py\n"
