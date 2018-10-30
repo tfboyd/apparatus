@@ -80,18 +80,22 @@ def create_report(output_dir, project, compliance_level, delta_t, quality):
                extras=extras)
 
 
-
 def get_compliance(filename):
     import mlp_compliance
 
     print('Running Compliance Check')
     print('#' * 80)
-    status, dt, qual = mlp_compliance.l1_check_file(filename)
+    status, dt, qual = mlp_compliance.l2_check_file(filename)
     print('#' * 80)
 
     if status:
-        level = '1'
+        level = '2'
     else:
+      status, dt, qual = mlp_compliance.l1_check_file(filename)
+      print('#' * 80)
+      if status:
+        level = '1'
+      else:
         level = '0'
     return level, dt, qual
 
