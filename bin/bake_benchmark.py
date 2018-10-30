@@ -155,16 +155,13 @@ BENCHMARK_EXIT_CODE=$?
 
 set -e
 
-if [ $? -ne 0 ]
-  then
-    echo  gcloud alpha compute tpus delete $MLP_TPU_NAME --zone $MLP_GCP_ZONE
-    yes | gcloud alpha compute tpus delete $MLP_TPU_NAME --zone $MLP_GCP_ZONE
+echo  gcloud alpha compute tpus delete $MLP_TPU_NAME --zone $MLP_GCP_ZONE
+yes | gcloud alpha compute tpus delete $MLP_TPU_NAME --zone $MLP_GCP_ZONE
 
-    # Stop the TPU Sidecar
-    if [[ $MLP_TPU_SIDECAR =~ "Y"$ ]]; then
-        echo  gcloud alpha compute tpus delete $MLP_TPU_SIDECAR_NAME --zone $MLP_GCP_ZONE
-        yes | gcloud alpha compute tpus delete $MLP_TPU_SIDECAR_NAME --zone $MLP_GCP_ZONE
-    fi
+# Stop the TPU Sidecar
+if [[ $MLP_TPU_SIDECAR =~ "Y"$ ]]; then
+    echo  gcloud alpha compute tpus delete $MLP_TPU_SIDECAR_NAME --zone $MLP_GCP_ZONE
+    yes | gcloud alpha compute tpus delete $MLP_TPU_SIDECAR_NAME --zone $MLP_GCP_ZONE
 fi
 
 exit $BENCHMARK_EXIT_CODE
