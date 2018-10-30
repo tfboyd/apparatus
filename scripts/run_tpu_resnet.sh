@@ -31,7 +31,7 @@ python3 resnet/resnet_main.py \
   --tpu=$MLP_TPU_NAME \
   --train_batch_size=1024 \
   --train_steps=112603 \
-  --use_async_checkpointing=False 
+  --use_async_checkpointing=True 
 
 # end timing
 end=$(date +%s)
