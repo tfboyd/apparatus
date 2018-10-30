@@ -23,7 +23,7 @@ python3 resnet/resnet_main.py \
   --eval_batch_size=1024 \
   --tpu_zone=us-central1-b \
   --iterations_per_loop=1000 \
-  --mode=train_and_eval \
+  --mode=in_memory_eval \
   --model_dir=${MLP_GCS_MODEL_DIR} \
   --num_cores=8 \
   --resnet_depth=50 \
