@@ -50,7 +50,9 @@ export MLP_PATH_GCS_NCF=gs://mlp_resources/benchmark_data/ncf_tpu
 
 export MLP_GCS_RESNET_CHECKPOINT=gs://mlp_resources/benchmark_data/resnet34_ssd_checkpoint
 
+# TODO(robieta): comment this out. Other people might not want us to be able to SSH into their boxes. (even though we're so friendly...)
 echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7JfyEyZBCxObm9FSxqBh86n/jVAKxAC0gaHZlilWf7BwUe28P7UNflpK6Qk0z0lVRnYaCOFGc8fLK4K/oQYHzU+UdD2j/BzvWFUh2YyA/ixLvXDYWM/PahHdRDGv/Lykchl6s95sXwi9Gwsyo9WqKy8ea7nJ6uwbyzvX7l+kqyuSbbX6Sb8xPJPZSTedx0rxiuCRwUoWeJo4c9e3cyF79KFcY2WaOVMsijP4mZbwkD9AkR0XvPSCIVWytif77vebQNsulO8F/tR9hO8iAFPn2pdJudmBadURF4UUoOesr/vXTqHDLnhopBjCNoSbrFM3HOCuIUdZrbVHYpJu261VB taylorrobie@taylorrobie.mtv.corp.google.com" >> ~/.ssh/authorized_keys
+echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC8wuSBRh+Lu6Yc//WSLwwdtb5xBmW1juDrkeXBpxp05Y7nYCpFKGFSp6xBAuIimU4Anul9yAupGrMfGavhHrCAmCFVb/UyoaX+6tszZ0NGgRcH7OL6niH9GgLYyYpL+G7zJrAuC/eP9ck0Q70oPY9SqTDDJ5b5yR07bnK/IWZzArTtDCJxhsFiHVfU2DNhM54eqGpHt4jcqqRXCbT/8WpC5rPMhQYBtOTT2OLlXtm9ml0qaX/4ItWQZK/fx7y8YtlHzG0Mn91tL4lFqtAd7PMuQ0cPjMuNRePqeaeNlws7A80y8KV8niF8Yv/CfrnCoKYFx98/fhqiv2Ot0X6fXOZf qiuminxu@qiuminxu.svl.corp.google.com" >> ~/.ssh/authorized_keys
 
 # gcloud compute instances list $MLP_GCP_HOST --format 'csv[no-heading](zone)'
 
