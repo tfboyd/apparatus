@@ -85,13 +85,13 @@ def get_compliance(filename):
 
     print('Running Compliance Check')
     print('#' * 80)
-    status, dt, qual = mlp_compliance.l2_check_file(filename)
+    status, dt, qual, target = mlp_compliance.l2_check_file(filename)
     print('#' * 80)
 
     if status:
         level = '2'
     else:
-      status, dt, qual = mlp_compliance.l1_check_file(filename)
+      status, dt, qual, target = mlp_compliance.l1_check_file(filename)
       print('#' * 80)
       if status:
         level = '1'
