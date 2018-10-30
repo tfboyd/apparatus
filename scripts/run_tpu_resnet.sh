@@ -22,17 +22,15 @@ python3 resnet/resnet_main.py \
   --data_dir=$MLP_PATH_GCS_IMAGENET \
   --eval_batch_size=1024 \
   --tpu_zone=us-central1-b \
-  --iterations_per_loop=1000 \
+  --iterations_per_loop=1251 \
   --mode=in_memory_eval \
   --model_dir=${MLP_GCS_MODEL_DIR} \
   --num_cores=8 \
   --resnet_depth=50 \
-  --steps_per_eval=5000 \
+  --steps_per_eval=5004 \
   --tpu=$MLP_TPU_NAME \
   --train_batch_size=1024 \
   --train_steps=112603
-
-# TODO(robieta): remove num_train_images flag (trimming to ~1/10th of an epoch)
 
 # end timing
 end=$(date +%s)
