@@ -97,7 +97,9 @@ def get_compliance(filename):
         level = '1'
       else:
         level = '0'
-    return level, dt, qual
+
+    success = status and qual and target and qual >= target
+    return level, dt, qual, success
 
 
 def main():
@@ -119,10 +121,11 @@ def main():
   if len(sys.argv) >= 3:
     project = sys.argv[2]
 
-  compliance_level, dt, qual = get_compliance(sys.argv[1] + '/output.txt')
+  compliance_level, dt, qual, success = get_compliance(sys.argv[1] + '/output.txt')
 
   create_report(sys.argv[1], project, compliance_level, dt, qual)
   os.system('rm -rf benchmark_harness')
+  sys.exit(0 if success else 1)
 
 
 if __name__ == '__main__':
