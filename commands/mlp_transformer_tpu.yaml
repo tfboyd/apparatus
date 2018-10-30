@@ -1,6 +1,6 @@
 
 github_repo:
-  https://github.com/bitfort/tensor2tensor.git
+  https://github.com/tensorflow/tensor2tensor
 
 local_repo_name: tpu
 
