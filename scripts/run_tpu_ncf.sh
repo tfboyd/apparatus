@@ -19,7 +19,7 @@ python models/official/recommendation/ncf_main.py \
    --clean \
    --train_epochs 14 \
    --batch_size 98304 \
-   --eval_batch_size 100000 \
+   --eval_batch_size 160000 \
    --learning_rate=0.00382059 \
    --beta1=0.783529 \
    --beta2=0.909003 \
