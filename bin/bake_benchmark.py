@@ -169,7 +169,7 @@ def bake_tpu(bench_def, bench_dir, input_dir, output_dir):
     os.chdir(bench_dir)
     if os.system('git clone {} {}'.format(bench_def['github_repo'], bench_def['local_repo_name'], bench_def['github_repo'])) != 0:
         return False
-    
+
     main_sh = TPU_MAIN.replace('__TPU_TF_VERSION__', get_env('MLP_TPU_TF_VERSION'))
     main_sh = main_sh.replace('__TF_PIP_LINE__', get_env('MLP_TF_PIP_LINE'))
     main_sh = main_sh.replace('__CIDR_SIZE__', get_env('MLP_CIDR_SIZE'))
@@ -198,36 +198,14 @@ def bake_docker(bench_def, bench_dir):
         print('Failed to copy bootstrap.')
         return False
 
-    # Move into benchmark directory
-    #cwd = os.getcwd()
+    # Moves into benchmark directory
     os.chdir(bench_dir)
+    # Opens docker template file and replace placeholders.
+    with open('../Dockerfile.tmpl', 'r') as docker_tmpl_file:
+        docker_tmpl_str = docker_tmpl_file.read()
 
-    #RUN apt-get install -y python3.6
-    #RUN apt-get install -y python3-pip
-    #
-    #
-    #RUN pip3 install --upgrade pip
-    #RUN pip3 install pyyaml
-
-    with open('Dockerfile', 'w') as f:
-        f.write('''
-FROM {docker_base}
-
-WORKDIR /root
-ENV HOME /root
-
-RUN apt-get update
-RUN apt-get install -y curl
-RUN apt-get install -y build-essential git
-RUN apt-get install -y software-properties-common python-software-properties
-RUN add-apt-repository -y ppa:deadsnakes/ppa
-RUN apt-get update
-ADD . /root
-
-RUN bash /root/docker_setup.sh
-
-ENTRYPOINT ["/bin/bash"]
-'''.format(docker_base=bench_def['docker_vars']['DOCKER_FROM']))
+        with open('Dockerfile', 'w') as f:
+            f.write(docker_tmpl_str.format(docker_base=bench_def['docker_vars']['DOCKER_FROM']))
 
     with open('main.sh', 'w') as f:
         f.write('''
