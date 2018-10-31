@@ -21,16 +21,14 @@ EVAL_CMD="python3 resnet/resnet_main.py \
 	--model_dir=${MLP_GCS_MODEL_DIR} \
 	--tpu=$MLP_TPU_SIDECAR_NAME \
 	\
-     --eval_batch_size=256   \
+	--eval_batch_size=256   \
      --iterations_per_loop=1252   \
-     --mode=train   \
-     --num_cores=32   \
+     --mode=eval   \
+     --num_cores=8   \
      --resnet_depth=50   \
-     --skip_host_call   \
      --steps_per_eval=100   \
      --train_batch_size=4096   \
-     --train_steps=28152   \
-     --use_async_checkpointing  \
+     --train_steps=28152 
 	"
 
 timeout 2h python3 resnet/resnet_main.py \
@@ -40,12 +38,14 @@ timeout 2h python3 resnet/resnet_main.py \
 	\
      --eval_batch_size=256   \
      --iterations_per_loop=1252   \
-     --mode=eval   \
-     --num_cores=8   \
+     --mode=train   \
+     --num_cores=32   \
      --resnet_depth=50   \
+     --skip_host_call   \
      --steps_per_eval=100   \
      --train_batch_size=4096   \
-     --train_steps=28152  &
+     --train_steps=28152   \
+     --use_async_checkpointing &
 
 timeout 2h $EVAL_CMD
 wait
