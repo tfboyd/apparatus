@@ -2,5 +2,10 @@
 
 set -e
 
-git clone https://github.com/smit-hinsu/tensor2tensor.git t2t
+repo="smit-hinsu/tensor2tensor"
+git clone https://github.com/${repo}.git t2t
 
+cd t2t
+hash=$(git rev-parse HEAD)
+echo "Cloned repo $repo is at $hash"
+cd ..
