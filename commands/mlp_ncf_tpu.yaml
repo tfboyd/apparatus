@@ -4,6 +4,7 @@ github_repo:
 #  https://github.com/tensorflow/tpu
 
 local_repo_name: models
+benchmark: ncf
 
 tpu_config:
   True

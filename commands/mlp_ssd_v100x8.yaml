@@ -4,6 +4,8 @@ docker_vars:
   DOCKER_SCRIPT:
       "setup_docker_ssd.sh"
 
+benchmark: ssd
+
 bootstrap_script: scripts/bootstrap_gpu_ssd.sh
 main_script: scripts/run_v100x8_ssd.sh
 download_data_script: scripts/download_data_gpu_ssd.sh

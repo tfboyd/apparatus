@@ -3,6 +3,7 @@ github_repo:
   https://github.com/tensorflow/tpu.git
 
 local_repo_name: tpu
+benchmark: ssd
 
 tpu_config:
   True

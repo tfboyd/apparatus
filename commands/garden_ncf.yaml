@@ -9,6 +9,7 @@ github_repo:
 
 
 local_repo_name: garden
+benchmark: ncf
 
 
 # lives in this control repo

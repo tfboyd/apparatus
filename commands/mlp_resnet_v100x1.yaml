@@ -4,6 +4,7 @@ docker_vars:
   DOCKER_SCRIPT:
       "setup_docker_resnet.sh"
 
+benchmark: resnet
 
 bootstrap_script: scripts/bootstrap_gpu_resnet.sh
 main_script: scripts/run_v100x1_resnet.sh
