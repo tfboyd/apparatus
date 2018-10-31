@@ -8,47 +8,50 @@ set -e
 
 CMD="t2t-trainer \
   --data_dir=$MLP_PATH_GCS_TRANSFORMER/data \
-  --eval_steps=5 \
-  --hparams=learning_rate_warmup_steps=4000,pad_batch=true \
-  --hparams_set=transformer_mlperf_tpu \
-  --iterations_per_loop=2325 \
-  --keep_checkpoint_max=10 \
-  --local_eval_frequency=2325 \
 	--decode_from_file=$MLP_PATH_GCS_TRANSFORMER/wmt14-en-de.src \
 	--decode_reference=$MLP_PATH_GCS_TRANSFORMER/wmt14-en-de.ref \
 	--decode_to_file=$MLP_GCS_MODEL_DIR/decode.transformer_mlperf_tpu.translate_ende_wmt32k_packed.2x2_log_1018_2 \
-  --decode_hparams=batch_size=64,beam_size=4,alpha=0.6,extra_length=50,mlperf_mode=true \
   --cloud_tpu_name=$MLP_TPU_NAME \
-  --model=transformer \
   --output_dir=$MLP_GCS_MODEL_DIR/train/ \
-  --problem=translate_ende_wmt32k_packed \
-  --schedule=train \
-  --tpu_num_shards=128 \
-  --train_steps=10000 \
-  --skip_host_call=true \
-  --use_tpu"
+  \
+      --decode_hparams=batch_size=64,beam_size=4,alpha=0.6,extra_length=50,mlperf_mode=true   \
+     --eval_steps=5   \
+     --hparams=learning_rate_warmup_steps=4000,pad_batch=true   \
+     --hparams_set=transformer_mlperf_tpu   \
+     --iterations_per_loop=581   \
+     --keep_checkpoint_max=10   \
+     --local_eval_frequency=581   \
+     --model=transformer   \
+     --problem=translate_ende_wmt32k_packed   \
+     --schedule=train   \
+     --tpu_num_shards=128   \
+     --train_steps=8000   \
+     --use_tpu  \
+  "
 
 
 DECODE_CMD="t2t-trainer \
   --data_dir=$MLP_PATH_GCS_TRANSFORMER/data \
-	--eval_steps=5 \
-	--hparams=learning_rate_warmup_steps=4000,pad_batch=true \
-	--hparams_set=transformer_mlperf_tpu \
-	--iterations_per_loop=2325 \
-	--keep_checkpoint_max=10 \
-	--local_eval_frequency=2325 \
-	--model=transformer \
 	--output_dir=$MLP_GCS_MODEL_DIR/train/ \
-	--problem=translate_ende_wmt32k \
-	--schedule=continuous_decode_on_eval_data \
 	--decode_from_file=$MLP_PATH_GCS_TRANSFORMER/wmt14-en-de.src \
 	--decode_reference=$MLP_PATH_GCS_TRANSFORMER/wmt14-en-de.ref \
 	--decode_to_file=$MLP_GCS_MODEL_DIR/decode.transformer_mlperf_tpu.translate_ende_wmt32k_packed.2x2_log_1018_2 \
-	--decode_hparams=batch_size=64,beam_size=4,alpha=0.6,extra_length=50,mlperf_mode=true \
-	--tpu_num_shards=8 \
-	--train_steps=10000 \
 	--cloud_tpu_name=$MLP_TPU_SIDECAR_NAME \
-	--use_tpu"
+	\
+     --decode_hparams=batch_size=64,beam_size=4,alpha=0.6,extra_length=50,mlperf_mode=true   \
+     --eval_steps=5   \
+     --hparams=learning_rate_warmup_steps=4000,pad_batch=true   \
+     --hparams_set=transformer_mlperf_tpu   \
+     --iterations_per_loop=581   \
+     --keep_checkpoint_max=10   \
+     --local_eval_frequency=581   \
+     --model=transformer   \
+     --problem=translate_ende_wmt32k   \
+     --schedule=continuous_decode_on_eval_data   \
+     --tpu_num_shards=8   \
+     --train_steps=8000   \
+     --use_tpu  \
+	"
 
 
 # start timing 
