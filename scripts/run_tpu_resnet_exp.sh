@@ -1,5 +1,5 @@
 
-set -e
+#set -e
 
 export PYTHONPATH=`pwd`/models:$PYTHONPATH
 export PYTHONPATH=`pwd`staging/models/rough/:$PYTHONPATH
@@ -30,10 +30,10 @@ python3 resnet/resnet_main.py \
   --tpu=$MLP_TPU_NAME \
   --train_batch_size=1024 \
   --train_steps=112603 \
-  --use_async_checkpointing=True \
-  --use_cache=False
+  --use_async_checkpointing=True
 
-# TODO(robieta): remove use_cache
+printf "\n\nSleeping for a ling time...\n\n"
+sleep 10000000
 
 # end timing
 end=$(date +%s)

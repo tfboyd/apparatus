@@ -9,5 +9,5 @@ tpu_config:
 
 bootstrap_script: scripts/bootstrap_tpu_resnet.sh
 setup_script: scripts/setup_tpu_resnet.sh
-main_script: scripts/noop.sh
+main_script: scripts/run_tpu_resnet_exp.sh
 
