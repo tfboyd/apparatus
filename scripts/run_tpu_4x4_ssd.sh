@@ -40,7 +40,6 @@ python3 ssd_main.py  \
      --mode=train   \
      --num_epochs=64   \
      --num_shards=32   \
-     --tpu_name=/bns/el/borg/el/bns/tpu-perf-team/ssd.train.4x4.wangtao_4x4_log_1023_0.tpu_worker/0   \
      --train_batch_size=1024   \
      --use_tpu  &
 
@@ -58,7 +57,6 @@ python3 ssd_main.py \
      --min_eval_interval=0   \
      --mode=eval   \
      --num_epochs=64   \
-     --tpu_name=/bns/el/borg/el/bns/tpu-perf-team/ssd.eval.2x2.wangtao_4x4_log_1023_0.tpu_worker/0   \
      --train_batch_size=1024   \
      --use_tpu
 
