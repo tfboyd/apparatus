@@ -213,6 +213,10 @@ def bake_docker(bench_def, bench_dir):
         ram_disk_cmd = ('sudo mkdir -p {} && sudo mount -t ramfs -o size={}m '
                         'ramfs /data'.format(FLAGS.ram_disk_dir,
                                              FLAGS.ram_disk_size))
+    bootstrap_cmd = ''
+    if FLAGS.local_execution:
+        bootstrap_cmd = ('bash bootstrap.sh')
+
 
     with open('main.sh', 'w') as f:
         f.write('''#!/bin/bash
@@ -220,16 +224,19 @@ set -e
 set -o pipefail
 
 MLP_HOST_OUTPUT_DIR=`pwd`/output
-
+{bootstrap_script}
 {ram_disk}
 mkdir -p $MLP_HOST_DATA_DIR
 mkdir -p $MLP_HOST_OUTPUT_DIR
 
+bash docker_setup.sh
 bash internal_download_data.sh $MLP_HOST_DATA_DIR
 
 sudo nvidia-docker build . -t foo
-sudo nvidia-docker run -v $(pwd):/workspace -v $MLP_HOST_DATA_DIR:/data -v $MLP_HOST_OUTPUT_DIR:/output -v /proc:/host_proc -t foo:latest /root/run_helper.sh 2>&1 | tee output.txt
-'''.format(ram_disk=ram_disk_cmd))
+sudo nvidia-docker run -v $(pwd):/workspace -v $MLP_HOST_DATA_DIR:/data \\
+-v $MLP_HOST_OUTPUT_DIR:/output -v /proc:/host_proc \\
+-t foo:latest /workspace/run_helper.sh 2>&1 | tee output.txt
+'''.format(ram_disk=ram_disk_cmd, bootstrap_script=bootstrap_cmd))
     return True
 
 
@@ -255,6 +262,11 @@ def main():
         type=int,
         default=145000,
         help='Size of ram disk to create in MB.')
+    parser.add_argument(
+        '--local_execution',
+        type=bool,
+        default=False,
+        help='Set to true to bake in commands to run outside Kokoro.')
 
     global FLAGS
     FLAGS, unparsed = parser.parse_known_args()
