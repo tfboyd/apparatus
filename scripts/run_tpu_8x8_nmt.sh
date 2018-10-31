@@ -14,19 +14,34 @@ start_fmt=$(date +%Y-%m-%d\ %r)
 
 echo Data Dir $MLP_PATH_GCS_NMT
 CMD="python3 nmt.py \
-  --activation_dtype=bfloat16 \
-  --learning_rate=0.002 \
-  --batch_size=4096 \
-  --max_train_epochs=3 \
   --data_dir=$MLP_PATH_GCS_NMT \
   --tpu_name=$MLP_TPU_NAME \
-  --use_tpu=true \
-  --mode=train \
-  --num_buckets=1 \
   --out_dir=$MLP_GCS_MODEL_DIR \
-  --run_name=nmt_512.adam.label_smoothing.no_bpe.train.512.5e-4_5000_ckpt \
-  --warmup_steps=200"
+  --use_tpu=true \
+  \
+     --activation_dtype=bfloat16   \
+     --batch_size=16384   \
+     --decay_scheme=luong234   \
+     --learning_rate=0.008   \
+     --max_train_epochs=4   \
+     --mode=train   \
+     --run_name=nmt_16384head_2_jf_16384   \
+     --warmup_steps=200  \
+  "
 
+EVAL_COMMAND="python3 nmt.py \
+  --data_dir=$MLP_PATH_GCS_NMT \
+  --tpu_name=$MLP_TPU_NAME \
+  --out_dir=$MLP_GCS_MODEL_DIR \
+  --use_tpu=true \
+  \
+     --activation_dtype=bfloat16   \
+     --mode=infer   \
+     --num_buckets=1   \
+     --run_name=nmt_16384head_2_jf_16384   \
+     --target_bleu=22   \
+
+"
 
 
 $CMD

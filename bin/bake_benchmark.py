@@ -31,6 +31,7 @@ export MLP_TF_PIP_LINE=__TF_PIP_LINE__
 export MLP_CIDR_SIZE=__CIDR_SIZE__
 export MLP_TPU_VERSION=__TPU_VERSION__
 export MLP_TPU_SIDECAR=__TPU_SIDECAR__
+export BENCHMARK=__BENCHMARK__
 
 SECONDS=`date +%s`
 DAY_OF_MONTH=`date -d "$D" '+%d'`
@@ -131,12 +132,19 @@ if [[ $MLP_TPU_SIDECAR =~ "Y"$ ]]; then
     done
 fi
 
-
-# # Give the TPU a minute to get 'HEALTHY'
-# echo "Sleeping for 5 mins to let TPU get healthy"
-# sleep 300
-
 set +e
+
+pip install mlperf_compliance==0.0.10
+if [ $BENCHMARK ]; then
+  echo "Clearing caches. (Fresh TPUs have already been started.)"
+  sync && echo 3 | sudo tee /proc/sys/vm/drop_caches
+  STAT=$?
+  if [ $STAT -eq 0 ]; then
+    echo "Cache clear successful."
+    python -c "import mlperf_compliance;mlperf_compliance.mlperf_log.${BENCHMARK}_print(key='run_clear_caches')"
+  fi
+fi
+
 
 # Place certain environment variables in a file in /tmp to make it easier to SSH and collect traces.
 PROFILER_PREP="/tmp/prep_profiler.sh"
@@ -192,6 +200,7 @@ def bake_tpu(bench_def, bench_dir, input_dir, output_dir):
     main_sh = main_sh.replace('__CIDR_SIZE__', get_env('MLP_CIDR_SIZE'))
     main_sh = main_sh.replace('__TPU_VERSION__', get_env('MLP_TPU_VERSION'))
     main_sh = main_sh.replace('__TPU_SIDECAR__', get_env('MLP_TPU_SIDECAR'))
+    main_sh = main_sh.replace('__BENCHMARK__', bench_def.get('benchmark', ''))
 
     with open('main.sh', 'w') as f:
         f.write(main_sh)

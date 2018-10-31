@@ -23,13 +23,16 @@ python3 resnet/resnet_main.py \
   --data_dir=$MLP_PATH_GCS_IMAGENET \
   --eval_batch_size=1024 \
   --iterations_per_loop=1251 \
-  --mode=train_and_eval \
+  --mode=in_memory_eval \
   --model_dir=${MLP_GCS_MODEL_DIR} \
   --num_cores=8 \
   --resnet_depth=50 \
   --steps_per_eval=5004 \
   --train_batch_size=1024 \
-  --train_steps=112603
+  --train_steps=112603 \
+  --use_async_checkpointing=False \
+  --use_cache=False
+  
 
 # end timing
 end=$(date +%s)

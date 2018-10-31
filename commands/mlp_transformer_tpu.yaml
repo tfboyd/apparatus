@@ -3,6 +3,7 @@ github_repo:
   https://github.com/tensorflow/tensor2tensor
 
 local_repo_name: tpu
+benchmark: transformer
 
 tpu_config:
   True

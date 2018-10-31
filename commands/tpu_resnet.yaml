@@ -2,6 +2,7 @@ github_repo:
      https://github.com/tensorflow/tpu.git
 
 local_repo_name: tpu
+benchmark: resnet
 
 
 tpu_config:

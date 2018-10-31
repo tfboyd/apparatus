@@ -7,6 +7,7 @@ local_repo_name: reference
 
 # lives in this control repo
 docker_setup_script: scripts/setup_docker_reference_ncf.sh
+benchmark: ncf
 
 
 commands:

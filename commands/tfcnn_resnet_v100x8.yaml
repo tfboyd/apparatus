@@ -11,6 +11,8 @@ docker_mounts:
 github_repo:
      https://github.com/tensorflow/benchmarks.git
 
+benchmark: resnet
+
 local_repo_name: benchmarks
 
 
