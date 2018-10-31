@@ -4,12 +4,11 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+import argparse
 import os
 import sys
-import yaml
-import subprocess
-import time
 
+import yaml
 
 DEFAULT_VARS = {
         'MLP_TF_PIP_LINE': 'tf-nightly',
@@ -17,6 +16,7 @@ DEFAULT_VARS = {
         'MLP_TPU_SIDECAR': 'N'
 }
 
+FLAGS = None
 
 def get_env(name):
     if name not in os.environ:
@@ -207,38 +207,62 @@ def bake_docker(bench_def, bench_dir):
         with open('Dockerfile', 'w') as f:
             f.write(docker_tmpl_str.format(docker_base=bench_def['docker_vars']['DOCKER_FROM']))
 
+    # Create string for ramdisk if desired
+    ram_disk_cmd = ''
+    if FLAGS.ram_disk_dir:
+        ram_disk_cmd = ('sudo mkdir -p {} && sudo mount -t ramfs -o size={}m '
+                        'ramfs /data'.format(FLAGS.ram_disk_dir,
+                                             FLAGS.ram_disk_size))
+
     with open('main.sh', 'w') as f:
-        f.write('''
-#!/bin/bash
+        f.write('''#!/bin/bash
 set -e
 set -o pipefail
 
-#MLP_HOST_DATA_DIR=/tmp/mlp_data
 MLP_HOST_OUTPUT_DIR=`pwd`/output
 
+{ram_disk}
 mkdir -p $MLP_HOST_DATA_DIR
 mkdir -p $MLP_HOST_OUTPUT_DIR
 
 bash internal_download_data.sh $MLP_HOST_DATA_DIR
 
 sudo nvidia-docker build . -t foo
-sudo nvidia-docker run -v ${MLP_HOST_DATA_DIR}:/data -v ${MLP_HOST_OUTPUT_DIR}:/output -v /proc:/host_proc -t foo:latest /root/run_helper.sh 2>&1 | tee output.txt
-''')
+sudo nvidia-docker run -v $(pwd):/workspace -v $MLP_HOST_DATA_DIR:/data -v $MLP_HOST_OUTPUT_DIR:/output -v /proc:/host_proc -t foo:latest /root/run_helper.sh 2>&1 | tee output.txt
+'''.format(ram_disk=ram_disk_cmd))
     return True
 
 
 def main():
-    if len(sys.argv) < 3:
-        print('usage: BENCHMARK_FILE BENCHMARK_DIR INPUT_DIR OUTPUT_DIR')
-        sys.exit(1)
 
-    benchmark_file = sys.argv[1]
-    benchmark_dir = sys.argv[2]
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        'benchmark_file',
+        type=str,
+        help='Path to config file(yaml) for the benchmark.')
+    parser.add_argument(
+        'benchmark_dir',
+        type=str,
+        help='Path to store scripts to execute the benchmark.')
+    parser.add_argument(
+        '--ram_disk_dir',
+        type=str,
+        default=None,
+        help='Directory of where to create ram disk.')
+    parser.add_argument(
+        '--ram_disk_size',
+        type=int,
+        default=145000,
+        help='Size of ram disk to create in MB.')
+
+    global FLAGS
+    FLAGS, unparsed = parser.parse_known_args()
+
+    benchmark_file = FLAGS.benchmark_file
+    benchmark_dir = FLAGS.benchmark_dir
     input_dir = None
     output_dir = None
-    # input_dir = sys.argv[3]
-    # output_dir = sys.argv[4]
-
 
     with open(benchmark_file) as f:
         bench_def = yaml.load(f)

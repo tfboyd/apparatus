@@ -31,7 +31,6 @@ RUN apt-get install -y --no-install-recommends \
       python3-venv
 
 
-
 # Install CUDA 10 and python2 and python 3.5 (default for Ubuntu 16.04)
 RUN apt-get install -y --no-install-recommends \
       cuda-command-line-tools-10-0 \
@@ -54,7 +53,6 @@ RUN python -m pip install --upgrade pip==9.0.1
 RUN python -m pip install wheel pyyaml absl-py mlperf_compliance
 RUN python -m pip install https://storage.googleapis.com/tf-performance/tf_binary/tensorflow-1.12.0rc2.748435b.AVX2.CUDA10-cp27-cp27mu-linux_x86_64.whl
 
-ADD . /root
-RUN bash /root/docker_setup.sh
+RUN bash /workspace/docker_setup.sh
 
 ENTRYPOINT ["/bin/bash"]
