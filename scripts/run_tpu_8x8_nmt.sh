@@ -44,8 +44,11 @@ EVAL_COMMAND="python3 nmt.py \
 "
 
 
-$CMD
+$CMD &
+$EVAL_COMMAND
 
+wait
+STAT=$?
 
 # end timing
 end=$(date +%s)
@@ -59,4 +62,4 @@ result_name="ssd"
 
 
 echo "RESULT,$result_name,0,$result,$USER,$start_fmt"
-
+exit $STAT
