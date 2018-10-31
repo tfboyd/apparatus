@@ -19,30 +19,30 @@ cd staging/models/rough/
 
 EVAL_CMD="python3 resnet/resnet_main.py \
 	--data_dir=$MLP_PATH_GCS_IMAGENET \
-	--eval_batch_size=256 \
-	--iterations_per_loop=1252 \
+	--eval_batch_size=1024 \
+	--iterations_per_loop=312 \
 	--mode=eval \
 	--model_dir=${MLP_GCS_MODEL_DIR} \
 	--num_cores=8 \
 	--resnet_depth=50 \
-	--steps_per_eval=100 \
+	--steps_per_eval=312 \
 	--tpu=$MLP_TPU_SIDECAR_NAME \
-	--train_batch_size=4096 \
-	--train_steps=28152 "
+	--train_batch_size=16384 \
+	--train_steps=7038 "
 
 timeout 2h python3 resnet/resnet_main.py \
 	--data_dir=$MLP_PATH_GCS_IMAGENET \
-	--eval_batch_size=256 \
-	--iterations_per_loop=1252 \
+	--eval_batch_size=1024 \
+	--iterations_per_loop=312 \
 	--mode=train \
 	--model_dir=${MLP_GCS_MODEL_DIR} \
 	--num_cores=512 \
 	--resnet_depth=50 \
 	--skip_host_call \
-	--steps_per_eval=100 \
+	--steps_per_eval=312 \
 	--tpu=$MLP_TPU_NAME \
-	--train_batch_size=4096 \
-	--train_steps=28152 \
+	--train_batch_size=16384 \
+	--train_steps=7038 \
 	--use_async_checkpointing &
 
 timeout 2h $EVAL_CMD
