@@ -39,7 +39,8 @@ EVAL_COMMAND="python3 nmt.py \
      --mode=infer   \
      --num_buckets=1   \
      --run_name=nmt_16384head_2_jf_16384   \
-     --target_bleu=27   \
+     --target_bleu=22   \
+
 "
 
 
