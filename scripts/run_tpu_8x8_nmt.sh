@@ -43,9 +43,8 @@ EVAL_COMMAND="python3 nmt.py \
 
 "
 
-
-$CMD &
-$EVAL_COMMAND
+timeout 3h $CMD &
+timeout 3h $EVAL_CMD
 
 wait
 STAT=$?
