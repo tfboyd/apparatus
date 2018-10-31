@@ -7,9 +7,10 @@ echo 'Starting the time!'
 start=$(date +%s)
 start_fmt=$(date +%Y-%m-%d\ %r)
 
+export MLP_PATH_GCS_TRANSFORMER=gs://mlp_resources/benchmark_data/transformer_v2
 CMD="t2t-trainer \
   --data_dir=$MLP_PATH_GCS_TRANSFORMER/data/ \
-  --problem=translate_ende_wmt32k_packed \
+  --problem=translate_ende_wmt32k \
   --model=transformer \
   --hparams_set=transformer_big \
 	--output_dir=/output/model \
