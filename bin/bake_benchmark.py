@@ -238,7 +238,7 @@ bash internal_download_data.sh $MLP_HOST_DATA_DIR
 sudo nvidia-docker build . -t foo
 sudo nvidia-docker run -v $(pwd):/workspace -v $MLP_HOST_DATA_DIR:/data \\
 -v $MLP_HOST_OUTPUT_DIR:/output -v /proc:/host_proc \\
--t foo:latest /workspace/run_helper.sh 2>&1 | tee output.txt
+-t foo:latest /root/run_helper.sh 2>&1 | tee output.txt
 '''.format(ram_disk=ram_disk_cmd, bootstrap_script=bootstrap_cmd))
     return True
 

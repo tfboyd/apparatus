@@ -6,6 +6,5 @@ docker_vars:
 
 
 bootstrap_script: scripts/bootstrap_gpu_resnet.sh
-main_script: scripts/run_v100x8_resnet.sh
+main_script: scripts/run_v100x1_resnet_xla.sh
 download_data_script: scripts/download_data_gpu_resnet.sh
-

@@ -1,7 +1,8 @@
 set -e
 
 ###
-# Warning: This trains to 74.9+ top_1 at 61 epochs.
+# Warning: this should train as expected 74.9+ at 61 epochs. But the learning
+# rate has not been tested for 1 GPU as of 31-OCT-2018. tobyboyd@
 ########################
 
 # start timing
@@ -20,20 +21,18 @@ python3 tf_cnn_benchmarks/tf_cnn_benchmarks.py --data_format=NCHW \
   --data_dir=/data/imagenet/combined/ \
   --optimizer=momentum \
   --weight_decay=1e-4 \
-  --variable_update=replicated \
+  --variable_update=parameter_server \
   --num_warmup_batches=0 \
-  --all_reduce_spec=nccl \
   --use_fp16=True \
   --nodistortions \
-  --gradient_repacking=2 \
   --num_epochs=61 \
   --ml_perf \
   --local_parameter_device=gpu \
-  --num_gpus=8 \
+  --num_gpus=1 \
   --display_every=100 \
   --xla_compile=True \
   --eval_during_training_at_specified_epochs='1,5,9,13,17,21,25,29,33,37,41,45,49,53,57,61' \
-  --num_eval_batches=25 \
+  --num_eval_batches=200 \
   --eval_batch_size=250 \
   --loss_type_to_report=base_loss \
   --single_l2_loss_op \
