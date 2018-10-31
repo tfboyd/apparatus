@@ -24,7 +24,7 @@ python3 tf_cnn_benchmarks/tf_cnn_benchmarks.py --data_format=NCHW \
   --gradient_repacking=2 \
   --train_dir=/output \
   --num_epochs=61 \
-  --mlperf \
+  --ml_perf \
   --local_parameter_device=gpu \
   --num_gpus=8 \
   --display_every=100 \
