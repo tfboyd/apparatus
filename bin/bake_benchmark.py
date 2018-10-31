@@ -210,9 +210,12 @@ def bake_docker(bench_def, bench_dir):
     # Create string for ramdisk if desired
     ram_disk_cmd = ''
     if FLAGS.ram_disk_dir:
-        ram_disk_cmd = ('sudo mkdir -p {} && sudo mount -t ramfs -o size={}m '
-                        'ramfs /data'.format(FLAGS.ram_disk_dir,
-                                             FLAGS.ram_disk_size))
+        ram_disk_cmd = ('sudo mkdir -p {} && if ! mountpoint -q {}; then sudo '
+                        'mount -t tmpfs -o size={}m '
+                        'tmpfs {}; fi'.format(FLAGS.ram_disk_dir,
+                                             FLAGS.ram_disk_dir,
+                                             FLAGS.ram_disk_size,
+                                             FLAGS.ram_disk_dir,))
     bootstrap_cmd = ''
     if FLAGS.local_execution:
         bootstrap_cmd = ('bash bootstrap.sh')

@@ -22,20 +22,20 @@ python3 tf_cnn_benchmarks/tf_cnn_benchmarks.py --data_format=NCHW \
   --use_fp16=True \
   --nodistortions \
   --gradient_repacking=2 \
-  --datasets_use_prefetch=False \
   --train_dir=/output \
-  --summary_verbosity=1 \
-  --save_summaries_steps=100 \
-  --num_epochs=81 \
+  --num_epochs=61 \
+  --mlperf \
   --local_parameter_device=gpu \
   --num_gpus=8 \
-  --display_every=10 \
+  --display_every=100 \
   --xla_compile=True \
-  --datasets_use_caching=True \
-  --datasets_parallel_interleave_cycle_length=64 \
-  --datasets_sloppy_parallel_interleave=True \
-  --datasets_parallel_interleave_prefetch=256
-
+  --eval_during_training_at_specified_epochs='1,5,9,13,17,21,25,29,33,37,41,45,49,53,57,61' \
+  --num_eval_batches=25 \
+  --eval_batch_size=250 \
+  --loss_type_to_report=base_loss \
+  --single_l2_loss_op \
+  --compute_lr_on_cpu \
+  --resnet_base_lr=0.05
 
 # end timing
 end=$(date +%s)
