@@ -9,7 +9,7 @@ start_fmt=$(date +%Y-%m-%d\ %r)
 
 CMD="t2t-trainer \
   --data_dir=/data/data/ \
-  --problem=translate_ende_wmt32k_packed \
+  --problem=translate_ende_wmt32k \
   --model=transformer \
   --hparams_set=transformer_big \
 	--output_dir=/output/model \
