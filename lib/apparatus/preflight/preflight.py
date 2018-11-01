@@ -36,8 +36,8 @@ class Preflight(object):
     self.ram_disk_size = ram_disk_size
     self.download = download
 
-    if 'model' in self.config:
-      self.model = self.config['model']
+    if 'benchmark' in self.config:
+      self.model = self.config['benchmark']
     else:
       raise Exception('"model" attribute must exist in config: {}'.
                       format(self.benchmark_file))
@@ -61,7 +61,7 @@ class Preflight(object):
     # Call model function to setup model
     if self.model == 'resnet':
       self.resnet()
-    elif self.model == 'ssd300':
+    elif self.model == 'ssd':
       self.ssd()
     elif self.model == 'ncf':
       self.ncf()
@@ -89,7 +89,6 @@ class Preflight(object):
     self._download_from_gcs('gs://mlp_resources/benchmark_data/ssd_gpu',
                             self.disk_dir)
 
-
   def ncf(self):
     """Setup ssd benchmark."""
     # Pull benchmark code from git
@@ -100,7 +99,6 @@ class Preflight(object):
     # Download the data
     self._download_from_gcs('gs://mlp_resources/benchmark_data/ssd_gpu',
                             self.disk_dir)
-
 
   def resnet(self):
     """Setup resnet benchmark."""
