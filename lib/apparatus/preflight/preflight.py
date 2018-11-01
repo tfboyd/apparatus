@@ -63,6 +63,8 @@ class Preflight(object):
       self.resnet()
     elif self.model == 'ssd300':
       self.ssd()
+    elif self.model == 'ncf':
+      self.ncf()
     else:
       print('Unknown model:{}'.format(self.model))
 
