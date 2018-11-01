@@ -27,6 +27,7 @@ CMD="t2t-trainer \
      --tpu_num_shards=128   \
      --train_steps=8000   \
      --use_tpu  \
+     --skip_host_call=true \
   "
 
 
