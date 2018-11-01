@@ -10,6 +10,6 @@ tpu_config:
 
 bootstrap_script: scripts/bootstrap_tpu_nmt.sh
 setup_script: scripts/setup_tpu_nmt.sh
-main_script: scripts/run_tpu_4x4_nmt.sh
+main_script: scripts/run_tpu_8x8_nmt.sh
 
 
