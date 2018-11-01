@@ -24,24 +24,27 @@ mkdir $MODEL_DIR
 
 export COMPLIANCE_FILE="compliance_raw.log"
 export STITCHED_COMPLIANCE_FILE="compliance_submission.log"
-# TODO(robieta): enable XLA
+
 python3 ncf_main.py \
-   --model_dir ${MODEL_DIR} \
-   --data_dir ${DATA_DIR} \
-   --dataset ${DATASET} --hooks "" \
-   --num_gpus 1 \
-   --clean \
-   --train_epochs 14 \
-   --batch_size 98304 \
-   --eval_batch_size 100000 \
-   --learning_rate=0.00382059 \
-   --beta1=0.783529 \
-   --beta2=0.909003 \
-   --epsilon=1.45439e-07 \
-   --layers 256,256,128,64 \
-   --num_factors 64 \
-   --hr_threshold 0.635 \
-   --ml_perf
+    --model_dir ${MODEL_DIR} \
+    --data_dir ${DATA_DIR} \
+    --dataset ${DATASET} \
+    --hooks "" \
+    --num_gpus 1 \
+    --clean \
+    --train_epochs 14 \
+    --batch_size 98304 \
+    --eval_batch_size 100000 \
+    --learning_rate=0.00395706 \
+    --beta1=0.779661 \
+    --beta2=0.895586 \
+    --epsilon=1.45039e-07 \
+    --layers 256,256,128,64 \
+    --num_factors 64 \
+    --hr_threshold 0.635 \
+    --ml_perf \
+    --use_xla_for_gpu \
+    --nouse_estimator
 
 
 # end timing
