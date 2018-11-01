@@ -32,7 +32,7 @@ EVAL_CMD="python3 resnet/resnet_main.py \
 
 # The training job emits a checkpoint every 4 epochs, which is determined by
 # --steps_per_eval, --train_batch_size, and --num_train_images.
-python -c "import mlperf_compliance;mlperf_compliance.mlperf_log.resnet_print(key=mlperf_log.EVAL_EPOCH_OFFSET, value=3)"
+python -c "import mlperf_compliance;mlperf_compliance.mlperf_log.resnet_print(key=mlperf_compliance.mlperf_log.EVAL_EPOCH_OFFSET, value=3)"
 
 timeout 2h python3 resnet/resnet_main.py \
 	--data_dir=$MLP_PATH_GCS_IMAGENET \
