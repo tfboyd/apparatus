@@ -87,6 +87,19 @@ class Preflight(object):
     self._download_from_gcs('gs://mlp_resources/benchmark_data/ssd_gpu',
                             self.disk_dir)
 
+
+  def ncf(self):
+    """Setup ssd benchmark."""
+    # Pull benchmark code from git
+    git.git_clone('https://github.com/tensorflow/models.git',
+                  os.path.join(self.benchmark_dir,
+                               'garden'))
+
+    # Download the data
+    self._download_from_gcs('gs://mlp_resources/benchmark_data/ssd_gpu',
+                            self.disk_dir)
+
+
   def resnet(self):
     """Setup resnet benchmark."""
     # Pull benchmark code from git
