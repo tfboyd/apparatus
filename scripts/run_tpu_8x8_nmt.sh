@@ -25,20 +25,18 @@ CMD="python3 nmt.py \
      --learning_rate=0.008   \
      --max_train_epochs=4   \
      --mode=train   \
-     --run_name=nmt_16384head_2_jf_16384   \
      --warmup_steps=200  \
   "
 
 EVAL_COMMAND="python3 nmt.py \
   --data_dir=$MLP_PATH_GCS_NMT \
-  --tpu_name=$MLP_TPU_NAME \
+  --tpu_name=$MLP_TPU_SIDECAR_NAME \
   --out_dir=$MLP_GCS_MODEL_DIR \
   --use_tpu=true \
   \
      --activation_dtype=bfloat16   \
      --mode=infer   \
      --num_buckets=1   \
-     --run_name=nmt_16384head_2_jf_16384   \
      --target_bleu=22   \
 
 "
