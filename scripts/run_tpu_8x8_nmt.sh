@@ -43,6 +43,10 @@ EVAL_COMMAND="python3 nmt.py \
 
 "
 
+echo Executing the following command
+echo $CMD
+echo $EVAL_CMD
+
 timeout 3h $CMD &
 timeout 3h $EVAL_CMD
 
