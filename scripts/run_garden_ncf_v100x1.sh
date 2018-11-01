@@ -43,6 +43,7 @@ python3 ncf_main.py \
     --num_factors 64 \
     --hr_threshold 0.635 \
     --ml_perf \
+    --output_ml_perf_compliance_logging \
     --use_xla_for_gpu \
     --nouse_estimator
 
