@@ -28,7 +28,7 @@ CMD="python3 nmt.py \
      --warmup_steps=200  \
   "
 
-EVAL_COMMAND="python3 nmt.py \
+EVAL_CMD="python3 nmt.py \
   --data_dir=$MLP_PATH_GCS_NMT \
   --tpu_name=$MLP_TPU_SIDECAR_NAME \
   --out_dir=$MLP_GCS_MODEL_DIR \
