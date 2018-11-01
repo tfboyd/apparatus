@@ -41,6 +41,7 @@ python3 ssd_main.py  \
      --num_epochs=64   \
      --num_shards=32   \
      --train_batch_size=1024   \
+     --transpose_tpu_infeed=true \
      --use_tpu  &
 
 
@@ -58,6 +59,7 @@ python3 ssd_main.py \
      --mode=eval   \
      --num_epochs=64   \
      --train_batch_size=1024   \
+     --transpose_tpu_infeed=true \
      --use_tpu
 
 wait

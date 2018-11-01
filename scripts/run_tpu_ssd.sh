@@ -54,7 +54,8 @@ python3 ssd_main.py  --use_tpu=True \
                      --model_dir=${MLP_GCS_MODEL_DIR} \
                      --num_epochs=64 \
                      --hparams=use_bfloat16=true \
-                     --iterations_per_loop=1000
+                     --iterations_per_loop=1000 \
+                     --transpose_tpu_infeed=true
 
 # end timing
 end=$(date +%s)
