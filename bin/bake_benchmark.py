@@ -11,19 +11,21 @@ import sys
 import yaml
 
 DEFAULT_VARS = {
-        'MLP_TF_PIP_LINE': 'tf-nightly',
-        'MLP_CIDR_SIZE': '29',
-        'MLP_TPU_SIDECAR': 'N'
+    'MLP_TF_PIP_LINE': 'tf-nightly',
+    'MLP_CIDR_SIZE': '29',
+    'MLP_TPU_SIDECAR': 'N'
 }
 
 FLAGS = None
 
-def get_env(name):
-    if name not in os.environ:
-        return DEFAULT_VARS[name]
-    return os.environ[name]
 
-TPU_MAIN = '''#!/bin/bash
+def get_env(name):
+  if name not in os.environ:
+    return DEFAULT_VARS[name]
+  return os.environ[name]
+
+
+TPU_MAIN = """#!/bin/bash
 set -e
 
 export MLP_TPU_TF_VERSION=__TPU_TF_VERSION__
@@ -151,84 +153,114 @@ if [[ $MLP_TPU_SIDECAR =~ "Y"$ ]]; then
 fi
 
 exit $BENCHMARK_EXIT_CODE
-'''
+"""
 
 
-def bake_tpu(bench_def, bench_dir, input_dir, output_dir):
-    if os.system('mkdir -p {}'.format(bench_dir)) != 0:
-        return False
-    if os.system('cp ./{} {}/bootstrap.sh'.format(bench_def['bootstrap_script'], bench_dir)) != 0:
-        return False
-    if os.system('cp ./{} {}/setup.sh'.format(bench_def['setup_script'], bench_dir)) != 0:
-        return False
-    if os.system('cp ./{} {}/upgrade_gcc.sh'.format("scripts/upgrade_gcc.sh", bench_dir)) != 0:
-        return False
-    if os.system('cp ./{} {}/run_helper.sh'.format(bench_def['main_script'], bench_dir)) != 0:
-        return False
-    cwd = os.getcwd()
-    os.chdir(bench_dir)
-    if os.system('git clone {} {}'.format(bench_def['github_repo'], bench_def['local_repo_name'], bench_def['github_repo'])) != 0:
-        return False
+def bake_tpu(bench_def, bench_dir):
+  """Create files to run TPU benchmark in bench_dir."""
+  if os.system('mkdir -p {}'.format(bench_dir)) != 0:
+    return False
+  if os.system('cp ./{} {}/bootstrap.sh'.format(bench_def['bootstrap_script'],
+                                                bench_dir)) != 0:
+    return False
+  if os.system('cp ./{} {}/setup.sh'.format(bench_def['setup_script'],
+                                            bench_dir)) != 0:
+    return False
+  if os.system('cp ./{} {}/upgrade_gcc.sh'.format('scripts/upgrade_gcc.sh',
+                                                  bench_dir)) != 0:
+    return False
+  if os.system('cp ./{} {}/run_helper.sh'.format(bench_def['main_script'],
+                                                 bench_dir)) != 0:
+    return False
+  cwd = os.getcwd()
+  os.chdir(bench_dir)
+  if os.system('git clone {} {}'.format(bench_def['github_repo'],
+                                        bench_def['local_repo_name'])) != 0:
+    return False
 
-    main_sh = TPU_MAIN.replace('__TPU_TF_VERSION__', get_env('MLP_TPU_TF_VERSION'))
-    main_sh = main_sh.replace('__TF_PIP_LINE__', get_env('MLP_TF_PIP_LINE'))
-    main_sh = main_sh.replace('__CIDR_SIZE__', get_env('MLP_CIDR_SIZE'))
-    main_sh = main_sh.replace('__TPU_VERSION__', get_env('MLP_TPU_VERSION'))
-    main_sh = main_sh.replace('__TPU_SIDECAR__', get_env('MLP_TPU_SIDECAR'))
+  main_sh = TPU_MAIN.replace('__TPU_TF_VERSION__',
+                             get_env('MLP_TPU_TF_VERSION'))
+  main_sh = main_sh.replace('__TF_PIP_LINE__', get_env('MLP_TF_PIP_LINE'))
+  main_sh = main_sh.replace('__CIDR_SIZE__', get_env('MLP_CIDR_SIZE'))
+  main_sh = main_sh.replace('__TPU_VERSION__', get_env('MLP_TPU_VERSION'))
+  main_sh = main_sh.replace('__TPU_SIDECAR__', get_env('MLP_TPU_SIDECAR'))
 
-    with open('main.sh', 'w') as f:
-        f.write(main_sh)
-    os.chdir(cwd)
-    return True
+  with open('main.sh', 'w') as f:
+    f.write(main_sh)
+  os.chdir(cwd)
+  return True
 
 
 def bake_docker(bench_def, bench_dir):
-    if os.system('mkdir -p {}'.format(bench_dir)) != 0:
-        return False
-    if os.system('cp ./{} {}/run_helper.sh'.format(bench_def['main_script'], bench_dir)) != 0:
-        print('Failed to copy run_helper.')
-        return False
-    if os.system('cp ./scripts/{} {}/docker_setup.sh'.format(bench_def['docker_vars']['DOCKER_SCRIPT'], bench_dir)) != 0:
-        print('Failed to copy docker_setup.')
-        return False
-    if os.system('cp ./{} {}/internal_download_data.sh'.format(bench_def['download_data_script'], bench_dir)) != 0:
-        print('Failed to copy data_download.')
-        return False
-    if os.system('cp ./{} {}/bootstrap.sh'.format(bench_def['bootstrap_script'], bench_dir)) != 0:
-        print('Failed to copy bootstrap.')
-        return False
+  """Creates files to run GPU benchmark in bench_dir."""
+  if os.system('mkdir -p {}'.format(bench_dir)) != 0:
+    return False
+  if os.system('cp ./{} {}/run_helper.sh'.format(bench_def['main_script'],
+                                                 bench_dir)) != 0:
+    print('Failed to copy run_helper.')
+    return False
+  if os.system('cp ./scripts/{} {}/docker_setup.sh'.format(
+      bench_def['docker_vars']['DOCKER_SCRIPT'], bench_dir)) != 0:
+    print('Failed to copy docker_setup.')
+    return False
+  if os.system('cp ./{} {}/internal_download_data.sh'.format(
+      bench_def['download_data_script'], bench_dir)) != 0:
+    print('Failed to copy data_download.')
+    return False
+  if os.system('cp ./{} {}/bootstrap.sh'.format(bench_def['bootstrap_script'],
+                                                bench_dir)) != 0:
+    print('Failed to copy bootstrap.')
+    return False
 
-    # Moves into benchmark directory
-    os.chdir(bench_dir)
-    # Opens docker template file and replace placeholders.
-    with open('../Dockerfile.tmpl', 'r') as docker_tmpl_file:
-        docker_tmpl_str = docker_tmpl_file.read()
+  # Moves into benchmark directory
+  os.chdir(bench_dir)
+  # Opens docker template file and replace placeholders.
+  with open('../Dockerfile.tmpl', 'r') as docker_tmpl_file:
+    docker_tmpl_str = docker_tmpl_file.read()
 
-        with open('Dockerfile', 'w') as f:
-            f.write(docker_tmpl_str.format(docker_base=bench_def['docker_vars']['DOCKER_FROM']))
+    with open('Dockerfile', 'w') as f:
+      f.write(
+          docker_tmpl_str.format(
+              docker_base=bench_def['docker_vars']['DOCKER_FROM']))
 
-    # Create string for ramdisk if desired
-    ram_disk_cmd = ''
-    if FLAGS.ram_disk_dir:
-        ram_disk_cmd = ('sudo mkdir -p {} && if ! mountpoint -q {}; then sudo '
-                        'mount -t tmpfs -o size={}m '
-                        'tmpfs {}; fi'.format(FLAGS.ram_disk_dir,
-                                             FLAGS.ram_disk_dir,
-                                             FLAGS.ram_disk_size,
-                                             FLAGS.ram_disk_dir,))
-    bootstrap_cmd = ''
-    if FLAGS.local_execution:
-        bootstrap_cmd = ('bash bootstrap.sh')
+  # Create string for ramdisk if desired
+  ram_disk_cmd = ''
+  if FLAGS.ram_disk_size:
+    ram_disk_cmd = ('sudo mkdir -p {} && if ! mountpoint -q {}; then sudo '
+                    'mount -t tmpfs -o size={}m '
+                    'tmpfs {}; fi'.format(
+                        FLAGS.disk_dir,
+                        FLAGS.disk_dir,
+                        FLAGS.ram_disk_size,
+                        FLAGS.disk_dir
+                    ))
 
+  gce_nvme_raid_cmd = ''
+  if FLAGS.gce_nvme_raid:
+    nvme_devices = FLAGS.gce_nvme_raid.split(',')
+    gce_nvme_raid_cmd = 'if ! mountpoint -q /data; then'
+    gce_nvme_raid_cmd += ('\n  sudo mdadm --create /dev/md0 --level=0 '
+                          '--raid-devices={} {}'.format(len(nvme_devices),
+                                                        ' '.join(nvme_devices)))
+    gce_nvme_raid_cmd += '\n  sudo mkfs.ext4 -F /dev/md0'
+    gce_nvme_raid_cmd += '\n  sudo mkdir -p {}'.format(FLAGS.disk_dir)
+    gce_nvme_raid_cmd += '\n  sudo mount /dev/md0 {}'.format(FLAGS.disk_dir)
+    gce_nvme_raid_cmd += '\n  sudo chmod a+w {}'.format(FLAGS.disk_dir)
+    gce_nvme_raid_cmd += '\nfi'
 
-    with open('main.sh', 'w') as f:
-        f.write('''#!/bin/bash
+  bootstrap_cmd = ''
+  if FLAGS.local_execution:
+    bootstrap_cmd = ('bash bootstrap.sh')
+
+  with open('main.sh', 'w') as f:
+    f.write("""#!/bin/bash
 set -e
 set -o pipefail
 
 MLP_HOST_OUTPUT_DIR=`pwd`/output
 {bootstrap_script}
 {ram_disk}
+{gce_nvme_raid}
 mkdir -p $MLP_HOST_DATA_DIR
 mkdir -p $MLP_HOST_OUTPUT_DIR
 
@@ -236,59 +268,64 @@ bash docker_setup.sh
 bash internal_download_data.sh $MLP_HOST_DATA_DIR
 
 sudo nvidia-docker build . -t foo
-sudo nvidia-docker run -v $(pwd):/workspace -v $MLP_HOST_DATA_DIR:/data \\
+sudo nvidia-docker run -v $MLP_HOST_DATA_DIR:/data \\
 -v $MLP_HOST_OUTPUT_DIR:/output -v /proc:/host_proc \\
 -t foo:latest /root/run_helper.sh 2>&1 | tee output.txt
-'''.format(ram_disk=ram_disk_cmd, bootstrap_script=bootstrap_cmd))
-    return True
+""".format(ram_disk=ram_disk_cmd,
+           bootstrap_script=bootstrap_cmd,
+           gce_nvme_raid=gce_nvme_raid_cmd))
+  return True
 
 
 def main():
 
-    parser = argparse.ArgumentParser()
+  parser = argparse.ArgumentParser()
 
-    parser.add_argument(
-        'benchmark_file',
-        type=str,
-        help='Path to config file(yaml) for the benchmark.')
-    parser.add_argument(
-        'benchmark_dir',
-        type=str,
-        help='Path to store scripts to execute the benchmark.')
-    parser.add_argument(
-        '--ram_disk_dir',
-        type=str,
-        default=None,
-        help='Directory of where to create ram disk.')
-    parser.add_argument(
-        '--ram_disk_size',
-        type=int,
-        default=145000,
-        help='Size of ram disk to create in MB.')
-    parser.add_argument(
-        '--local_execution',
-        type=bool,
-        default=False,
-        help='Set to true to bake in commands to run outside Kokoro.')
+  parser.add_argument(
+      'benchmark_file',
+      type=str,
+      help='Path to config file(yaml) for the benchmark.')
+  parser.add_argument(
+      'benchmark_dir',
+      type=str,
+      help='Path to store scripts to execute the benchmark.')
+  parser.add_argument(
+      '--disk_dir',
+      type=str,
+      default='/data',
+      help='Directory of where to create ram disk.')
+  parser.add_argument(
+      '--ram_disk_size',
+      type=int,
+      default=0,
+      help='If greater than zero create ram disk at disk_dir')
+  parser.add_argument(
+      '--local_execution',
+      type=bool,
+      default=False,
+      help='Set to true to bake in commands to run outside Kokoro.')
+  parser.add_argument(
+      '--gce_nvme_raid',
+      type=str,
+      default=None,
+      help='If set create raid 0 array with devices at disk_dir')
 
-    global FLAGS
-    FLAGS, unparsed = parser.parse_known_args()
+  global FLAGS
+  FLAGS, _ = parser.parse_known_args()
 
-    benchmark_file = FLAGS.benchmark_file
-    benchmark_dir = FLAGS.benchmark_dir
-    input_dir = None
-    output_dir = None
+  benchmark_file = FLAGS.benchmark_file
+  benchmark_dir = FLAGS.benchmark_dir
 
-    with open(benchmark_file) as f:
-        bench_def = yaml.load(f)
+  with open(benchmark_file) as f:
+    bench_def = yaml.load(f)
 
-    if 'docker_vars' in bench_def:
-        if not bake_docker(bench_def, benchmark_dir):
-            print('Exiting with error.')
-            sys.exit(1)
-    elif not bake_tpu(bench_def, benchmark_dir, input_dir, output_dir):
-        print('Exiting with error.')
-        sys.exit(1)
+  if 'docker_vars' in bench_def:
+    if not bake_docker(bench_def, benchmark_dir):
+      print('Exiting with error.')
+      sys.exit(1)
+  elif not bake_tpu(bench_def, benchmark_dir):
+    print('Exiting with error.')
+    sys.exit(1)
 
 
 if __name__ == '__main__':
