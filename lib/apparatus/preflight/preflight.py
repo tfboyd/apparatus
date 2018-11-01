@@ -53,7 +53,10 @@ class Preflight(object):
 
     # Calls to setup data disk
     if self.gce_nvme_raid:
-      devices = self.gce_nvme_raid.split(',')
+      if self.gce_nvme_raid == 'all':
+        devices = data_disk_config.get_nvme_device_list()
+      else:
+        devices = self.gce_nvme_raid.split(',')
       data_disk_config.create_gce_nvme_raid(self.disk_dir, devices)
     elif self.ram_disk_size:
       data_disk_config.create_ram_disk(self.disk_dir, self.ram_disk_size)

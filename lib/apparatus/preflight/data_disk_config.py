@@ -4,6 +4,27 @@ from __future__ import print_function
 import apparatus.common.local_command as local_command
 
 
+def get_nvme_device_list():
+  devices = []
+  log = _get_nvme_device_list()
+  lines = log.splitlines()
+  if lines:
+    for line in lines:
+      if line.startswith('nvme'):
+        parts = line.split()
+        devices.append('/dev/' + parts[0].strip())
+  return devices
+
+
+def _get_nvme_device_list():
+  cmd = 'sudo lsblk | grep nvme'
+  retcode, log = local_command.run_local_command(cmd)
+  if retcode:
+    raise Exception('"{}" failed with code:{} and log:\n{}'.
+                    format(cmd, retcode, log))
+  return log
+
+
 def create_gce_nvme_raid(data_dir, list_of_devices):
   """Creates a raid zero array of nvme drives."""
 
