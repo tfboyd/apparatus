@@ -1,11 +1,6 @@
+model: resnet
 docker_vars:
   DOCKER_FROM:
       "nvidia/cuda:10.0-base-ubuntu16.04"
-  DOCKER_SCRIPT:
-      "setup_docker_resnet.sh"
 
-
-bootstrap_script: scripts/bootstrap_gpu_resnet.sh
 main_script: scripts/run_v100x8_resnet_xla.sh
-download_data_script: scripts/download_data_gpu_resnet.sh
-

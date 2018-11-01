@@ -6,8 +6,6 @@ echo `pwd`
 
 pip3 install -r ../requirements.txt
 
-
-
 DATASET="ml-20m"
 DATA_DIR="/output/data"
 
@@ -16,7 +14,7 @@ export DROP_CACHE_LOC="/host_proc/sys/vm/drop_caches"
 
 python3 ../datasets/movielens.py --data_dir ${DATA_DIR} --dataset ${DATASET}
 
-# start timing 
+# start timing
 start=$(date +%s)
 start_fmt=$(date +%Y-%m-%d\ %r)
 echo "STARTING TIMING RUN AT $start_fmt"
@@ -53,8 +51,8 @@ echo "ENDING TIMING RUN AT $end_fmt"
 
 cat $STITCHED_COMPLIANCE_FILE
 
-# report result 
-result=$(( $end - $start )) 
+# report result
+result=$(( $end - $start ))
 result_name="ncf"
 
 

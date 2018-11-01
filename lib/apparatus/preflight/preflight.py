@@ -36,6 +36,12 @@ class Preflight(object):
     self.ram_disk_size = ram_disk_size
     self.download = download
 
+    if 'model' in self.config:
+      self.model = self.config['model']
+    else:
+      raise Exception('"model" attribute must exist in config: {}'.
+                      format(self.benchmark_file))
+
   def execute_preflight(self):
     """Execute the preflight to setup for tests."""
     # Add items to Python Path
@@ -53,16 +59,36 @@ class Preflight(object):
       data_disk_config.create_ram_disk(self.disk_dir, self.ram_disk_size)
 
     # Call model function to setup model
-    self.resnet()
-    # Call the bake script
+    if self.model == 'resnet':
+      self.resnet()
+    elif self.model == 'ssd300':
+      self.ssd()
+    else:
+      print('Unknown model:{}'.format(self.model))
+
     self._bake()
 
-  # def ssd():
-    # GIT cclones
-    # data download
-    # data prep
+  def ssd(self):
+    """Setup ssd benchmark."""
+    # Pull benchmark code from git
+    git.git_clone('https://github.com/tensorflow/benchmarks.git',
+                  os.path.join(self.benchmark_dir,
+                               'benchmarks'))
+
+    git.git_clone('https://github.com/tensorflow/models.git',
+                  os.path.join(self.benchmark_dir,
+                               'models'))
+
+    git.git_clone('https://github.com/cocodataset/cocoapi.git',
+                  os.path.join(self.benchmark_dir,
+                               'cocoapi'))
+
+    # Download the data
+    self._download_from_gcs('gs://mlp_resources/benchmark_data/ssd_gpu',
+                            self.disk_dir)
 
   def resnet(self):
+    """Setup resnet benchmark."""
     # Pull benchmark code from git
     git.git_clone('https://github.com/tensorflow/benchmarks.git',
                   os.path.join(self.benchmark_dir,
