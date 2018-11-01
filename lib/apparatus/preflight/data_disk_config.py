@@ -17,7 +17,7 @@ def get_nvme_device_list():
 
 
 def _get_nvme_device_list():
-  cmd = 'sudo lsblk | grep nvme'
+  cmd = 'sudo lsblk'
   retcode, log = local_command.run_local_command(cmd)
   if retcode:
     raise Exception('"{}" failed with code:{} and log:\n{}'.
