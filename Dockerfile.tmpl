@@ -45,12 +45,12 @@ RUN apt-get install -y --no-install-recommends \
 
 # Setup Python3 environment
 RUN pip3 install --upgrade pip==9.0.1
-RUN pip3 install wheel pyyaml absl-py mlperf_compliance
+RUN pip3 install setuptools wheel pyyaml absl-py mlperf_compliance
 RUN pip3 install https://storage.googleapis.com/tf-performance/tf_binary/tensorflow-1.12.0rc2.748435b.AVX2.CUDA10-cp35-cp35m-linux_x86_64.whl
 
 # Setup Python2 environment
 RUN python -m pip install --upgrade pip==9.0.1
-RUN python -m pip install wheel pyyaml absl-py mlperf_compliance
+RUN python -m pip install setuptools wheel pyyaml absl-py mlperf_compliance
 RUN python -m pip install https://storage.googleapis.com/tf-performance/tf_binary/tensorflow-1.12.0rc2.748435b.AVX2.CUDA10-cp27-cp27mu-linux_x86_64.whl
 
 # Adds local files to docker to install items not common to all benchmarks.

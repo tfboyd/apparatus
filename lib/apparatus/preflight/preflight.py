@@ -197,11 +197,6 @@ def main():
       default=0,
       help='If greater than zero create ram disk at disk_dir')
   parser.add_argument(
-      '--local_execution',
-      type=bool,
-      default=False,
-      help='Set to true to bake in commands to run outside Kokoro.')
-  parser.add_argument(
       '--gce_nvme_raid',
       type=str,
       default=None,
