@@ -68,7 +68,7 @@ if [[ $MLP_TPU_VERSION =~ "32"$ ]]; then
   TPU_PREEMPT="--preemptible"
 fi
 if [[ $MLP_TPU_VERSION =~ "128"$ ]]; then
-#  TPU_PREEMPT="--preemptible"
+  TPU_PREEMPT=""
 fi
 if [[ $MLP_TPU_VERSION =~ "512"$ ]]; then
   TPU_PREEMPT="--preemptible"
