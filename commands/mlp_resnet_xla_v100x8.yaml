@@ -1,4 +1,4 @@
-model: resnet
+benchmark: resnet
 docker_vars:
   DOCKER_FROM:
       "nvidia/cuda:10.0-base-ubuntu16.04"

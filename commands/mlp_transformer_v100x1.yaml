@@ -8,6 +8,7 @@ github_repo:
   https://github.com/tensorflow/tensor2tensor
 
 local_repo_name: tpu
+benchmark: transformer
 
 bootstrap_script: scripts/bootstrap_gpu_transformer.sh
 main_script: scripts/run_v100x1_transformer.sh

@@ -1,8 +1,9 @@
 
 github_repo:
-  https://github.com/tensorflow/tensor2tensor
+  https://github.com/bitfort/tensor2tensor.git
 
 local_repo_name: tpu
+benchmark: transformer
 
 tpu_config:
   True

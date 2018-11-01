@@ -6,12 +6,13 @@ from __future__ import print_function
 import datetime
 import os
 import sys
+import uuid
 
 
-def get_env_var(varname):
+def get_env_var(varname, default='unknown'):
     if varname in os.environ:
         return os.environ[varname]
-    return 'unknown'
+    return default
 
 
 def build_upload(test_id, result, quality, quality_type, project=None,
@@ -80,20 +81,56 @@ def create_report(output_dir, project, compliance_level, delta_t, quality):
                extras=extras)
 
 
-
 def get_compliance(filename):
     import mlp_compliance
 
     print('Running Compliance Check')
     print('#' * 80)
-    status, dt, qual = mlp_compliance.l1_check_file(filename)
+    status, dt, qual, target = mlp_compliance.l2_check_file(filename)
     print('#' * 80)
 
     if status:
-        level = '1'
+        level = '2'
     else:
+      status, dt, qual, target = mlp_compliance.l1_check_file(filename)
+      print('#' * 80)
+      if status:
+        level = '1'
+      else:
         level = '0'
-    return level, dt, qual
+
+    success = status and qual and target and qual >= target
+    return level, dt, qual, success
+
+
+def save_results(code_dir, output_file):
+    test_id = get_env_var('ROGUE_ZERO_TEST_ID')
+    target_code_dir = get_env_var('ROGUE_CODE_DIR', None)
+
+    uid = uuid.uuid4()
+    print('This identifier is: ', uid)
+
+
+    if code_dir is None:
+        print('Not saving the code from this run!')
+    else:
+        # save the code
+        print('Saving code to: {}'.format(target_code_dir))
+        os.system('sudo tar czf /tmp/{}.tar.gz {}'.format(uid, code_dir))
+        os.system('sudo chmod 777 /tmp/{}.tar.gz'.format(uid))
+        os.system('gsutil cp -r /tmp/{}.tar.gz {}/'.format(uid, target_code_dir))
+        print('Saved code.')
+
+
+    target_log_dir = get_env_var('ROGUE_LOG_DIR', None)
+    if  dir is None:
+        print('Not saving the log from this run!')
+    else:
+        # save the logfile
+        print('Saving log to: {}'.format(target_code_dir))
+        os.system('gsutil cp -r {} {}/{}.log'.format(output_file, target_log_dir, uid))
+        print('Saved code.')
+
 
 
 def main():
@@ -115,10 +152,13 @@ def main():
   if len(sys.argv) >= 3:
     project = sys.argv[2]
 
-  compliance_level, dt, qual = get_compliance(sys.argv[1] + '/output.txt')
+  compliance_level, dt, qual, success = get_compliance(sys.argv[1] + '/output.txt')
+  save_results(sys.argv[1], sys.argv[1] + '/output.txt')
 
   create_report(sys.argv[1], project, compliance_level, dt, qual)
+
   os.system('rm -rf benchmark_harness')
+  sys.exit(0 if success else 1)
 
 
 if __name__ == '__main__':

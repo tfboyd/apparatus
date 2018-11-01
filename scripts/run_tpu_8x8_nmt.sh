@@ -14,23 +14,42 @@ start_fmt=$(date +%Y-%m-%d\ %r)
 
 echo Data Dir $MLP_PATH_GCS_NMT
 CMD="python3 nmt.py \
-  --activation_dtype=bfloat16 \
-  --learning_rate=0.002 \
-  --batch_size=4096 \
-  --max_train_epochs=3 \
   --data_dir=$MLP_PATH_GCS_NMT \
   --tpu_name=$MLP_TPU_NAME \
-  --use_tpu=true \
-  --mode=train \
-  --num_buckets=1 \
   --out_dir=$MLP_GCS_MODEL_DIR \
-  --run_name=nmt_512.adam.label_smoothing.no_bpe.train.512.5e-4_5000_ckpt \
-  --warmup_steps=200"
+  --use_tpu=true \
+  \
+     --activation_dtype=bfloat16   \
+     --batch_size=16384   \
+     --decay_scheme=luong234   \
+     --learning_rate=0.008   \
+     --max_train_epochs=4   \
+     --mode=train   \
+     --warmup_steps=200  \
+  "
 
+EVAL_CMD="python3 nmt.py \
+  --data_dir=$MLP_PATH_GCS_NMT \
+  --tpu_name=$MLP_TPU_SIDECAR_NAME \
+  --out_dir=$MLP_GCS_MODEL_DIR \
+  --use_tpu=true \
+  \
+     --activation_dtype=bfloat16   \
+     --mode=infer   \
+     --num_buckets=1   \
+     --target_bleu=22   \
 
+"
 
-$CMD
+echo Executing the following command
+echo $CMD
+echo $EVAL_CMD
 
+timeout 3h $CMD &
+timeout 3h $EVAL_CMD
+
+wait
+STAT=$?
 
 # end timing
 end=$(date +%s)
@@ -44,4 +63,4 @@ result_name="ssd"
 
 
 echo "RESULT,$result_name,0,$result,$USER,$start_fmt"
-
+exit $STAT

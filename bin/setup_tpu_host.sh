@@ -26,7 +26,7 @@ source ${RUN_VENV}/bin/activate
 pip --version
 
 pip install --upgrade pyyaml oauth2client google-api-python-client google-cloud
-pip install mlperf_compliance==0.0.9
+pip install mlperf_compliance==0.0.10
 pip install cloud-tpu-profiler==1.12
 
 

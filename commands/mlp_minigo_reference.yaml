@@ -9,6 +9,7 @@ github_repo:
 
 
 local_repo_name: reference
+benchmark: minigo
 
 
 # lives in this control repo

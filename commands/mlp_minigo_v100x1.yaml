@@ -4,6 +4,7 @@ docker_vars:
   DOCKER_SCRIPT:
       "setup_docker_minigo.sh"
 
+benchmark: minigo
 
 bootstrap_script: scripts/bootstrap_gpu_minigo.sh
 
