@@ -22,7 +22,7 @@ EVAL_CMD="python3 resnet/resnet_main.py \
 	--eval_batch_size=1024 \
 	--iterations_per_loop=312 \
 	--mode=eval \
-	--model_dir=${MLP_GCS_MODEL_DIR} \
+	--model_dir=${MLP_GCS_EUW_MODEL_DIR} \
 	--num_cores=8 \
 	--resnet_depth=50 \
 	--steps_per_eval=312 \
@@ -39,7 +39,7 @@ timeout 2h python3 resnet/resnet_main.py \
 	--eval_batch_size=1024 \
 	--iterations_per_loop=312 \
 	--mode=train \
-	--model_dir=${MLP_GCS_MODEL_DIR} \
+	--model_dir=${MLP_GCS_EUW_MODEL_DIR} \
 	--num_cores=512 \
 	--resnet_depth=50 \
 	--skip_host_call \

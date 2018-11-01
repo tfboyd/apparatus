@@ -36,6 +36,7 @@ export BENCHMARK=__BENCHMARK__
 SECONDS=`date +%s`
 DAY_OF_MONTH=`date -d "$D" '+%d'`
 export MLP_GCP_HOST=`hostname`
+export MLP_GCS_EUW_MODEL_DIR=gs://mlperf-euw4/model-dirs/${MLP_GCP_HOST}-${SECONDS}
 export MLP_GCS_MODEL_DIR=gs://garden-model-dirs/tests/${MLP_GCP_HOST}-${SECONDS}
 export MLP_GCP_ZONE=`gcloud compute instances list $MLP_GCP_HOST --format 'csv[no-heading](zone)' 2>/dev/null`
 export MLP_TPU_NAME=${MLP_GCP_HOST}_TPU_${DAY_OF_MONTH}
