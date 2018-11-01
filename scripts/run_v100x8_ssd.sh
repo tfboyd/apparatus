@@ -19,7 +19,7 @@ popd
 pushd ${COCO_API_DIR}/PythonAPI
 # Both of these seem like they coudl be in the Docker as normal tools we use.
 # The versions do not seem specific.
-python -m pip install --user setuptools cython matplotlib
+python -m pip install --user cython matplotlib
 popd
 
 export PYTHONPATH=`pwd`/${TF_MODELS_DIR}:`pwd`/${TF_MODELS_DIR}/research:`pwd`/${COCO_API_DIR}/PythonAPI:$PYTHONPATH

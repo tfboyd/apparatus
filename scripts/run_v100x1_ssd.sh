@@ -1,12 +1,7 @@
 set -e
 
-
-
-TF_BENCHMARKS_REPO="https://github.com/tensorflow/benchmarks.git"
 TF_BENCHMARKS_DIR="benchmarks"
-TF_MODELS_REPO="https://github.com/tensorflow/models.git"
 TF_MODELS_DIR="models"
-COCO_API_REPO="https://github.com/cocodataset/cocoapi.git"
 COCO_API_DIR="cocoapi"
 
 # run benchmark
@@ -21,34 +16,40 @@ unzip protobuf.zip
 popd
 
 
-apt-get install python3-pip
 pushd ${COCO_API_DIR}/PythonAPI
 curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-#python3 get-pip.py --user
-pip install --user setuptools cython matplotlib
-#make
-python3 setup.py build_ext --inplace
+pip install --user cython matplotlib
 popd
-
-
-pip install --user tensorflow-gpu==1.12.0rc1
 
 
 export PYTHONPATH=`pwd`/${TF_MODELS_DIR}:`pwd`/${TF_MODELS_DIR}/research:`pwd`/${COCO_API_DIR}/PythonAPI:$PYTHONPATH
 
-# start timing 
+# start timing
 start=$(date +%s)
 start_fmt=$(date +%Y-%m-%d\ %r)
 
 
-python3 $HOME/${TF_BENCHMARKS_DIR}/scripts/tf_cnn_benchmarks/tf_cnn_benchmarks.py \
-	--model=ssd300 --data_name=coco \
-	--num_gpus=1 --batch_size=128 --variable_update=parameter_server \
-	--optimizer=momentum --weight_decay=5e-4 --momentum=0.9 \
-	--backbone_model_path=/data/resnet34/model.ckpt-28152 --data_dir=/data/coco2017 \
-	--num_epochs=60 --train_dir=/output/gce_1gpu_batch128_`date +%m%d%H%M` \
-	--save_model_steps=5000 --max_ckpts_to_keep=250 --summary_verbosity=1 --save_summaries_steps=10 \
-	--use_fp16 --alsologtostderr
+python $HOME/${TF_BENCHMARKS_DIR}/scripts/tf_cnn_benchmarks/tf_cnn_benchmarks.py \
+  --model=ssd300 \
+  --data_name=coco \
+  --data_dir=/data/coco2017 \
+  --backbone_model_path=/data/resnet34/model.ckpt-28152 \
+  --optimizer=momentum \
+  --weight_decay=5e-4 \
+  --momentum=0.9 \
+  --num_gpus=1 \
+  --batch_size=64 \
+  --use_fp16 \
+  --xla_compile \
+  --num_epochs=60 \
+  --num_eval_epochs=1.9 \
+  --num_warmup_batches=0 \
+  --eval_during_training_at_specified_steps='30000,40000,45000,50000,55000,60000' \
+  --datasets_num_private_threads=15 \
+  --num_inter_threads=25 \
+  --variable_update=parameter_server \
+  --stop_at_top_1_accuracy=0.212 \
+  --ml_perf_compliance_logging
 
 
 # end timing
@@ -56,9 +57,9 @@ end=$(date +%s)
 end_fmt=$(date +%Y-%m-%d\ %r)
 echo "ENDING TIMING RUN AT $end_fmt"
 
-# report result 
-result=$(( $end - $start )) 
-result_name="resnet"
+# report result
+result=$(( $end - $start ))
+result_name="ssd"
 
 
 echo "RESULT,$result_name,0,$result,$USER,$start_fmt"
