@@ -18,7 +18,6 @@ CMD="python3 nmt.py \
   --data_dir=$MLP_PATH_GCS_NMT \
   --tpu_name=$MLP_TPU_NAME \
   --out_dir=$MLP_GCS_MODEL_DIR \
-  --tpu_name=$TPU_NAME \
   \
 --activation_dtype=bfloat16 \
 --batch_size=1024 \
