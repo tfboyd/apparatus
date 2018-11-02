@@ -75,7 +75,7 @@ class Preflight(object):
 
   def ssd(self):
     """Setup ssd benchmark."""
-    # Pull benchmark code from git
+    # Pulls benchmark code from git.
     git.git_clone('https://github.com/tensorflow/benchmarks.git',
                   os.path.join(self.benchmark_dir,
                                'benchmarks'))
@@ -88,31 +88,31 @@ class Preflight(object):
                   os.path.join(self.benchmark_dir,
                                'cocoapi'))
 
-    # Download the data
-    self._download_from_gcs('gs://mlp_resources/benchmark_data/ssd_gpu',
+    # Downloads the data
+    self._download_from_gcs('gs://mlperf-euw4/benchmark_data/ssd_gpu',
                             self.disk_dir)
 
   def ncf(self):
     """Setup ssd benchmark."""
-    # Pull benchmark code from git
+    # Pulls benchmark code from git.
     git.git_clone('https://github.com/tensorflow/models.git',
                   os.path.join(self.benchmark_dir,
                                'garden'))
 
-    # Download the data
-    self._download_from_gcs('gs://mlp_resources/benchmark_data/ssd_gpu',
+    # Downloads the data
+    self._download_from_gcs('gs://mlperf-euw4/benchmark_data/ncf_tpu/ml-20m',
                             self.disk_dir)
 
   def resnet(self):
     """Setup resnet benchmark."""
-    # Pull benchmark code from git
+    # Pulls benchmark code from git.
     git.git_clone('https://github.com/tensorflow/benchmarks.git',
                   os.path.join(self.benchmark_dir,
                                'benchmarks'))
 
-    # Download the data
-    self._download_from_gcs('gs://imagenet-copy',
-                            self.disk_dir)
+    # Downloads the data.
+    gcs_location = 'gs://mlperf-euw4/benchmark_data/imagenet_gpu/imagenet'
+    self._download_from_gcs(gcs_location, self.disk_dir)
 
   def _load_config(self, benchmark_file):
     """Returns config representing the benchmark to run."""
@@ -121,7 +121,7 @@ class Preflight(object):
 
   def _download_from_gcs(self, gcs_path, local_destination):
     if self.download:
-      cmds = ['gsutil cp -m -o -r {} {}'.format(gcs_path, local_destination)]
+      cmds = ['gsutil -mcp -m -o -r {} {}'.format(gcs_path, local_destination)]
       local_command.run_list_of_commands(cmds)
     else:
       print('Skipping download: {}'.format(gcs_path))

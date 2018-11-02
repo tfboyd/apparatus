@@ -7,12 +7,10 @@ echo `pwd`
 pip3 install -r ../requirements.txt
 
 DATASET="ml-20m"
-DATA_DIR="/output/data"
+DATA_DIR="/data"
 
 export PYTHONPATH="$PYTHONPATH:/root/garden"
 export DROP_CACHE_LOC="/host_proc/sys/vm/drop_caches"
-
-python3 ../datasets/movielens.py --data_dir ${DATA_DIR} --dataset ${DATASET}
 
 # start timing
 start=$(date +%s)

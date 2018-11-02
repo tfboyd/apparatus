@@ -34,6 +34,8 @@ def create_gce_nvme_raid(data_dir, list_of_devices):
     cmds = []
     # GCE nvme drives some times are in an odd state and
     # think they are in another raid. mdadm doe snot have -y option.
+    # or the kokoro images were left dirty? and that is where the info
+    # comes from.
     cmds.append('yes | sudo mdadm --create /dev/md0 --level=0 '
                 '--raid-devices={} {}'.format(len(list_of_devices),
                                               ' '.join(list_of_devices)))
