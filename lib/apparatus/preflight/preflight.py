@@ -111,7 +111,7 @@ class Preflight(object):
                                'benchmarks'))
 
     # Download the data
-    self._download_from_gcs('gs://mlp_resources/benchmark_data/nmt_gpu',
+    self._download_from_gcs('gs://imagenet-copy',
                             self.disk_dir)
 
   def _load_config(self, benchmark_file):
