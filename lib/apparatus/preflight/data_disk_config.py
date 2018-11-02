@@ -32,7 +32,9 @@ def create_gce_nvme_raid(data_dir, list_of_devices):
   retcode, _ = local_command.run_local_command(cmd)
   if retcode:
     cmds = []
-    cmds.append('sudo mdadm --create /dev/md0 --level=0 '
+    # GCE nvme drives some times are in an odd state and
+    # think they are in another raid. mdadm doe snot have -y option.
+    cmds.append('yes | sudo mdadm --create /dev/md0 --level=0 '
                 '--raid-devices={} {}'.format(len(list_of_devices),
                                               ' '.join(list_of_devices)))
     cmds.append('sudo mkfs.ext4 -F /dev/md0')
