@@ -89,7 +89,9 @@ class Preflight(object):
                                'cocoapi'))
 
     # Downloads the data
-    self._download_from_gcs('gs://mlperf-euw4/benchmark_data/ssd_gpu',
+    self._download_from_gcs('gs://mlperf-euw4/benchmark_data/ssd_gpu/resnet34',
+                            self.disk_dir)
+    self._download_from_gcs('gs://mlperf-euw4/benchmark_data/ssd_gpu/coco2017',
                             self.disk_dir)
 
   def ncf(self):
