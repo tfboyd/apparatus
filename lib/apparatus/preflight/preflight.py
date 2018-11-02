@@ -122,8 +122,8 @@ class Preflight(object):
   def _download_from_gcs(self, gcs_path, local_destination):
     if self.download:
       # Splits command into parts due to '-m cp -r'.
-      cmds = [['gsutil', '-m', 'cp', '-r', gcs_path, local_destination]]
-      local_command.run_list_of_commands(cmds, shell=False)
+      cmds = ['gsutil cp -r {} {}'.format(gcs_path, local_destination)]
+      local_command.run_list_of_commands(cmds)
     else:
       print('Skipping download: {}'.format(gcs_path))
 
