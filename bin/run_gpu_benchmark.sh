@@ -10,7 +10,8 @@ sudo pip3 install pyyaml google-api-python-client google-cloud google-cloud-bigq
 CMD_FILE=$1
 DIR=$2
 
-rm -rf $DIR
+# Need sudo because docker creates files in "$DIR/output"
+sudo rm -rf $DIR
 cd lib
 python -m apparatus.preflight.preflight "$@"
 
