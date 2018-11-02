@@ -31,14 +31,15 @@ python3 tf_cnn_benchmarks/tf_cnn_benchmarks.py --data_format=NCHW \
   --num_gpus=1 \
   --display_every=100 \
   --xla_compile=True \
-  --eval_during_training_at_specified_epochs='1,5,9,13,17,21,25,29,33,37,41,45,49,53,57,61' \
+  --eval_during_training_at_specified_epochs='1,5,9,13,17,21,25,29,33,37,41,45,49,53,57,61,62,63' \
   --num_eval_batches=200 \
   --eval_batch_size=250 \
   --loss_type_to_report=base_loss \
   --single_l2_loss_op \
   --compute_lr_on_cpu \
   --resnet_base_lr=0.05 \
-  --ml_perf_compliance_logging=True
+  --ml_perf_compliance_logging=True \
+  --stop_at_top_1_accuracy=0.749
 
 # end timing
 end=$(date +%s)

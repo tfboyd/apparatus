@@ -1,7 +1,8 @@
 set -e
 
 ###
-# Warning: This trains to 74.9+ top_1 at 61 epochs.
+# Note: This trains to 74.9+ top_1 at 61 epochs most of the time.  Setup to
+# run a few extra just in case until 100% sure.
 ########################
 
 # start timing
@@ -26,20 +27,21 @@ python3 tf_cnn_benchmarks/tf_cnn_benchmarks.py --data_format=NCHW \
   --use_fp16=True \
   --nodistortions \
   --gradient_repacking=2 \
-  --num_epochs=61 \
+  --num_epochs=64 \
   --ml_perf \
   --local_parameter_device=gpu \
   --num_gpus=8 \
   --display_every=100 \
   --xla_compile=True \
-  --eval_during_training_at_specified_epochs='1,5,9,13,17,21,25,29,33,37,41,45,49,53,57,61' \
+  --eval_during_training_at_specified_epochs='1,5,9,13,17,21,25,29,33,37,41,45,49,53,57,61,62,63' \
   --num_eval_batches=25 \
   --eval_batch_size=250 \
   --loss_type_to_report=base_loss \
   --single_l2_loss_op \
   --compute_lr_on_cpu \
   --resnet_base_lr=0.05 \
-  --ml_perf_compliance_logging=True
+  --ml_perf_compliance_logging=True \
+  --stop_at_top_1_accuracy=0.749
 
 # end timing
 end=$(date +%s)
