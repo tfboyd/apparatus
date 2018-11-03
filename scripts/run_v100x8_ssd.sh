@@ -16,10 +16,13 @@ unzip protobuf.zip
 popd
 
 
-pushd ${COCO_API_DIR}/PythonAPI
 # Both of these seem like they coudl be in the Docker as normal tools we use.
 # The versions do not seem specific.
-python -m pip install --user cython matplotlib
+apt-get install -y python-tk
+python -m pip install cython matplotlib
+
+pushd ${COCO_API_DIR}/PythonAPI
+python setup.py build_ext --inplace
 popd
 
 export PYTHONPATH=`pwd`/${TF_MODELS_DIR}:`pwd`/${TF_MODELS_DIR}/research:`pwd`/${COCO_API_DIR}/PythonAPI:$PYTHONPATH
